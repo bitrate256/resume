@@ -2,7 +2,16 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
    <typeAliases>
-      <typeAlias type="com.resume.dto.UserInfo" alias="User" />
+      <typeAlias type="com.resume.dto.UserInfo" alias="UserInfo" />
+      <typeAlias type="com.resume.dto.Academic" alias="Academic" />
+      <typeAlias type="com.resume.dto.Career" alias="Career" />
+      <typeAlias type="com.resume.dto.Department" alias="Department" />
+      <typeAlias type="com.resume.dto.Education" alias="Education" />
+      <typeAlias type="com.resume.dto.FileUpDown" alias="FileUpDown" />
+      <typeAlias type="com.resume.dto.Resume" alias="Resume" />
+      <typeAlias type="com.resume.dto.SkillInventory" alias="SkillInventory" />
+      <typeAlias type="com.resume.dto.SpecialTech" alias="SpecialTech" />
+      <typeAlias type="com.resume.dto.Ceritificate" alias="Ceritificate" />
 
 
    </typeAliases>
