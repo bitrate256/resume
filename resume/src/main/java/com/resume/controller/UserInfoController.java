@@ -93,6 +93,15 @@ public class UserInfoController {
 		return "user/jusoPopup";
 	}
 	
+	@RequestMapping(value = "user/userSignUpResult")
+	public String userSignUpResult(UserInfo uDto) {
+		System.out.println("컨트롤러  user정보 = "+uDto);
+		
+		service.userInsert(uDto);
+		
+		return "redirect:/user/userlogin";
+	}
+	
 	
 	
 	

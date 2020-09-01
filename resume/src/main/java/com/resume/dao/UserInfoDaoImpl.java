@@ -20,6 +20,13 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		return session.selectOne(queryprefix+"userSelectOne", user);
 	}
 	
+	//사용자 등록
+	@Override
+	public void userInsert(UserInfo user) {
+		System.out.println("user정보 = "+user);
+		 session.insert(queryprefix+"userInsert", user);
+	}
+	
 	
 	
 	

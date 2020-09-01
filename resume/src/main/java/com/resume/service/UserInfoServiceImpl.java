@@ -18,6 +18,15 @@ public class UserInfoServiceImpl implements UserInfoService {
 				
 		return dao.userSelectOne(user);
 	}
+	
+	//사용자 등록
+	@Override
+	public void userInsert(UserInfo user) {
+	
+		 dao.userInsert(user);
+	}
+	
+	
 
 	
 }//class end

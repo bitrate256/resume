@@ -126,38 +126,23 @@ $(function(){
 });
 
 //휴대폰번호 정규식
-function inputPhoneNumber(obj) {
+$(function(){
 
+	var phonenum = $('#u_phone').val();
 
+	 var regPhone = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/g;
 
-    var number = obj.value.replace(/[^0-9]/g, "");
-    var phone = "";
+	 if(!regPhone.test(phonenum)){
 
+	  alert('잘못된 휴대폰 번호입니다.');
 
+	  $('#u_phone').focus();
 
-    if(number.length < 4) {
-        return number;
-    } else if(number.length < 7) {
-        phone += number.substr(0, 3);
-        phone += "-";
-        phone += number.substr(3);
-    } else if(number.length < 11) {
-        phone += number.substr(0, 3);
-        phone += "-";
-        phone += number.substr(3, 3);
-        phone += "-";
-        phone += number.substr(6);
-    } else {
-        phone += number.substr(0, 3);
-        phone += "-";
-        phone += number.substr(3, 4);
-        phone += "-";
-        phone += number.substr(7);
-    }
-    obj.value = phone;
-}
+	  return false;    
 
+	 }
 
+});
 
 // onsubmit
 function checkSubmit() {
@@ -180,6 +165,59 @@ function checkSubmit() {
 	
 	
 }
+
+function check_u_rnumber() { 
+	 var u_rnumber=document.getElementById('u_rnumber1').value+document.getElementById('u_rnumber2').value;
+	 //주민등록 번호 13자리를 검사한다.
+	  var fmt = /^\d{6}[1234]\d{6}$/;  //포멧 설정
+	  if (!fmt.test(u_rnumber)) {
+	   return false;
+	  }
+
+	  // 생년월일 검사
+	  var birthYear = (u_rnumber.charAt(6) <= "2") ? "19" : "20";
+	  birthYear += u_rnumber.substr(0, 2);
+	  var birthMonth = u_rnumber.substr(2, 2) - 1;
+	  var birthDate = u_rnumber.substr(4, 2);
+	  var birth = new Date(birthYear, birthMonth, birthDate);
+
+	  if ( birth.getYear() % 100 != u_rnumber.substr(0, 2) ||
+	       birth.getMonth() != birthMonth ||
+	       birth.getDate() != birthDate) {
+	     return false;
+	  }
+
+	  // Check Sum 코드의 유효성 검사
+	  var buf = new Array(13);
+	  for (var i = 0; i < 13; i++) buf[i] = parseInt(u_rnumber.charAt(i));
+	 
+	  multipliers = [2,3,4,5,6,7,8,9,2,3,4,5];
+	  for (var sum = 0, i = 0; i < 12; i++) sum += (buf[i] *= multipliers[i]);
+
+	  if ((11 - (sum % 11)) % 10 != buf[12]) {
+	     return false;
+	  }
+
+	 
+	  return true;
+	}
+
+	function checks(){
+	 if(check_u_rnumber())//올바른 값이 들어왔을 때 실행될 코드
+	  alert("올바른 주민등록번호 입니다.");
+	 else//올바른 갑이 들어오지 않았을 때 실행될 코드
+	  alert("올바른 주민등록번호를 입력해 주십시오");
+	}
+
+	//앞의 텍스트박스에 6자리 글씨가 써지면 자동으로 다음 칸으로 커서가 넘어간다.
+	function nextgo(e){ 
+	  if (e.value.length>=6) {
+	   document.getElementById('u_rnumber2').focus();
+	  }
+	  
+
+	}
+	
 
 </script>
 
@@ -214,7 +252,7 @@ function checkSubmit() {
 		<b>Resume</b>History</a>
 	</div>
 	
-	<div class="register-box-body">
+
 	<p class="login-box-msg">새로운 사용자 등록</p>
 	<form action="<%=contextPath%>/user/userSignUpResult" method="post" name="form" onsubmit="return checkSubmit();">
 		<br>
@@ -223,11 +261,15 @@ function checkSubmit() {
 			
 			<div id="id_check"></div>
       	</div>
+      	<div class="form-group has-feedback">
+			<input type="text" class="form-control" id="u_company" name="u_company" value="비앤오소프트" readonly="readonly">
+      	</div>
 		<div class="form-group has-feedback">
 			<input type="text" class="form-control" id="u_email" name="u_email" placeholder="이메일">
 			
 			<div id="email_check"></div>
       	</div>
+      	
       	
 		<div class="form-group has-feedback">
         	<input type="password" class="form-control" id="u_pwd" name="u_pwd" maxlength="15" placeholder="비밀번호">
@@ -244,25 +286,66 @@ function checkSubmit() {
       	
       	<div class="form-group has-feedback">
        <input type="text" class="form-control" id="u_phone" name="u_phone" placeholder="핸드폰번호" 
-       onkeyup=" inputPhoneNumber(this);" maxlength="13">
+       onkeyup=" phoneFormat(this);" maxlength="11">
 			<div id="phone_check"></div>
       	</div>
       	
       	<div class="form-group has-feedback">
-        	<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름">
-        	
+        	<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름"><br>
+
+      	<input type="text" id="u_rnumber1" name="u_rnumber1" onkeyup="nextgo(this);"/>-<input type="password" id="u_rnumber2" name="u_rnumber2" />
+		<input type="button" onclick="checks();" value="검사"/><br>
+		<%String u_rnumber1 = request.getParameter("u_rnumber1");
+		String u_rnumber2 = request.getParameter("u_rnumber2");
+		String u_rnumber = u_rnumber1+u_rnumber2;
+			%>
+		<input type="hidden" name="u_rnumber" value="<%=u_rnumber%>">
+        	결혼여부
+        	<select class="form-control" name="u_marry" value="u_marry">
+                    <option value="Y">기혼</option>
+                    <option value="N">미혼</option>
+                  </select>
+             병역여부
+        	<select class="form-control" name="u_ms" value="u_ms">
+                    <option value="F">필</option>
+                    <option value="FN">미필</option>
+                    <option value="N">면제</option>
+                    <option value="NA">해당없음</option>
+                  </select>
       	</div>
-      	<input type="button" class="btn btn-block btn-secondary btn-xs"  onClick="goPopup();" value="주소찾기" required="true" readonly="true" />
+	<div class="form-group has-feedback">
+			<input type="text" class="form-control" id="u_career" name="u_career" placeholder="경력(년 + 월)"><br>
 	<div id="list"></div>
 	<div id="callBackDiv">
-		<input type="text"  style="width:500px;" id="roadFullAddr"  name="roadFullAddr" />
+		<input type="text"  style="width:500px;" id="roadFullAddr"  name="u_address" placeholder="주소" required="true" readonly="true">
+		<input type="button" class="btn btn-info"  onClick="goPopup();" value="주소찾기">
 	</div>
       	<div class="form-group has-feedback">
-        	<input type="text" class="form-control" id="d_name" name="d_name" placeholder="부서이름">
+      	부서 이름
+        <select class="form-control" name="d_id" value="d_id" >
+                    <option value="1">경영지원</option>
+                    <option value="2">연구소</option>
+                  </select>
         	
       	</div>
       	<div class="form-group has-feedback">
-        	<input type="text" class="form-control" id="u_position" name="u_position" placeholder="직급">
+        	직위
+        <select class="form-control" name="u_position" value="u_position" >
+                    <option value="6">사원</option>
+                    <option value="5">대리</option>
+                    <option value="4">과장</option>
+                    <option value="3">차장</option>
+                    <option value="2">부장</option>
+                  </select>
+        	</div>
+        	<div class="form-group has-feedback">
+        	기술등급
+        <select class="form-control" name="u_tgrade" value="u_tgrade" >
+                    <option value="B">초급</option>
+                    <option value="M">중급</option>
+                    <option value="H">고급</option>
+                    <option value="S">특급</option>
+                  </select>
         	</div>
 		<div class="row">
         <div class="col-xs-8">
