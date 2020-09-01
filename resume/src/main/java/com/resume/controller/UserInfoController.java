@@ -23,7 +23,7 @@ public class UserInfoController {
 	private UserInfoService service;
 	
 	// 사용자 홈 화면
-	@RequestMapping(value = "user/userHome")
+	@RequestMapping(value = "userHome")
 	public String userHome() {
 		logger.info("this is userHome method");
 
@@ -73,6 +73,26 @@ public class UserInfoController {
 		
 		return "redirect:/userHome";
 	}
+	
+
+	
+	
+	
+//------------------------------------------------------------------------------관리자------------------------------------------------------------------------------	
+	
+	@RequestMapping(value = "user/userSignUp")
+	public String userSignUp() {
+		
+		
+		
+		return "user/user_SignUp";
+	}
+	
+	@RequestMapping(value = "user/userJuso")
+	public String userJuso() {
+		return "user/jusoPopup";
+	}
+	
 	
 	
 	

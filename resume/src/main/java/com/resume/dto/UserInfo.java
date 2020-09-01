@@ -6,7 +6,8 @@ public class UserInfo {             // 사용자 정보
 	private int d_id;               // 부서코드
 	private int r_id;               // 이력관리번호
 	private String u_pwd;           // 비밀번호
-	private int u_rnumber;          // 주민등록번호
+	private String u_rnumber;          // 주민등록번호
+	private String u_name;
 	private String u_company;       // 소속회사
 	private String u_marry;         // 결혼
 	private String u_position;      // 직위
@@ -22,7 +23,7 @@ public class UserInfo {             // 사용자 정보
 		super();
 	}
 
-	public UserInfo(int u_id, int d_id, int r_id, String u_pwd, int u_rnumber, String u_company, String u_marry,
+	public UserInfo(int u_id, int d_id, int r_id, String u_pwd, String u_rnumber, String u_name, String u_company, String u_marry,
 			String u_position, String u_ms, String u_career, String u_tgrade, String u_phone, String u_email,
 			String u_address, String u_status) {
 		super();
@@ -31,6 +32,7 @@ public class UserInfo {             // 사용자 정보
 		this.r_id = r_id;
 		this.u_pwd = u_pwd;
 		this.u_rnumber = u_rnumber;
+		this.u_name = u_name;
 		this.u_company = u_company;
 		this.u_marry = u_marry;
 		this.u_position = u_position;
@@ -75,11 +77,11 @@ public class UserInfo {             // 사용자 정보
 		this.u_pwd = u_pwd;
 	}
 
-	public int getU_rnumber() {
+	public String getU_rnumber() {
 		return u_rnumber;
 	}
 
-	public void setU_rnumber(int u_rnumber) {
+	public void setU_rnumber(String u_rnumber) {
 		this.u_rnumber = u_rnumber;
 	}
 
@@ -162,13 +164,27 @@ public class UserInfo {             // 사용자 정보
 	public void setU_status(String u_status) {
 		this.u_status = u_status;
 	}
+	
+	
+	public String getU_name() {
+		return u_name;
+	}
+
+	public void setU_name(String u_name) {
+		this.u_name = u_name;
+	}
 
 	@Override
 	public String toString() {
 		return "UserInfo [u_id=" + u_id + ", d_id=" + d_id + ", r_id=" + r_id + ", u_pwd=" + u_pwd + ", u_rnumber="
-				+ u_rnumber + ", u_company=" + u_company + ", u_marry=" + u_marry + ", u_position=" + u_position
-				+ ", u_ms=" + u_ms + ", u_career=" + u_career + ", u_tgrade=" + u_tgrade + ", u_phone=" + u_phone
-				+ ", u_email=" + u_email + ", u_address=" + u_address + ", u_status=" + u_status + "]";
+				+ u_rnumber + ", u_name=" + u_name + ", u_company=" + u_company + ", u_marry=" + u_marry
+				+ ", u_position=" + u_position + ", u_ms=" + u_ms + ", u_career=" + u_career + ", u_tgrade=" + u_tgrade
+				+ ", u_phone=" + u_phone + ", u_email=" + u_email + ", u_address=" + u_address + ", u_status="
+				+ u_status + "]";
 	}
+
+
+
+		
 
 }// class end

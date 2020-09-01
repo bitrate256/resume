@@ -4,7 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<%@ include file="../common/head.jsp"%>
+<%@include file="../common/head.jsp" %>
+
 
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -16,10 +17,10 @@
 		<%@ include file="../user/common/user_left_column.jsp" %>
 		
 		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper">
+		<div class="content-wrapper" align="center">
 
 		<!-- Main content -->
-	    <div class="login-box">
+	    <div class="login-box" align="center">
           <div class="login-logo">
             <a href="../../index2.html"><b>Resume</b>Management</a>
           </div>
@@ -29,11 +30,11 @@
 
             <form action="<c:url value='/'/>user/userloginEnd" method="post">
               <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Uid" name="u_id" required="required">
+                <input type="text" class="form-control" placeholder="사번" name="u_id" required="required">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="password" name="u_pwd" required="required">
+                <input type="password" class="form-control" placeholder="비밀번호" name="u_pwd" required="required">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
               <div class="row">
