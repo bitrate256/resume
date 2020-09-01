@@ -23,7 +23,7 @@ public class UserInfoController {
 	private UserInfoService service;
 	
 	// 사용자 홈 화면
-	@RequestMapping(value = "userHome")
+	@RequestMapping(value = "user/userHome")
 	public String userHome() {
 		logger.info("this is userHome method");
 
