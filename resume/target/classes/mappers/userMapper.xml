@@ -5,7 +5,19 @@
   
   <mapper namespace="user">
   
+  <!-- 로그인, 계정 및 비밀번호 검사. -->
+	<select id="userSelectOne" parameterType="UserInfo" resultType="UserInfo">
+		SELECT * 
+		FROM USER_INFO 
+		WHERE U_ID = #{u_id} AND U_PWD = #{u_pwd}
+	</select>
   
-  
+  <!-- 관리자 로그인, 계정 및 비밀번호 검사. -->
+	<select id="adminUserSelectOne" parameterType="int" resultType="UserInfo">
+	SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
+	FROM USER_INFO
+	WHERE U_ID = #{u_id}
+	
+	</select>
   
   </mapper>

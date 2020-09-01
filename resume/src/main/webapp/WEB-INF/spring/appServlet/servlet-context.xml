@@ -29,6 +29,21 @@
 	
 	<context:component-scan base-package="com.resume.app" />
 	
+		<context:component-scan base-package="com.bno" />
 	
+		<interceptors>
+		<!-- 세션이없으면 로그인하세요 처리 -->
+		<interceptor>
+			<mapping path="/user/userInfo" />
+
+			<beans:bean id="loggerInterceptor" class="com.resume.common.LoginCheckInterceptor" />
+		</interceptor>
+		
+				<!-- 관리자가 아니면 권한 없음 처리 -->
+<!-- 		<interceptor>		
+			<mapping path="/admin/**" />
+			<beans:bean id="adminInterceptor" class="com.bno.resume.AdminCheckInterceptor" />
+		</interceptor> -->
+	</interceptors>
 	
 </beans:beans>
