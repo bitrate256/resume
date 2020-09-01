@@ -7,18 +7,21 @@ import org.springframework.stereotype.Repository;
 import com.resume.dto.UserInfo;
 
 @Repository
-public class UserInfoDaoImpl {
+public class UserInfoDaoImpl implements UserInfoDao {
 	
 	@Autowired
 	SqlSessionTemplate session;
 
 	private String queryprefix = "user.";
-	
-	// 로그인 확인
-	/* @Override */
+
+	@Override
 	public UserInfo userSelectOne(UserInfo user) {
 		
 		return session.selectOne(queryprefix+"userSelectOne", user);
 	}
+	
+	
+	
+	
 	
 }//class end
