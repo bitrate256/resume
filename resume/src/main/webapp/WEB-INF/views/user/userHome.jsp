@@ -1,51 +1,3 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-<%@include file="../../common/head.jsp" %>
-<%@include file="../user/common/user_left_column.jsp" %>
-
-
-<!-- Main Header -->
-		<%@ include file="../user/common/user_mainHeader.jsp" %>
-
-		<!-- Left side column. contains the logo and sidebar -->
-		<%@ include file="../user/common/user_left_column.jsp" %>
-
-			<!-- Main content -->
-			<section class="content">
-				<div class="container-fluid">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			</div>
-			</section>
-		</div>
-		<!-- /.content-wrapper -->
-
-		<!-- Main Footer -->
-		<%@ include file="../user/common/user_mainFooter.jsp" %>
-	</div>
-	<!-- ./wrapper -->
-
-</body>
-
-</html>
-=======
 <%@include file="../common/head.jsp" %>
 
 <!-- 한글 인코딩 설정 -->
@@ -337,4 +289,3 @@
 
 <div class="daterangepicker ltr show-ranges opensright"><div class="ranges"><ul><li data-range-key="Today">Today</li><li data-range-key="Yesterday">Yesterday</li><li data-range-key="Last 7 Days">Last 7 Days</li><li data-range-key="Last 30 Days">Last 30 Days</li><li data-range-key="This Month">This Month</li><li data-range-key="Last Month">Last Month</li><li data-range-key="Custom Range">Custom Range</li></ul></div><div class="drp-calendar left"><div class="calendar-table"></div><div class="calendar-time" style="display: none;"></div></div><div class="drp-calendar right"><div class="calendar-table"></div><div class="calendar-time" style="display: none;"></div></div><div class="drp-buttons"><span class="drp-selected"></span><button class="cancelBtn btn btn-sm btn-default" type="button">Cancel</button><button class="applyBtn btn btn-sm btn-primary" disabled="disabled" type="button">Apply</button> </div></div><div class="jqvmap-label" style="display: none;"></div></body></html>
 
->>>>>>> branch 'master' of https://github.com/bitrate256/resume.git
