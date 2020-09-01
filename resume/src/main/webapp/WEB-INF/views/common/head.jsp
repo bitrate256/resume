@@ -48,6 +48,9 @@
 	<script src="<%=contextPath %>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- ChartJS -->
 	<script src="<%=contextPath %>/plugins/chart.js/Chart.min.js"></script>
+	<!-- Input Mask -->
+	<script src="<%=contextPath %>/plugins//inputmask/min/jquery.inputmask.bundle.min.js"></script>
+	<script src="<%=contextPath %>/plugins/moment/moment.min.js"></script>
 	<!-- Sparkline -->
 	<script src="<%=contextPath %>/plugins/sparklines/sparkline.js"></script>
 	<!-- JQVMap -->
