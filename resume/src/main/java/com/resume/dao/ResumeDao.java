@@ -20,5 +20,6 @@ public class ResumeDao {
 	public Resume resumeUpdate(Resume resume);
 	
 	// 이력 삭제
+	public Resume resumeDelete(Resume resume);
 
 }
