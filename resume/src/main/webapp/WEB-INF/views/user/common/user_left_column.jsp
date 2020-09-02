@@ -65,20 +65,19 @@
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
-              <p>마이 페이지
+              <p>내 정보
                 <i class="fas fa-angle-left right"></i>
-                
-                <!-- 신규 항목 갯수 알림 -->
-                <span class="badge badge-info right">6</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
+            <c:if test="${loginUser != null }">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="javascript:location.href='<c:url value="/"/>user/myPage'" class="nav-link">
                   <i class="fas fa-address-card"></i>
-                  <p>내 정보</p>
+                  <p>마이 페이지</p>
                 </a>
               </li>
+
               <li class="nav-item">
                 <a href="pages/layout/top-nav.html" class="nav-link">
                   <i class="fas fa-edit"></i>
@@ -87,8 +86,9 @@
               </li>
             </ul>
           </li>
-          
+            </c:if>
           <!-- 관리자 메뉴 -->
+          <c:if test="${loginUser.u_id eq 20200001 }">
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
@@ -104,18 +104,24 @@
               <li class="nav-item">
                 <a href="pages/layout/top-nav.html" class="nav-link">
                   <i class="fas fa-portrait"></i>
-                  <p>부서원 이력 관리</p>
+                  <p>부서원 관리</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="pages/layout/top-nav.html" class="nav-link">
+                  <i class="fas fa-portrait"></i>
+                  <p>부서원 이력 관리</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="javascript:location.href='<c:url value="/"/>admin/department'">
                   <i class="fas fa-user-friends"></i>
                   <p>부서 관리</p>
                 </a>
               </li>
             </ul>
           </li>
-          
+          </c:if>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

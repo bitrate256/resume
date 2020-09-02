@@ -267,12 +267,12 @@ function check_u_rnumber() {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">사용자 등록</h1>
+            <h1 class="m-0 text-dark">내 정보 수정</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">우상단 메뉴</a></li>
-              <li class="breadcrumb-item active">현재 메뉴 이름</li>
+              <li class="breadcrumb-item active">내 정보 수정</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -288,11 +288,12 @@ function check_u_rnumber() {
 	</div>
 	
 
-	<p class="login-box-msg">새로운 사용자 등록</p>
-	<form action="<%=contextPath%>/user/userSignUpResult" method="post" name="form" onsubmit="return checkSubmit();">
+	<p class="login-box-msg">내 정보 수정</p>
+	<form action="<%=contextPath%>/user/userInfoUpdateEnd" method="post" name="form" onsubmit="return checkSubmit();">
 		<br>
 		<div class="form-group has-feedback">
-			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번">
+			
+			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번" value="${loginUser.u_id }" readonly="readonly"> 
 			
 			<div id="id_check"></div>
       	</div>
@@ -300,7 +301,7 @@ function check_u_rnumber() {
 			<input type="text" class="form-control" id="u_company" name="u_company" value="비앤오소프트" readonly="readonly">
       	</div>
 		<div class="form-group has-feedback">
-			<input type="text" class="form-control" id="u_email" name="u_email" placeholder="이메일">
+			<input type="text" class="form-control" id="u_email" name="u_email" placeholder="이메일" value="${loginUser.u_email }" readonly="readonly">
 			
 			<div id="email_check"></div>
       	</div>
@@ -325,20 +326,33 @@ function check_u_rnumber() {
       	</div>
       	
       	<div class="form-group has-feedback">
-        	<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름"><br>
-      	<input type="text"  id="u_rnumber1" name="u_rnumber1" onkeyup="nextgo(this);" placeholder="주민등록번호 앞자리"/>
--<input type="password" id="u_rnumber2" name="u_rnumber2" placeholder="주민등록번호 뒷자리" />
-<input type="button" class="btn btn-success" onclick="checks();" value="주민등록번호 검사"/>
+        	<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름" value="${loginUser.u_name }" readonly="readonly"><br>
 
         	<br>
         	<select class="form-control" name="u_marry" value="u_marry" required>
-                    <option>결혼여부</option>
+                    <c:if test="${loginUser.u_marry eq 'Y' }">
+                    <option>기혼</option>
+                    </c:if>
+                    <c:if test="${loginUser.u_marry eq 'N'}">
+                    <option>미혼</option>
+                    </c:if>
                     <option value="Y">기혼</option>
                     <option value="N">미혼</option>
                   </select>
 
         	<select class="form-control" name="u_ms" value="u_ms">
-                    <option>병역여부</option>
+                    <c:if test="${ loginUser.u_ms eq 'F'}">
+                    <option>필</option>
+                    </c:if>
+                    <c:if test="${ loginUser.u_ms eq 'FN'}">
+                    <option>미필</option>
+                    </c:if>
+                    <c:if test="${ loginUser.u_ms eq 'N'}">
+                    <option>면제</option>
+                    </c:if>
+                    <c:if test="${ loginUser.u_ms eq 'NA'}">
+                    <option>해당없음</option>
+                    </c:if>
                     <option value="F">필</option>
                     <option value="FN">미필</option>
                     <option value="N">면제</option>
@@ -346,37 +360,63 @@ function check_u_rnumber() {
                   </select>
       	</div>
 	<div class="form-group has-feedback">
-			<input type="text" class="form-control" id="u_career" name="u_career" placeholder="경력(년 + 월)"><br>
+			<input type="text" class="form-control" id="u_career" name="u_career" placeholder="경력(년 + 월)" value="${loginUser.u_career }"><br>
 	<div id="list"></div>
 	<div id="callBackDiv">
-		<input type="text"  style="width:500px;" id="roadFullAddr"  name="u_address" placeholder="주소" required="true" readonly="true">
+		<input type="text"  style="width:500px;" id="roadFullAddr"  name="u_address" placeholder="주소" required="true" value="${loginUser.u_address }" readonly="true">
 		<input type="button" class="btn btn-info"  onClick="goPopup();" value="주소찾기">
 	</div>
       	<div class="form-group has-feedback">
       	부서 이름
-        <select class="form-control" name="d_id" value="d_id" >
-                    <option value="1">경영지원</option>
-                    <option value="2">연구소</option>
+      	
+        <select class="form-control" name="d_id" value="${loginUser.d_id }" disabled="disabled">
+                    <c:if test="${loginUser.d_id eq 1 }">
+                    <option>경영지원</option>
+                    </c:if>
+                    <c:if test="${loginUser.d_id eq 2 }">
+                    <option>연구소</option>
+                    </c:if>
                   </select>
         	
       	</div>
       	<div class="form-group has-feedback">
         	직위
-        <select class="form-control" name="u_position" value="u_position" >
-                    <option value="6">사원</option>
-                    <option value="5">대리</option>
-                    <option value="4">과장</option>
-                    <option value="3">차장</option>
-                    <option value="2">부장</option>
+        <select class="form-control" name="u_position" value="${loginUser.u_position }" disabled="disabled">
+                    <c:if test="${loginUser.u_position eq 1 }">
+                    <option>사장</option>
+					</c:if>
+					  <c:if test="${loginUser.u_position eq 2 }">
+                    <option>부장</option>
+					</c:if>
+					  <c:if test="${loginUser.u_position eq 3 }">
+                    <option>차장</option>
+					</c:if>
+					  <c:if test="${loginUser.u_position eq 4 }">
+                    <option>과장</option>
+					</c:if>
+					  <c:if test="${loginUser.u_position eq 5 }">
+                    <option>대리</option>
+					</c:if>
+					  <c:if test="${loginUser.u_position eq 6 }">
+                    <option>사원</option>
+					</c:if>
                   </select>
         	</div>
         	<div class="form-group has-feedback">
         	기술등급
-        <select class="form-control" name="u_tgrade" value="u_tgrade" >
-                    <option value="B">초급</option>
-                    <option value="M">중급</option>
-                    <option value="H">고급</option>
-                    <option value="S">특급</option>
+        <select class="form-control" name="u_tgrade" value="${loginUser.u_tgrade }" disabled="disabled">
+                    <c:if test="${loginUser.u_tgrade eq 'S' }">
+                    <option>특급</option>
+                  </c:if>
+                  <c:if test="${loginUser.u_tgrade eq 'H' }">
+                    <option>고급</option>
+                  </c:if>
+                  <c:if test="${loginUser.u_tgrade eq 'M' }">
+                    <option>중급</option>
+                  </c:if>
+                  <c:if test="${loginUser.u_tgrade eq 'B' }">
+                    <option>초급</option>
+                  </c:if>
                   </select>
         	</div>
 		<div class="row">
@@ -392,8 +432,8 @@ function check_u_rnumber() {
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-        	<input type="submit" class="btn btn-primary btn-block btn-flat" id="submit" name="submit" value="Sign Up">
-			<button type="button" class="btn btn-primary btn-block btn-flat" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">Cancle</button>
+        	<input type="submit" class="btn btn-primary btn-block btn-flat" id="submit" name="submit" value="수정">
+			<button type="button" class="btn btn-primary btn-block btn-flat" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">취소</button>
         </div>
         <!-- /.col -->
      	</div>

@@ -17,7 +17,59 @@
 	SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
 	FROM USER_INFO
 	WHERE U_ID = #{u_id}
-	
+
 	</select>
+
+	<!-- 사용자 등록 -->
+	<insert id="userInsert" parameterType="UserInfo">
+	INSERT INTO USER_INFO(
+	U_ID,
+	D_ID,
+	U_PWD,
+	U_RNUMBER,
+	U_NAME,
+	U_COMPANY,
+	U_MARRY,
+	U_POSITION,
+	U_MS,
+	U_CAREER,
+	U_TGRADE,
+	U_PHONE,
+	U_EMAIL,
+	U_ADDRESS,
+	U_STATUS
+	)
+	VALUES(
+	#{u_id},
+	#{d_id},
+	#{u_pwd},
+	#{u_rnumber},
+	#{u_name},
+	#{u_company},
+	#{u_marry},
+	#{u_position},
+	#{u_ms},
+	#{u_career},
+	#{u_tgrade},
+	#{u_phone},
+	#{u_email},
+	#{u_address},
+	DEFAULT
+	)
+	</insert>
+	
+	<update id="userInfoUpdate" parameterType="UserInfo">
+	UPDATE USER_INFO
+	SET U_PWD = #{u_pwd},
+	U_PHONE = #{u_phone},
+	U_MARRY = #{u_marry},
+	U_MS = #{u_ms},
+	U_CAREER = #{u_career},
+	U_ADDRESS = #{u_address}
+	WHERE U_ID = #{u_id}
+	
+	</update>
+	
+	
   
   </mapper>

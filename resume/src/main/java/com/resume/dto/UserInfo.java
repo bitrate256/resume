@@ -4,7 +4,6 @@ public class UserInfo {             // 사용자 정보
 
 	private int u_id;               // 사번
 	private int d_id;               // 부서코드
-	private int r_id;               // 이력관리번호
 	private String u_pwd;           // 비밀번호
 	private String u_rnumber;          // 주민등록번호
 	private String u_name;
@@ -23,13 +22,12 @@ public class UserInfo {             // 사용자 정보
 		super();
 	}
 
-	public UserInfo(int u_id, int d_id, int r_id, String u_pwd, String u_rnumber, String u_name, String u_company, String u_marry,
+	public UserInfo(int u_id, int d_id, String u_pwd, String u_rnumber, String u_name, String u_company, String u_marry,
 			String u_position, String u_ms, String u_career, String u_tgrade, String u_phone, String u_email,
 			String u_address, String u_status) {
 		super();
 		this.u_id = u_id;
 		this.d_id = d_id;
-		this.r_id = r_id;
 		this.u_pwd = u_pwd;
 		this.u_rnumber = u_rnumber;
 		this.u_name = u_name;
@@ -61,13 +59,6 @@ public class UserInfo {             // 사용자 정보
 		this.d_id = d_id;
 	}
 
-	public int getR_id() {
-		return r_id;
-	}
-
-	public void setR_id(int r_id) {
-		this.r_id = r_id;
-	}
 
 	public String getU_pwd() {
 		return u_pwd;
@@ -176,12 +167,12 @@ public class UserInfo {             // 사용자 정보
 
 	@Override
 	public String toString() {
-		return "UserInfo [u_id=" + u_id + ", d_id=" + d_id + ", r_id=" + r_id + ", u_pwd=" + u_pwd + ", u_rnumber="
-				+ u_rnumber + ", u_name=" + u_name + ", u_company=" + u_company + ", u_marry=" + u_marry
-				+ ", u_position=" + u_position + ", u_ms=" + u_ms + ", u_career=" + u_career + ", u_tgrade=" + u_tgrade
-				+ ", u_phone=" + u_phone + ", u_email=" + u_email + ", u_address=" + u_address + ", u_status="
-				+ u_status + "]";
+		return "UserInfo [u_id=" + u_id + ", d_id=" + d_id + ", u_pwd=" + u_pwd + ", u_rnumber=" + u_rnumber
+				+ ", u_name=" + u_name + ", u_company=" + u_company + ", u_marry=" + u_marry + ", u_position="
+				+ u_position + ", u_ms=" + u_ms + ", u_career=" + u_career + ", u_tgrade=" + u_tgrade + ", u_phone="
+				+ u_phone + ", u_email=" + u_email + ", u_address=" + u_address + ", u_status=" + u_status + "]";
 	}
+
 
 
 

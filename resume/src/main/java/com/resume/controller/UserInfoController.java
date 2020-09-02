@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.resume.dto.UserInfo;
 import com.resume.service.UserInfoService;
@@ -74,6 +75,22 @@ public class UserInfoController {
 		return "redirect:/userHome";
 	}
 	
+	@RequestMapping(value = "user/myPage")
+	public String yPage(Model model, HttpSession session) {
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		model.addAttribute("loginUser",user);
+		
+		
+		return "user/myPage";
+	}
+	
+	@RequestMapping(value = "user/userInfoUpdateEnd")
+	public String userInfoUpdate(UserInfo uDto) {
+		
+		service.userInfoUpdate(uDto);
+		
+		return "forward:/user/myPage";
+	}
 
 	
 	
@@ -93,7 +110,24 @@ public class UserInfoController {
 		return "user/jusoPopup";
 	}
 	
+	@RequestMapping(value = "user/userSignUpResult")
+	public String userSignUpResult(UserInfo uDto, @RequestParam("u_rnumber1") String u_rnumber1,
+			@RequestParam("u_rnumber2") String u_rnumber2) {
+		System.out.println("컨트롤러  user정보 = "+uDto);
+		String u_rnumber = u_rnumber1+u_rnumber2;
+		uDto.setU_rnumber(u_rnumber);
+		System.out.println(uDto.getU_rnumber());
+		service.userInsert(uDto);
+		
+		return "redirect:/user/userlogin";
+	}
 	
+	@RequestMapping(value = "admin/department")
+	public String department() {
+		
+		
+		return "admin/adminDepartment";
+	}
 	
 	
 }//class end
