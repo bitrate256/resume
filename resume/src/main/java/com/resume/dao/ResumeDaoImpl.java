@@ -4,25 +4,28 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.resume.dto.BoardPager;
 import com.resume.dto.Resume;
 
-public class ResumeDaoImpl {
+@Repository
+public class ResumeDaoImpl implements ResumeDao {
 
 	@Autowired
-	private SqlSessionTemplate session;
+	SqlSessionTemplate session;
 	
-	private String queryprefix = "Resume.";
+	private String queryprefix = "resume.";
 	
 	// 이력 업로드
 	@Override
-	public void resumeInsert(Resume r_id) {
-		System.out.println("이력 등록 값 = "+r_id.toString());
-		session.insert(queryprefix+"resumeInsert", r_id);
+	public void resumeInsert(Resume resume) {
+		System.out.println("이력 등록 값 = "+resume.toString());
+		session.insert(queryprefix+"resumeInsert", resume);
 	}
 
 	// 이력 리스트 (사용자)
+	@Override
 	public List<Resume> selectResumeList(BoardPager boardPager) {
 	
 		return session.selectList(queryprefix+"selectResumeList", boardPager);
@@ -35,6 +38,7 @@ public class ResumeDaoImpl {
 	}
 	
 	// 이력 수정
+
 	
 	// 이력 삭제
 }
