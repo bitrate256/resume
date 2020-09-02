@@ -1,5 +1,6 @@
 package com.resume.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.resume.dto.BoardPager;
 import com.resume.dto.Resume;
+import com.resume.dto.UserInfo;
 
 @Repository
 public class ResumeDaoImpl implements ResumeDao {
@@ -38,7 +40,29 @@ public class ResumeDaoImpl implements ResumeDao {
 	}
 	
 	// 이력 수정
+	@Override
+	public void resumeUpdate(Resume resume) {
+		System.out.println("resume정보 수정 = "+resume);
+		session.selectOne(queryprefix+"resumeUpdate", resume);
+	}
 
+	@Override
+	public List<Resume> getResumeList() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Resume getResumeContent(int r_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Resume resumeDelete(Resume resume) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	// 이력 삭제
 }
