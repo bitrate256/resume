@@ -1,9 +1,14 @@
 package com.resume.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.resume.dto.JqGrid;
 import com.resume.dto.UserInfo;
 
 @Repository
@@ -34,6 +39,26 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		session.selectOne(queryprefix+"userInfoUpdate", user);
 	}
 	
+	
+	//사용자 전체 조회
+	@Override
+	public List<UserInfo> userInfoList(String page, String rows) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("page", page);
+		map.put("rows", rows);
+		
+		return session.selectList(queryprefix+"userInfoList", map);
+	}
+	
+	//사용자 전체 카운트
+	@Override
+	public JqGrid gridCount() {
+		
+		return session.selectOne(queryprefix+"gridCount");
+	}
+	
+	
+
 	
 	
 	
