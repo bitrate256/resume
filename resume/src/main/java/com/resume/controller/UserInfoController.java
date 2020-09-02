@@ -122,12 +122,7 @@ public class UserInfoController {
 		return "redirect:/user/userlogin";
 	}
 	
-	@RequestMapping(value = "admin/department")
-	public String department() {
-		
-		
-		return "admin/adminDepartment";
-	}
+
 	
 	
 }//class end

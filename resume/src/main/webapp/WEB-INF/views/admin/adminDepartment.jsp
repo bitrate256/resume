@@ -9,6 +9,7 @@
 <%@include file="../user/common/user_left_column.jsp" %>
 
 
+
 <body class="sidebar-mini layout-fixed" style="height: auto;">
 
 
@@ -24,7 +25,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">우상단 메뉴</a></li>
-              <li class="breadcrumb-item active">부서 관리</li>
+              <li class="breadcrumb-item active">부서 등록</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -35,16 +36,36 @@
     <!-- Main content -->
     <section class="content">
 
+		<div class="register-box-body">
+	<p class="login-box-msg">부서 등록</p>
+	<form action="<%=contextPath%>/admin/departmentCheck" method="post" name="form">
+		<br>
+
+		<div class="form-group has-feedback" id="departmentCheck">
+			<input type="text" class="form-control col-6" id="d_name" name="d_name" placeholder="부서 이름">
+			<div id="name_check"></div>
+      	</div>
+      	
+      
+		<div class="row">
+        <div class="col-xs-8">
+          <div class="checkbox icheck">
+
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+        	<input type="submit" class="btn btn-primary" id="submit" name="submit" value="부서 등록">
+			<button type="button" class="btn btn-primary" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">취소</button>
+        </div>
+        <!-- /.col -->
+     	</div>
+		
+					
+		
+	</form>
 			
-										
-										
-										
-										
-										
-										
-									</div>
-								</div>
-							</div>
+	</div>
 
 			</section>
 			<!-- /.content -->

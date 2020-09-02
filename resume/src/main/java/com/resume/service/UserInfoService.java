@@ -12,5 +12,7 @@ public interface UserInfoService {
 	
 	//사용자 정보 수정
 	public void userInfoUpdate(UserInfo user);
+	
+	
 
 }//inter end
