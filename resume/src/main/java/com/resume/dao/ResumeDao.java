@@ -8,7 +8,7 @@ import com.resume.dto.Resume;
 public class ResumeDao {
 	
 	// 이력 업로드
-	public void resumeInsert(Resume r_id);
+	public void resumeInsert(Resume resume);
 	
 	// 이력 리스트 (사용자)
 	public List<Resume> selectResumeList(BoardPager boardPager);
@@ -17,7 +17,7 @@ public class ResumeDao {
 	public Resume resumeSelectOne(int r_id);
 	
 	// 이력 수정
-	public Resume resumeUpdate(Resume uDto);
+	public Resume resumeUpdate(Resume resume);
 	
 	// 이력 삭제
 
