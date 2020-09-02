@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="department">
+  
+	<select id="departmentOverlap" parameterType="Department" resultType="int">
+	SELECT COUNT(*)
+	FROM DEPARTMENT
+	WHERE D_NAME = #{d_name}
+	
+	
+	</select>
+	<insert id="departmentInsert" parameterType="Department">
+		INSERT INTO DEPARTMENT(
+		D_ID,
+		D_NAME
+		)
+		
+		VALUES(
+		DEPARTMENT_SEQ.NEXTVAL,
+		#{d_name}
+		)
+	
+	
+	</insert>
+	
+  
+  </mapper>
