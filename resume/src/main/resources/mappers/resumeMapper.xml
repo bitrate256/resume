@@ -31,7 +31,7 @@
 	</select>
 	
 	<!-- 이력 등록 -->
-	<insert id="resumeInsert" parameterType="ResumeInfo">
+	<insert id="resumeInsert" parameterType="Resume">
 	INSERT INTO RESUME(
 	R_ID,
 	U_ID,
@@ -50,7 +50,7 @@
 	</insert>
 	
 <!-- 	이력 상세보기 -->
-	<select id="resumeSelectOne" parameterType="int" resultType="ResumeInfo">
+	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
 	SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
 	FROM USER_INFO
 	WHERE U_ID = #{u_id}
@@ -59,7 +59,7 @@
 	
 <!-- 	이력 수정(사용자) -->
 <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
-	<update id="myPageUserInfo" parameterType="ResumeInfo">
+	<update id="myPageUserInfo" parameterType="Resume">
 	UPDATE RESUME R
 	SET r.u_id = #{SELECT ~}
 	WHERE U_ID = #{u_id}
