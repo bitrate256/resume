@@ -56,11 +56,19 @@
 	#{u_address},
 	DEFAULT
 	)
-	
-	
 	</insert>
 	
+	<update id="userInfoUpdate" parameterType="UserInfo">
+	UPDATE USER_INFO
+	SET U_PWD = #{u_pwd},
+	U_PHONE = #{u_phone},
+	U_MARRY = #{u_marry},
+	U_MS = #{u_ms},
+	U_CAREER = #{u_career},
+	U_ADDRESS = #{u_address}
+	WHERE U_ID = #{u_id}
 	
+	</update>
 	
 	
   

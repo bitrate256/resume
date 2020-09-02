@@ -27,6 +27,15 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 	
 	
+	//사용자 정보 수정
+	@Override
+	public void userInfoUpdate(UserInfo user) {
+		dao.userInfoUpdate(user);
+		
+	}
+	
+	
+	
 
 	
 }//class end

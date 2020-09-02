@@ -28,7 +28,7 @@
 									<c:if test="${loginUser.u_id eq 20200001 }">
 									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>user/userSignUp'" style="margin: 10px">사용자 등록</button>
 									</c:if>
-									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>myPage/myUserInfo'" style="margin: 10px">내 정보</button>
+									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>user/myPage'" style="margin: 10px">내 정보</button>
 									<button type="button" class="btn btn-sm bg-gray color-palette" onclick="javascript:location.href='<c:url value="/"/>user/userlogout'" style="margin: 10px">로그아웃</button>
 								</li>
 							</c:otherwise>

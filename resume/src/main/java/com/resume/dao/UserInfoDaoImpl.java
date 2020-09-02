@@ -23,8 +23,15 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	//사용자 등록
 	@Override
 	public void userInsert(UserInfo user) {
-		System.out.println("user정보 = "+user);
+//		System.out.println("user정보 = "+user);
 		 session.insert(queryprefix+"userInsert", user);
+	}
+	
+	//사용자 정보 수정
+	@Override
+	public void userInfoUpdate(UserInfo user) {
+		System.out.println("user정보 수정 = "+user);
+		session.selectOne(queryprefix+"userInfoUpdate", user);
 	}
 	
 	
