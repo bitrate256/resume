@@ -134,10 +134,11 @@ public class UserInfoController {
 	//사번 중복 체크
 	@RequestMapping(value = "user/idCheck")
 	@ResponseBody
-	public String idCheck(@RequestParam("u_id")int u_id) {
+	public String idCheck(@RequestParam("u_id")String u_id) {
 		
-		String msg;
 		int result = service.userIdCheck(u_id);
+		String msg;
+		
 		
 		if(result > 0) {
 			msg = "1";
@@ -146,7 +147,7 @@ public class UserInfoController {
 		}
 		
 		
-		return "";
+		return msg;
 	}
 	
 	//사용자 리스트
