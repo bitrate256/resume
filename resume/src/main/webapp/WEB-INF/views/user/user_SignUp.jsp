@@ -34,6 +34,51 @@
 
 
 // 아이디 유효성 검사(1 = 중복 / 0 != 중복)
+$("#u_id").blur(function() {
+		// id = "id_reg" / name = "userId"
+		var u_id = $('#u_id').val();
+		$.ajax({
+			url : '${pageContext.request.contextPath}/user/idCheck?u_id='+ u_id,
+			type : 'get',
+			success : function(data) {
+				console.log("1 = 중복o / 0 = 중복x : "+ data);							
+				
+				if (data == 1) {
+						// 1 : 아이디가 중복되는 문구
+						$("#id_check").text("사용중인 아이디입니다 :p");
+						$("#id_check").css("color", "red");
+						$("#reg_submit").attr("disabled", true);
+					} else {
+						
+						if(idJ.test(u_id)){
+							// 0 : 아이디 길이 / 문자열 검사
+							$("#id_check").text("");
+							$("#reg_submit").attr("disabled", false);
+				
+						} else if(u_id == ""){
+							
+							$('#id_check').text('사번을 입력해주세요 :)');
+							$('#id_check').css('color', 'red');
+							$("#reg_submit").attr("disabled", true);				
+							
+						} else {
+							
+							$('#id_check').text("사번은 현재 년도 + 4자리 숫자만 가능합니다");
+							$('#id_check').css('color', 'red');
+							$("#reg_submit").attr("disabled", true);
+						}
+						
+					}
+				}, error : function() {
+						console.log("실패");
+				}
+			});
+		});
+
+
+
+
+
 
 
 $(function(){
@@ -293,7 +338,6 @@ function check_u_rnumber() {
 		<br>
 		<div class="form-group has-feedback">
 			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번">
-			
 			<div id="id_check"></div>
       	</div>
       	<div class="form-group has-feedback">

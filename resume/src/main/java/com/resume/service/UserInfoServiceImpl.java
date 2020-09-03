@@ -1,9 +1,12 @@
 package com.resume.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resume.dao.UserInfoDao;
+import com.resume.dto.JqGrid;
 import com.resume.dto.UserInfo;
 
 @Service
@@ -32,6 +35,29 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public void userInfoUpdate(UserInfo user) {
 		dao.userInfoUpdate(user);
 		
+	}
+
+	
+	//사용자 전체 조회
+	@Override
+	public List<UserInfo> userInfoList(String page, String rows) {
+		
+		return dao.userInfoList(page, rows);
+	}
+
+	//사용자 전체 카운트
+	@Override
+	public JqGrid gridCount() {
+		
+		return dao.gridCount();
+	}
+	
+	
+	//사번 중복 체크
+	@Override
+	public int userIdCheck(int u_id) {
+		
+		return dao.userIdCheck(u_id);
 	}
 	
 	

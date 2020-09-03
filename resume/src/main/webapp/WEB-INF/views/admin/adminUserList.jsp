@@ -7,8 +7,116 @@
 <%@include file="../common/head.jsp" %>
 <%@include file="../user/common/user_main_header.jsp" %>
 <%@include file="../user/common/user_left_column.jsp" %>
+<script>
+$(document).ready(function() {
+	jqgridTable.init();
+	jqgridTable.search();
+	jqgridTable.navGrid();
+})
 
 
+// onCellSelect: function(rowId, colId, val, e) {
+// 												//rowId : 현재 row의 id
+// 												//colId : cell의 인덱스, 선택된 컬럼의 순서
+// 												//val : 선택된 cell의 값
+// 												//e : 클릭한 객체
+				
+// 					var seq = $("#jqGrid").getCell(rowId, 'seq');
+					
+// 				}
+
+var jqgridTable =
+{
+		init : function () {
+			  var cnames = ['사번','이름','부서','이메일','직위','핸드폰번호', '소속회사','결혼', '병역', '경력', '기술등급', '주소', '재직상태'];
+				$jqGrid = $("#jqGrid");
+
+				
+			$jqGrid.jqGrid({
+				url: "<c:url value="/"/>user/userGridTest",
+				mtype: "post",
+				datatype	:	"json",
+				colNames	:	cnames,
+				colModel	:	[
+				
+					{name	: 	"u_id" , index : "u_id", width : 50, key:true},
+					{name	: 	"u_name" , index : "u_name", width : 150 },
+					{name	: 	"d_id" , index : "d_id", width : 150},
+					{name	: 	"u_email" , index : "u_email", width : 150, editable:true},
+					{name	: 	"u_position" , index : "u_position", width : 150, editable:true },
+					{name	: 	"u_phone" , index : "u_phone", width : 150, editable:true },
+					{name	: 	"u_company" , index : "u_company", width : 150, editable:true },
+					{name	: 	"u_marry" , index : "u_marry", width : 150, editable:true },
+					{name	: 	"u_ms" , index : "u_ms", width : 150, editable:true },
+					{name	: 	"u_career" , index : "u_career", width : 150, editable:true },
+					{name	: 	"u_tgrade" , index : "u_tgrade", width : 150, editable:true },
+					{name	: 	"u_address" , index : "u_address", width : 150, editable:true },
+					{name	:	"u_status"	, index : "u_status"	, width : 150, editable:true,
+						
+					},
+				],
+				height		: 480,
+				rowNum		: 10,
+				rowList		: [10,20,30],
+				pager		: "#jqGridPager",
+				rownumbers	: true,
+				viewrecords : true,
+				editable: true,
+				cellEdit	: true,
+// 				cellsubmit : "clientArray",
+				
+				cellsubmit	: "remote",	//데이터 전송 방식
+				cellurl : "<c:url value="/"/>admin/adminUserList",
+				beforeSubmitCell : function(rowid, cellname, value) {	//submit 전 데이터
+					
+					return {"id" : rowid, "cellName" : cellname, "cellValue" : value}
+				},
+				
+				afterSubmitCell : function(res) {	//submit 후 데이터
+					
+					var aResult = $.parseJSON(res.responseText);
+					var userMSG = "";
+					if((aResult.msg == "success")) {
+						userMSG = "데이터가 변경되었습니다."
+					}
+					return [(aResult.msg == "success") ? true : false, userMSG];
+				},
+				
+				caption		: "사용자 목록",		//그리드 위에 표시되는 text
+				jsonReader: {					
+					repeatitems:false
+				}
+				
+
+				
+				
+			})//jqgrid end
+		},
+
+
+		search : function () {
+			$("#jqGrid").setGridParam({
+				datatype		: "json",
+			}).trigger("reloadGrid");
+		},
+
+		navGrid : function() {
+			$("#jqGrid").jqGrid('navGrid', '#jqGridPager',
+
+				{
+					edit:false ,add:false ,del:true ,search:true ,refresh:true
+				},
+				{
+					// 삭제 옵셥
+				},			
+				{
+					// 찾기 옵션 
+				});
+		}
+
+}
+
+</script>
 
 <body class="sidebar-mini layout-fixed" style="height: auto;">
 
@@ -20,12 +128,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">부서 관리</h1>
+            <h1 class="m-0 text-dark">부서원 관리</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">우상단 메뉴</a></li>
-              <li class="breadcrumb-item active">부서 등록</li>
+              <li class="breadcrumb-item active">부서원 관리</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -36,36 +144,20 @@
     <!-- Main content -->
     <section class="content">
 
-		<div class="register-box-body">
-	<p class="login-box-msg">부서 등록</p>
-	<form action="<%=contextPath%>/admin/departmentCheck" method="post" name="form">
-		<br>
 
-		<div class="form-group has-feedback" id="departmentCheck">
-			<input type="text" class="form-control col-6" id="d_name" name="d_name" placeholder="부서 이름">
-			<div id="name_check"></div>
-      	</div>
-      	
-      
-		<div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
 
-          </div>
-        </div>
-        <!-- /.col -->
-        <div class="col-xs-4">
-        	<input type="submit" class="btn btn-primary" id="submit" name="submit" value="부서 등록">
-			<button type="button" class="btn btn-primary" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">취소</button>
-        </div>
-        <!-- /.col -->
-     	</div>
-		
-					
-		
-	</form>
-			
-	</div>
+<div style="overflow:scroll; width:1200px; height:500px;">
+
+<div class="row"> 
+    <div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+</div>
+</div>
+
+
 
 			</section>
 			<!-- /.content -->

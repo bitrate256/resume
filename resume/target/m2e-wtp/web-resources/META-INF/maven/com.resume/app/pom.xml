@@ -143,6 +143,13 @@
 			<artifactId>spring-test</artifactId>
 			<version>5.0.5.RELEASE</version>
 		</dependency>
+<!-- Gson -->
+		 <dependency>
+         <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.5</version>
+            <scope>compile</scope>
+            </dependency>
 	</dependencies>
 	<build>
 		<plugins>

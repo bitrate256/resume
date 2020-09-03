@@ -20,12 +20,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">부서 관리</h1>
+            <h1 class="m-0 text-dark">이력 관리</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">우상단 메뉴</a></li>
-              <li class="breadcrumb-item active">부서 등록</li>
+              <li class="breadcrumb-item active">이력 등록</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,8 +37,8 @@
     <section class="content">
 
 		<div class="register-box-body">
-	<p class="login-box-msg">부서 등록</p>
-	<form action="<%=contextPath%>/admin/departmentCheck" method="post" name="form">
+	<p class="login-box-msg">새 이력 작성</p>
+	<form action="<%=contextPath%>/resume/resumeCreate" method="post" name="form">
 		<br>
 
 		<div class="form-group has-feedback" id="departmentCheck">
@@ -55,7 +55,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-        	<input type="submit" class="btn btn-primary" id="submit" name="submit" value="부서 등록">
+        	<input type="submit" class="btn btn-primary" id="submit" name="submit" value="새 이력 등록">
 			<button type="button" class="btn btn-primary" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">취소</button>
         </div>
         <!-- /.col -->

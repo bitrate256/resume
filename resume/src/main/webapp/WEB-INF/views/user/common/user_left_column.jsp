@@ -102,7 +102,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="javascript:location.href='<c:url value="/"/>admin/adminUserList'" class="nav-link">
                   <i class="fas fa-portrait"></i>
                   <p>부서원 관리</p>
                 </a>

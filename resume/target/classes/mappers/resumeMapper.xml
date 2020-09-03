@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="resume">
+  
+  	<sql id="pagingHeader">
+	SELECT * FROM (
+	SELECT ROWNUM AS rn, A.* FROM (
+	</sql>
+	
+	<sql id="pagingFooter">
+	)  A
+	) WHERE rn BETWEEN #{start} AND #{end}
+	</sql>
+  
+  <!-- 로그인, 계정 및 비밀번호 검사. -->
+	<select id="resumeSelectOne" parameterType="UserInfo" resultType="UserInfo">
+		SELECT * 
+		FROM USER_INFO 
+		WHERE U_ID = #{u_id} AND U_PWD = #{u_pwd}
+	</select>
+  
+  <!-- 관리자 로그인, 계정 및 비밀번호 검사. -->
+	<select id="resumeSelectOne" parameterType="int" resultType="UserInfo">
+	SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
+	FROM USER_INFO
+	WHERE U_ID = #{u_id}
+	
+	</select>
+	
+	<!-- 이력 등록 -->
+	<insert id="resumeInsert" parameterType="Resume">
+	INSERT INTO RESUME(
+	R_ID,
+	U_ID,
+	D_ID,
+	R_STATUS,
+	R_NEWDATE
+	)
+	VALUES(
+	RESUME_SEQ.NEXTVAL,
+	#{r_id},
+	#{u_id},
+	#{d_id},
+	#{r_status},
+	#{r_newdate}
+	)
+	</insert>
+	
+<!-- 	이력 상세보기 -->
+	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
+	FROM USER_INFO
+	WHERE U_ID = #{u_id}
+	
+	</select>
+	
+<!-- 	이력 수정(사용자) -->
+<!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
+	<update id="myPageUserInfo" parameterType="Resume">
+	UPDATE RESUME R
+	SET r.u_id = #{SELECT ~}
+	WHERE U_ID = #{u_id}
+	
+	</update>
+	
+
+<!-- 사용자 정보 수정(관리자) -->
+	<update id="adminUserUpdateResult" parameterType="UserInfo">
+	UPDATE USER_INFO
+	SET U_EMAIL = #{u_email}, 
+	U_PHONE = #{u_phone}, 
+	D_ID = #{d_id},
+	U_POSITION = #{u_position}
+	WHERE U_ID = #{u_id}
+	</update>	
+  
+  </mapper>

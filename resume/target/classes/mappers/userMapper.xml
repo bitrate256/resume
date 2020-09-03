@@ -70,6 +70,26 @@
 	
 	</update>
 	
+	<select id="userInfoList" resultType="UserInfo">
+	SELECT *
+	FROM USER_INFO
+	ORDER BY U_ID
+	
+	</select>
+	
+		<!-- 그리드 카운트 -->
+	<select id="gridCount" resultType="com.resume.dto.JqGrid">
+	SELECT COUNT(*)
+	FROM USER_INFO
+	</select>	
+	
+	<select id="userIdCheck" parameterType="UserInfo">
+	SELECT COUNT(*)
+	FROM USER_INFO
+	WHERE U_ID = #{u_id}
+	</select>
+	
+	
 	
   
   </mapper>
