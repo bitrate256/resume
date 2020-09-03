@@ -131,6 +131,24 @@ public class UserInfoController {
 		return "redirect:/user/userlogin";
 	}
 	
+	//사번 중복 체크
+	@RequestMapping(value = "user/idCheck")
+	@ResponseBody
+	public String idCheck(@RequestParam("u_id")int u_id) {
+		
+		String msg;
+		int result = service.userIdCheck(u_id);
+		
+		if(result > 0) {
+			msg = "1";
+		} else if (result < 0) {
+			msg = "0";
+		}
+		
+		
+		return "";
+	}
+	
 	//사용자 리스트
 
 	@RequestMapping(value = "admin/adminUserList")

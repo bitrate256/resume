@@ -22,6 +22,7 @@ public interface UserInfoDao {
 	//사용자 전체 카운트
 	public JqGrid gridCount();
 	
-	
+	//사번 중복체크
+	public int userIdCheck(int u_id);
 	
 }//inter end

@@ -53,6 +53,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 	
 	
+	//사번 중복 체크
+	@Override
+	public int userIdCheck(int u_id) {
+		
+		return dao.userIdCheck(u_id);
+	}
+	
+	
 	
 
 	
