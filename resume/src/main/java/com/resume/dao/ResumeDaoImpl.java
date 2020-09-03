@@ -1,5 +1,6 @@
 package com.resume.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.resume.dto.BoardPager;
+import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
+import com.resume.dto.SearchDto;
 import com.resume.dto.UserInfo;
 
 @Repository
@@ -33,8 +36,18 @@ public class ResumeDaoImpl implements ResumeDao {
 		return session.selectList(queryprefix+"selectResumeList", boardPager);
 	}
 	
+	// 이력 전체 리스트(페이징)
+	@Override
+	public List<JoinDto> selectAllResumeList(BoardPager boardPager) {
+		
+		List<JoinDto> resumeAllList = new ArrayList<JoinDto>();
+		resumeAllList = session.selectList(queryprefix+"selectUserAllList", boardPager);
+		System.out.println("이력 전체 리스트 = "+resumeAllList);
+		return resumeAllList;
+	}
+	
 	// 이력 상세 보기
-	public Resume resumeSelectOne(int r_id); {
+	public Resume resumeSelectOne(int r_id) {
 		
 		return session.selectOne(queryprefix+"resumeSelectOne", r_id);
 	}
@@ -46,23 +59,11 @@ public class ResumeDaoImpl implements ResumeDao {
 		session.selectOne(queryprefix+"resumeUpdate", resume);
 	}
 
-	@Override
-	public List<Resume> getResumeList() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Resume getResumeContent(int r_id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	// 이력 삭제
 	@Override
 	public Resume resumeDelete(Resume resume) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	// 이력 삭제
 }

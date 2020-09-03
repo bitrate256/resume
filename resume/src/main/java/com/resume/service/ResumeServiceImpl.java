@@ -7,7 +7,10 @@ import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.resume.dao.ResumeDao;
+import com.resume.dto.BoardPager;
+import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
+import com.resume.dto.SearchDto;
 import com.resume.dto.UserInfo;
 
 public class ResumeServiceImpl implements ResumeService {
@@ -27,13 +30,6 @@ public class ResumeServiceImpl implements ResumeService {
 		
 	}
 
-	@Inject
-	private ResumeDao resumeDao;
-	
-	private List<Resume> getResumeList() throws Exception {
-		return ResumeDao.getResumeList();
-	}
-
 	// 이력 전체 조회
 	@Override
 	public List<Resume> resumeInfoList(String page, String rows) {
@@ -41,7 +37,23 @@ public class ResumeServiceImpl implements ResumeService {
 		return null;
 	}
 
+	// 이력 전체 조회(페이징)
+	@Override
+	public List<JoinDto> selectAllResumeList(BoardPager boardPager) {
+	
+		return dao.selectAllResumeList(boardPager);
+	}
 
+	@Override
+	public Resume resumeSelectOne(int r_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public int selectResumeCount(SearchDto searchDto) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }
