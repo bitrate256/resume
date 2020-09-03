@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.resume.dao.ResumeDao;
 import com.resume.dto.BoardPager;
@@ -13,6 +14,7 @@ import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
 import com.resume.dto.UserInfo;
 
+@Service
 public class ResumeServiceImpl implements ResumeService {
 
 	@Autowired 

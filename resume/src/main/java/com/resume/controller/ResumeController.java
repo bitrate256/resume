@@ -42,7 +42,7 @@ public class ResumeController {
 	@RequestMapping(value = "resume/resumeCreate")
 	public String resumeCreate() {
 		
-		return "resume/resume_Create";
+		return "resume/resumeCreate";
 	}
 	
 	// 이력 업로드
