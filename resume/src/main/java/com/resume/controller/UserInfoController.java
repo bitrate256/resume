@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -131,23 +132,20 @@ public class UserInfoController {
 		return "redirect:/user/userlogin";
 	}
 	
-	//사번 중복 체크
-	@RequestMapping(value = "user/idCheck")
+//	이메일 중복체크
+	@RequestMapping(value = "/user/idCheck")
 	@ResponseBody
-	public String idCheck(@RequestParam("u_id")String u_id) {
-		
+	public String idcheck(@RequestParam("u_id") String u_id) throws Exception {
+		System.out.println(u_id);
 		int result = service.userIdCheck(u_id);
 		String msg;
-		
-		
 		if(result > 0) {
 			msg = "1";
-		} else if (result < 0) {
+		} else {
 			msg = "0";
 		}
 		
-		
-		return msg;
+		return msg;  
 	}
 	
 	//사용자 리스트
