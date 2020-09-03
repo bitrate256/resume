@@ -9,7 +9,7 @@ public class UserInfo {             // 사용자 정보
 	private String u_name;
 	private String u_company;       // 소속회사
 	private String u_marry;         // 결혼
-	private String u_position;      // 직위
+	private int u_position;      // 직위
 	private String u_ms;            // 병역
 	private String u_career;        // 경력
 	private String u_tgrade;        // 기술등급
@@ -23,7 +23,7 @@ public class UserInfo {             // 사용자 정보
 	}
 
 	public UserInfo(int u_id, int d_id, String u_pwd, String u_rnumber, String u_name, String u_company, String u_marry,
-			String u_position, String u_ms, String u_career, String u_tgrade, String u_phone, String u_email,
+			int u_position, String u_ms, String u_career, String u_tgrade, String u_phone, String u_email,
 			String u_address, String u_status) {
 		super();
 		this.u_id = u_id;
@@ -92,11 +92,11 @@ public class UserInfo {             // 사용자 정보
 		this.u_marry = u_marry;
 	}
 
-	public String getU_position() {
+	public int getU_position() {
 		return u_position;
 	}
 
-	public void setU_position(String u_position) {
+	public void setU_position(int u_position) {
 		this.u_position = u_position;
 	}
 

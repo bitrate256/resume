@@ -46,7 +46,6 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("page", page);
 		map.put("rows", rows);
-		
 		return session.selectList(queryprefix+"userInfoList", map);
 	}
 	

@@ -66,7 +66,7 @@ var jqgridTable =
 // 				cellsubmit : "clientArray",
 				
 				cellsubmit	: "remote",	//데이터 전송 방식
-				cellurl : "<c:url value="/"/>user/userGridTestUpdate",
+				cellurl : "<c:url value="/"/>admin/adminUserList",
 				beforeSubmitCell : function(rowid, cellname, value) {	//submit 전 데이터
 					
 					return {"id" : rowid, "cellName" : cellname, "cellValue" : value}
