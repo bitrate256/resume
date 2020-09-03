@@ -35,23 +35,13 @@
     <!-- Main content -->
     <section class="content">
 
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="box">
-							<div class="box-header">
-								<div class="row">
-									<div class="col flexBox" style="justify-content: flex-start; padding: 0 16px;">
-										<h3 class="box-title">이력관리</h3>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 										
 										
 										
 										
 										
-										
-									</div>
-								</div>
-							</div>
+
 
 			</section>
 			<!-- /.content -->
