@@ -70,7 +70,7 @@
 	
 	</update>
 	
-	<select id="userInfoList" parameterType="UserInfo">
+	<select id="userInfoList" resultType="UserInfo">
 	SELECT *
 	FROM USER_INFO
 	ORDER BY U_ID

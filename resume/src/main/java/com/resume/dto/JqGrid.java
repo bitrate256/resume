@@ -13,10 +13,6 @@ public class JqGrid {
 	
 	
 	
-
-
-
-
 	public JqGrid() {
 		super();
 	}
@@ -57,18 +53,6 @@ public class JqGrid {
 
 
 
-	public List<Map<String, Object>> getrows() {
-		return rows;
-	}
-
-
-
-	public void setrows(List<Map<String, Object>> rows) {
-		this.rows = rows;
-	}
-
-
-
 	public int getTotal() {
 		return total;
 	}
@@ -81,10 +65,25 @@ public class JqGrid {
 
 
 
+	public List<Map<String, Object>> getRows() {
+		return rows;
+	}
+
+
+
+	public void setRows(List<Map<String, Object>> rows) {
+		this.rows = rows;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "JqGrid [page=" + page + ", records=" + records + ", total=" + total + ", rows=" + rows + "]";
 	}
+	
+	
+	
 	
 	
 	
