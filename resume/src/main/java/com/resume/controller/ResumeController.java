@@ -1,5 +1,6 @@
 package com.resume.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +21,8 @@ public class ResumeController {
 	
 	private static Logger logger = LoggerFactory.getLogger(ResumeController.class);
 	
+	@Autowired
 	private ResumeService service;
-	
-	private 
 	
 	// 이력 리스트 화면
 	@RequestMapping(value = "resume/resumeList")
