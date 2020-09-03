@@ -57,6 +57,14 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	}
 	
 	
+	//사번 중복 체크
+	@Override
+	public int userIdCheck(int u_id) {
+		
+		return session.selectOne(queryprefix+"userIdCheck", u_id);
+	}
+	
+	
 
 	
 	
