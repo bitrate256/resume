@@ -30,37 +30,41 @@
 </style>
 <script>
 
-//사번 중복체크
 
 
-// 아이디 유효성 검사(1 = 중복 / 0 != 중복)
-$(function(){
-//아이디 중복체크
-    $('#u_id').blur(function(){
-        $.ajax({
-	     type:"POST",
-	     url:"${pageContext.request.contextPath}/user/idCheck?u_id="+u_id,
-	     data:{
-	            "u_id":$('#u_id').val()
-	     },
-	     success:function(data){	//data : checkSignup에서 넘겨준 결과값
-	            if($.trim(data)=="YES"){
-	               if($('#u_id').val()!=''){ 
-	               	alert("사용가능한 아이디입니다.");
-	               }
-	           	}else{
-	               if($('#u_id').val()!=''){
-	                  alert("중복된 아이디입니다.");
-	                  $('#u_id').val('');
-	                  $('#u_id').focus();
-	               }
-	            }
-	         }
-	    }) 
-     })
 
-});
+function idCheck() {
+	
+	var inputed = $("#u_id").val();
+	console.log(inputed);
+	$.ajax ({
+		data : {
+			id : inputed
+		},
+		url : '${pageContext.request.contextPath}/user/idCheck?u_id='+ inputed,
+		success : function(data) {
+			if(inputed == "" && data == '0'){
+				$('.signupBtn').prop("idsabled", true);
+				$('.signupBtn').css("background-color", "#aaaaaa");
+				$('.signupBtn').css("background-color", "#FFCECE");
+				idCheck = 0;
+			} else if (data == '0'){
+				$('.signupBtn').css("background-color", "#B0F6AC");
+				idCheck = 1;				
+			} else if (data == '1') {
+				$('.signupBtn').prop("disabled", true);
+				$('.signupBtn').css("background-color", "#aaaaaa");
+				$('.signupBtn').css("background-color", "#FFCECE");
+				idCheck = 0;
+			}
+		}
+		
+		
+	});
 
+
+
+}
 
 
 $(function(){
@@ -319,7 +323,7 @@ function check_u_rnumber() {
 	<form action="<%=contextPath%>/user/userSignUpResult" method="post" name="form" onsubmit="return checkSubmit();">
 		<br>
 		<div class="form-group has-feedback">
-			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번">
+			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번" oninput="idCheck()">
 			<div id="id_check"></div>
       	</div>
       	<div class="form-group has-feedback">
@@ -418,7 +422,7 @@ function check_u_rnumber() {
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-        	<input type="submit" class="btn btn-primary btn-block btn-flat" id="submit" name="submit" value="Sign Up">
+        	<input type="submit" class="btn btn-primary btn-block btn-flat signupBtn" id="submit" name="submit" value="Sign Up" >
 			<button type="button" class="btn btn-primary btn-block btn-flat" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">Cancle</button>
         </div>
         <!-- /.col -->

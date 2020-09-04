@@ -136,17 +136,17 @@ public class UserInfoController {
 //	이메일 중복체크
 	@RequestMapping(value = "/user/idCheck")
 	@ResponseBody
-	public String idcheck(@RequestParam("u_id") String u_id) throws Exception {
+	public String idcheck(@RequestParam("u_id") int u_id) throws Exception {
 		System.out.println(u_id);
 		int result = service.userIdCheck(u_id);
-		String msg;
+		String data;
 		if(result > 0) {
-			msg = "1";
+			data = "1";
 		} else {
-			msg = "0";
+			data = "0";
 		}
 		
-		return msg;  
+		return data;  
 	}
 	
 	//사용자 리스트
