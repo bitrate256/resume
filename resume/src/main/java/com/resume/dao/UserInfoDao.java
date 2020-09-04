@@ -23,6 +23,6 @@ public interface UserInfoDao {
 	public JqGrid gridCount();
 	
 	//사번 중복체크
-	public int userIdCheck(String u_id);
+	public int userIdCheck(int u_id);
 	
 }//inter end

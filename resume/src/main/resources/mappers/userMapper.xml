@@ -83,7 +83,7 @@
 	FROM USER_INFO
 	</select>	
 	
-	<select id="userIdCheck" parameterType="UserInfo">
+	<select id="userIdCheck" parameterType="UserInfo" resultType="int">
 	SELECT COUNT(*)
 	FROM USER_INFO
 	WHERE U_ID = #{u_id}
