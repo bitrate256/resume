@@ -40,7 +40,7 @@ var jqgridTable =
 				colModel	:	[
 				
 					{name	: 	"u_id" , index : "u_id", width : 50, key:true},
-					{name	: 	"u_name" , index : "u_name", width : 150 },
+					{name	: 	"u_name" , index : "u_name", width : 150},
 					{name	: 	"d_id" , index : "d_id", width : 150},
 					{name	: 	"u_email" , index : "u_email", width : 150, editable:true},
 					{name	: 	"u_position" , index : "u_position", width : 150, editable:true },
@@ -52,7 +52,6 @@ var jqgridTable =
 					{name	: 	"u_tgrade" , index : "u_tgrade", width : 150, editable:true },
 					{name	: 	"u_address" , index : "u_address", width : 150, editable:true },
 					{name	:	"u_status"	, index : "u_status"	, width : 150, editable:true,
-						
 					},
 				],
 				height		: 480,

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -149,22 +150,30 @@ public class UserInfoController {
 	}
 	
 	//사용자 리스트
-
+	@ResponseBody
 	@RequestMapping(value = "admin/adminUserList")
-//	@ResponseBody
-	public JqGrid adminUserList(@RequestParam(value="page", required=false, defaultValue="1") String page,
+	public JqGrid adminUserList(@RequestParam(value="page", required=false, defaultValue="1") String page, HttpServletRequest request,
 			@RequestParam(value="rows", required=false, defaultValue="") String rows) {
 		System.out.println("컨트롤러 도착");
 		//그리드에 뿌려주려는 데이터를 DB에서나 어디에서 가져온다
 				JqGrid obj = new JqGrid();
 				
-				
+				rows = request.getParameter(rows);
+				if(rows == null || rows.trim().equals("")) {
+					rows = "0";
+				}
 				//그 데이터를 JqGrid에 setter로 세팅해준다.
 				//이 때 jqgrid가 알아먹을 수 있는 형태의 json으로 보내주어야 한다.
 				List<UserInfo> list = service.userInfoList(page, rows);
+				System.out.println(list);
 				List<Map<String, Object>> resultList = new ArrayList<Map<String,Object>>();
+
 				int int_page = Integer.parseInt(page);
-				int perPageNum = (int)Double.parseDouble(rows);
+				System.out.println(int_page);
+				int perPageNum = Integer.parseInt(rows.trim());
+				perPageNum = (int)Double.parseDouble(rows); 		
+				System.out.println(perPageNum);		//결과값 : For input String ""
+				
 				int size = list.size();
 				HashMap<String, Object> tempMap = new HashMap<String, Object>();
 				//DB에서 가져온 데이터의 갯수가 10개라고 가정하고 임의로 수행한다. 그럼 이 키 값들을 멤버로 하는 클래스를 가지고 있어야 한다.
@@ -195,18 +204,13 @@ public class UserInfoController {
 						tempMap.put("u_position", "사원");
 					}
 					tempMap.put("u_phone"		, list.get(i).getU_phone());				//핸드폰번호
-					if(list.get(i).getU_status().equals("Y")) {									//재직상태
-						tempMap.put("u_status"		, "재직중");
-					} else if(list.get(i).getU_status().equals("N")) {
-						tempMap.put("u_status"		, "퇴사");
-					}
+	
 					tempMap.put("u_company", list.get(i).getU_company());			//회사
-					if(list.get(i).getU_career() == null) {
-						tempMap.put("u_career", "경력없음");
-					} else {
-					tempMap.put("u_career", list.get(i).getU_career());					//경력
+					if(list.get(i).getU_marry().equals("Y")) {									//결혼여부
+						tempMap.put("u_marry", "기혼");
+					} else if(list.get(i).getU_marry().equals("N")) {						
+						tempMap.put("u_marry", "미혼");
 					}
-					tempMap.put("u_address", list.get(i).getU_address());				//주소
 					if (list.get(i).getU_ms().equals("F")) {									//병역
 						tempMap.put("u_ms", "필");
 					} else if(list.get(i).getU_ms().equals("FN")) {
@@ -215,6 +219,11 @@ public class UserInfoController {
 						tempMap.put("u_ms", "면제");
 					} else if(list.get(i).getU_ms().equals("NA")) {
 						tempMap.put("u_ms", "해당없음");
+					}
+					if(list.get(i).getU_career() == null) {										//경력
+						tempMap.put("u_career", "경력없음");
+					} else {
+					tempMap.put("u_career", list.get(i).getU_career());					
 					}
 					if(list.get(i).getU_tgrade().equals("B")) {								//기술등급
 						tempMap.put("u_tgrade", "초급");
@@ -225,10 +234,11 @@ public class UserInfoController {
 					} else if(list.get(i).getU_tgrade().equals("S")) {
 						tempMap.put("u_tgrade", "특급");
 					}
-					if(list.get(i).getU_marry().equals("Y")) {									//결혼여부
-						tempMap.put("u_marry", "기혼");
-					} else if(list.get(i).getU_marry().equals("N")) {						
-						tempMap.put("u_marry", "미혼");
+					tempMap.put("u_address", list.get(i).getU_address());				//주소
+					if(list.get(i).getU_status().equals("Y")) {									//재직상태
+						tempMap.put("u_status"		, "재직중");
+					} else if(list.get(i).getU_status().equals("N")) {
+						tempMap.put("u_status"		, "퇴사");
 					}
 
 					resultList.add(tempMap);
