@@ -143,13 +143,30 @@
 			<artifactId>spring-test</artifactId>
 			<version>5.0.5.RELEASE</version>
 		</dependency>
-<!-- Gson -->
+		<!-- Gson -->
 		 <dependency>
          <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.5</version>
             <scope>compile</scope>
             </dependency>
+        <!-- jackson -->
+        <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.3</version>
+		</dependency>    
+            
 	</dependencies>
 	<build>
 		<plugins>
