@@ -150,18 +150,19 @@ public class UserInfoController {
 	}
 	
 	//사용자 리스트
-	@ResponseBody
+
 	@RequestMapping(value = "admin/adminUserList")
+	@ResponseBody
 	public JqGrid adminUserList(@RequestParam(value="page", required=false, defaultValue="1") String page, HttpServletRequest request,
 			@RequestParam(value="rows", required=false, defaultValue="") String rows) {
 		System.out.println("컨트롤러 도착");
 		//그리드에 뿌려주려는 데이터를 DB에서나 어디에서 가져온다
 				JqGrid obj = new JqGrid();
 				
-				rows = request.getParameter(rows);
-				if(rows == null || rows.trim().equals("")) {
-					rows = "0";
-				}
+//				rows = request.getParameter(rows);
+//				if(rows == null || rows.trim().equals("")) {
+//					rows = "0";
+//				}
 				//그 데이터를 JqGrid에 setter로 세팅해준다.
 				//이 때 jqgrid가 알아먹을 수 있는 형태의 json으로 보내주어야 한다.
 				List<UserInfo> list = service.userInfoList(page, rows);
@@ -172,7 +173,7 @@ public class UserInfoController {
 				System.out.println(int_page);
 				int perPageNum = Integer.parseInt(rows.trim());
 				perPageNum = (int)Double.parseDouble(rows); 		
-				System.out.println(perPageNum);		//결과값 : For input String ""
+				System.out.println("sdgjsfu"+perPageNum);		//결과값 : For input String ""
 				
 				int size = list.size();
 				HashMap<String, Object> tempMap = new HashMap<String, Object>();
@@ -254,6 +255,7 @@ public class UserInfoController {
 				//total은 rows에 의한 총 페이지 수
 				//총 페이지 갯수는 (데이터갯수 / 한 페이지에 보여줄 갯수)
 				int totalPage = (int)Math.ceil(resultList.size()/Double.parseDouble(rows));
+				System.out.println(totalPage);
 				obj.setTotal(totalPage);
 			
 			System.out.println(obj);
@@ -263,6 +265,11 @@ public class UserInfoController {
 		return obj;
 	}
 
+	@RequestMapping(value = "test/test")
+	public String test() {
+		
+		return "admin/test";
+	}
 	
 	
 }//class end
