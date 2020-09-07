@@ -1,5 +1,10 @@
 package com.resume.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.resume.dto.BoardPager;
 import com.resume.dto.Department;
+import com.resume.dto.SearchDto;
+import com.resume.dto.UserInfo;
 import com.resume.service.DepartmentService;
 import com.resume.service.UserInfoService;
 
@@ -22,7 +30,7 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 	@Autowired
 	private DepartmentService service;
 	
-	
+	//부서관리 페이지
 	@RequestMapping(value = "admin/department")
 	public String department() {
 		
@@ -31,6 +39,7 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 		return "admin/adminDepartment";
 	}
 	
+	//부서이름 중복체크
 	@RequestMapping(value = "admin/departmentCheck")
 	@ResponseBody
 	public String departmentCheck(Model model, Department department,
@@ -51,6 +60,7 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 		return path;
 	}
 	
+	//부서 등록
 	@RequestMapping(value = "admin/departmentInsert")
 	public String departmentInsert(Department department) {
 		
@@ -58,7 +68,27 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 		
 		
 		
-		return "redirect:/admin/department";
+		return "redirect:/admin/adminDepartmentList";
+	}
+	
+	//부서 리스트
+	@RequestMapping(value = "admin/adminDepartmentList")
+	public String adminDepartmentList() {
+		
+		return "admin/adminDepartmentList";
+	}
+	
+	
+	//부서 리스트(ajax)
+	@RequestMapping(value = "admin/adminDepartmentListAjax")
+	public String adminDepartmentListAjax(Department dto, Model model) {
+		
+		List<Department> departmentAllList =  new ArrayList<Department>();
+		departmentAllList = service.departmentList(dto);
+		model.addAttribute("departmentAllList", departmentAllList);
+
+		
+		return "admin/ajax/adminDepartmentList_ajax";
 	}
 	
 	

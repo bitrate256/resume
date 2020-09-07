@@ -9,7 +9,7 @@
 		<div class="content-wrapper">
 
 			<!-- Main content -->
-			<section class="content container-fluid">
+			<section class="content container-fluid ">
 
 <div class="card-body">
 					<div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -46,73 +46,17 @@
 											<th class="sorting_asc" tabindex="0" aria-controls="example1"
 												rowspan="1" colspan="1" aria-sort="ascending"
 												aria-label="Rendering engine: activate to sort column descending">
-												사번</th>
+												부서번호</th>
 											<th class="sorting" tabindex="0" aria-controls="example1"
 												rowspan="1" colspan="1"
-												aria-label="Browser: activate to sort column ascending">부서</th>
-											<th class="sorting" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1"
-												aria-label="Platform(s): activate to sort column ascending">이름</th>
-											<th class="sorting" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1"
-												aria-label="Engine version: activate to sort column ascending">
-												핸드폰번호</th>
-											<th class="sorting" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1"
-												aria-label="CSS grade: activate to sort column ascending">
-												이메일</th>
-												<th class="sorting" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1"
-												aria-label="CSS grade: activate to sort column ascending">
-												직위</th>
-												<th class="sorting" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1"
-												aria-label="CSS grade: activate to sort column ascending">
-												재직여부</th>
+												aria-label="Browser: activate to sort column ascending">부서이름</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="adminUserList" items="${adminUserList }">
-										<c:choose>
-										<c:when test="${adminUserList.u_status eq 'Y' }">
+										<c:forEach var="departmentAllList" items="${departmentAllList }">
 										<tr role="row" class="odd">
-											<td tabindex="0" class="sorting_1">${adminUserList.u_id }</td>
-											<c:if test="${adminUserList.d_id eq 1 }">
-											<td>경영지원</td>
-											</c:if>
-											<c:if test="${adminUserList.d_id eq 2 }">
-											<td>연구소</td>
-											</c:if>
-											<c:if test="${adminUserList.d_id eq 3 }">
-											<td>SI사업부</td>
-											</c:if>
-											<td>${adminUserList.u_name }</td>
-											<td>${adminUserList.u_phone }</td>
-											<td>${adminUserList.u_email }</td>
-											<c:if test="${adminUserList.u_position eq 1 }">
-											<td>대표이사</td>
-											</c:if>
-											<c:if test="${adminUserList.u_position eq 2 }">
-											<td>부장</td>
-											</c:if>
-											<c:if test="${adminUserList.u_position eq 3 }">
-											<td>차장</td>
-											</c:if>
-											<c:if test="${adminUserList.u_position eq 4 }">
-											<td>과장</td>
-											</c:if>
-											<c:if test="${adminUserList.u_position eq 5 }">
-											<td>대리</td>
-											</c:if>
-											<c:if test="${adminUserList.u_position eq 6 }">
-											<td>사원</td>
-											</c:if>
-											<c:if test="${adminUserList.u_status eq 'Y' }">
-											<td>재직중</td>
-											</c:if>
-										</tr>
-										</c:when>
-										</c:choose>
+										<td tabindex="0" class="sorting_1">${departmentAllList.d_id }</td>
+										<td tabindex="0" class="sorting_1">${departmentAllList.d_name }</td>
 										</c:forEach>
 										
 								</tbody>

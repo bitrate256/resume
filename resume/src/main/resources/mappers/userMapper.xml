@@ -2,141 +2,147 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="user">
-  
-  	<sql id="pagingHeader">
-  	SELECT * FROM (
-  	SELECT ROWNUM AS rn, A.* FROM(
-  	</sql>
-  	
-  	<sql id="pagingFooter">
-  	) A
-  	) WHERE rn BETWEEN #{start} AND #{end}
-  	</sql>
-  
-  	<sql id="search">
-  	<choose>
-  	<when test="searchSort !=''">
-  	AND ${searchSort} LIKE '%' || #{searchVal} || '%'
-  	</when>
-  	</choose>
 
-  	</sql>
-  
-  <!-- 로그인 -->
-	<select id="userSelectOne" parameterType="UserInfo" resultType="UserInfo">
-		SELECT * 
-		FROM USER_INFO 
+<mapper namespace="user">
+
+	<sql id="pagingHeader">
+		SELECT * FROM (
+		SELECT ROWNUM AS rn, A.* FROM(
+	</sql>
+
+	<sql id="pagingFooter">
+		) A
+		) WHERE rn BETWEEN #{start} AND #{end}
+	</sql>
+
+	<sql id="search">
+		<choose>
+			<when test="searchSort !=''">
+				AND ${searchSort} LIKE '%' || #{searchVal} || '%'
+			</when>
+		</choose>
+
+	</sql>
+
+	<!-- 로그인 -->
+	<select id="userSelectOne" parameterType="UserInfo"
+		resultType="UserInfo">
+		SELECT *
+		FROM USER_INFO
 		WHERE U_ID = #{u_id}
 	</select>
-  
-  <!-- 관리자 로그인, 계정 및 비밀번호 검사. -->
-	<select id="adminUserSelectOne" parameterType="int" resultType="UserInfo">
-	SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
-	FROM USER_INFO
-	WHERE U_ID = #{u_id}
+
+	<!-- 관리자 로그인, 계정 및 비밀번호 검사. -->
+	<select id="adminUserSelectOne" parameterType="int"
+		resultType="UserInfo">
+		SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
+		FROM USER_INFO
+		WHERE U_ID = #{u_id}
 
 	</select>
 
 	<!-- 사용자 등록 -->
 	<insert id="userInsert" parameterType="UserInfo">
-	INSERT INTO USER_INFO(
-	U_ID,
-	D_ID,
-	U_PWD,
-	U_RNUMBER,
-	U_NAME,
-	U_COMPANY,
-	U_MARRY,
-	U_POSITION,
-	U_MS,
-	U_CAREER,
-	U_TGRADE,
-	U_PHONE,
-	U_EMAIL,
-	U_ADDRESS,
-	U_STATUS
-	)
-	VALUES(
-	#{u_id},
-	#{d_id},
-	#{u_pwd},
-	#{u_rnumber},
-	#{u_name},
-	#{u_company},
-	#{u_marry},
-	#{u_position},
-	#{u_ms},
-	#{u_career},
-	#{u_tgrade},
-	#{u_phone},
-	#{u_email},
-	#{u_address},
-	DEFAULT
-	)
+		INSERT INTO USER_INFO(
+		U_ID,
+		D_ID,
+		U_PWD,
+		U_RNUMBER,
+		U_NAME,
+		U_COMPANY,
+		U_MARRY,
+		U_POSITION,
+		U_MS,
+		U_CAREER,
+		U_TGRADE,
+		U_PHONE,
+		U_EMAIL,
+		U_ADDRESS,
+		U_STATUS
+		)
+		VALUES(
+		#{u_id},
+		#{d_id},
+		#{u_pwd},
+		#{u_rnumber},
+		#{u_name},
+		#{u_company},
+		#{u_marry},
+		#{u_position},
+		#{u_ms},
+		#{u_career},
+		#{u_tgrade},
+		#{u_phone},
+		#{u_email},
+		#{u_address},
+		DEFAULT
+		)
 	</insert>
 	<!-- 사용자 정보 수정 -->
 	<update id="userInfoUpdate" parameterType="UserInfo">
-	UPDATE USER_INFO
-	SET U_PWD = #{u_pwd},
-	U_PHONE = #{u_phone},
-	U_MARRY = #{u_marry},
-	U_MS = #{u_ms},
-	U_CAREER = #{u_career},
-	U_ADDRESS = #{u_address}
-	WHERE U_ID = #{u_id}
-	
+		UPDATE USER_INFO
+		SET U_PWD = #{u_pwd},
+		U_PHONE = #{u_phone},
+		U_MARRY = #{u_marry},
+		U_MS = #{u_ms},
+		U_CAREER = #{u_career},
+		U_ADDRESS = #{u_address}
+		WHERE U_ID = #{u_id}
+
 	</update>
-	
+
 	<!-- 사용자 전체 리스트 (ajax) -->
-	<select id="selectUserList" resultType="UserInfo" parameterType="BoardPager">
-	<include refid="pagingHeader"></include>
-	SELECT *
-	FROM USER_INFO
-	WHERE 1 = 1
-	<include refid="search"></include>
-	ORDER BY U_ID
-	<include refid="pagingFooter"></include>
+	<select id="selectUserList" resultType="UserInfo"
+		parameterType="BoardPager">
+		<include refid="pagingHeader"></include>
+		SELECT *
+		FROM USER_INFO
+		WHERE 1 = 1
+		<include refid="search"></include>
+		ORDER BY U_ID
+		<include refid="pagingFooter"></include>
 	</select>
-	
+
 	<!-- 사용자 전체 레코드(ajax) -->
-	<select id="selectUserCount" parameterType="SearchDto" resultType="int">
-	SELECT COUNT(*)
-	FROM USER_INFO
-	WHERE 1 = 1
-	<include refid="search"></include>
+	<select id="selectUserCount" parameterType="SearchDto"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM USER_INFO
+		WHERE 1 = 1
+		<include refid="search"></include>
 	</select>
-	
-	
+
+
 	<!-- 사용자 전체 리스트 (그리드) -->
-<!-- 	<select id="userInfoList" resultType="UserInfo"> -->
-<!-- 	SELECT * -->
-<!-- 	FROM USER_INFO -->
-<!-- 	ORDER BY U_ID -->
-	
-<!-- 	</select> -->
-	
-		<!-- 그리드 카운트 (그리드) -->
-<!-- 	<select id="gridCount" resultType="com.resume.dto.JqGrid"> -->
-<!-- 	SELECT COUNT(*) -->
-<!-- 	FROM USER_INFO -->
-<!-- 	</select>	 -->
-	
+	<!-- <select id="userInfoList" resultType="UserInfo"> -->
+	<!-- SELECT * -->
+	<!-- FROM USER_INFO -->
+	<!-- ORDER BY U_ID -->
+
+	<!-- </select> -->
+
+	<!-- 그리드 카운트 (그리드) -->
+	<!-- <select id="gridCount" resultType="com.resume.dto.JqGrid"> -->
+	<!-- SELECT COUNT(*) -->
+	<!-- FROM USER_INFO -->
+	<!-- </select> -->
+
 	<!-- 사번 중복체크 -->
-	<select id="userIdCheck" parameterType="UserInfo" resultType="int">
-	SELECT COUNT(*)
-	FROM USER_INFO
-	WHERE U_ID = #{u_id}
+	<select id="userIdCheck" parameterType="UserInfo"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM USER_INFO
+		WHERE U_ID = #{u_id}
 	</select>
-	
-	<!-- 이메일 중복체크  -->
-	<select id="emailCheck" parameterType="UserInfo" resultType="int">
-	SELECT COUNT(*)
-	FROM USER_INFO
-	WHERE U_EMAIL = #{u_email}
-	
+
+	<!-- 이메일 중복체크 -->
+	<select id="emailCheck" parameterType="UserInfo"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM USER_INFO
+		WHERE U_EMAIL = #{u_email}
+
 	</select>
-	
-  
-  </mapper>
+
+
+</mapper>
