@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resume.dao.UserInfoDao;
+import com.resume.dto.BoardPager;
 import com.resume.dto.JqGrid;
+import com.resume.dto.SearchDto;
 import com.resume.dto.UserInfo;
 
 @Service
@@ -38,14 +40,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	
-	//사용자 전체 조회
+	//사용자 전체 조회(그리드)
 	@Override
 	public List<UserInfo> userInfoList(String page, String rows) {
 		
 		return dao.userInfoList(page, rows);
 	}
 
-	//사용자 전체 카운트
+	//사용자 전체 카운트(그리드)
 	@Override
 	public JqGrid gridCount() {
 		
@@ -66,6 +68,20 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public int emailCheck(String u_email) {
 		
 		return dao.emailCheck(u_email);
+	}
+	
+	//사용자 전체 리스트(ajax)
+	@Override
+	public List<UserInfo> selectUserList(BoardPager boardPager) {
+		
+		return dao.selectUserList(boardPager);
+	}
+	
+	//사용자 전체 레코드(ajax)
+	@Override
+	public int selectUserCount(SearchDto searchDto) {
+		
+		return dao.selectUserCount(searchDto);
 	}
 	
 	

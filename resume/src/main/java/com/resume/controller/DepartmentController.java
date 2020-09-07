@@ -32,6 +32,7 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 	}
 	
 	@RequestMapping(value = "admin/departmentCheck")
+	@ResponseBody
 	public String departmentCheck(Model model, Department department,
 			@RequestParam("d_name")String d_name) {
 		String path = "";
@@ -40,19 +41,24 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 		
 		if(result > 0) {
 			
-			path = "redirect:/admin/department";
+			path = "1";
 			
 		}
 		else {
 			
-			service.departmentInsert(department);
-			path = "redirect:/userHome";
+			path = "0";
 		}
-		
-
-		
-		
 		return path;
+	}
+	
+	@RequestMapping(value = "admin/departmentInsert")
+	public String departmentInsert(Department department) {
+		
+		service.departmentInsert(department);
+		
+		
+		
+		return "redirect:/admin/department";
 	}
 	
 	
