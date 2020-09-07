@@ -24,5 +24,8 @@ public interface UserInfoService {
 	
 	//사번 중복 체크
 	public int userIdCheck(int u_id);
+	
+	//이베일 중복체크
+	public int emailCheck(String u_email);
 
 }//inter end

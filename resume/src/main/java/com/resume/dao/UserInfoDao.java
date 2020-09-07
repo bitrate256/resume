@@ -25,4 +25,7 @@ public interface UserInfoDao {
 	//사번 중복체크
 	public int userIdCheck(int u_id);
 	
+	//이메일 중복 체크
+	public int emailCheck(String u_eamil);
+	
 }//inter end

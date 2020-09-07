@@ -133,7 +133,7 @@ public class UserInfoController {
 		return "redirect:/user/userlogin";
 	}
 	
-//	이메일 중복체크
+//	사번 중복체크
 	@RequestMapping(value = "/user/idCheck")
 	@ResponseBody
 	public String idcheck(@RequestParam("u_id") int u_id) throws Exception {
@@ -149,9 +149,24 @@ public class UserInfoController {
 		return data;  
 	}
 	
+	@RequestMapping(value = "user/emailCheck")
+	@ResponseBody
+	public String emailCheck(@RequestParam("u_email") String u_email) {
+		System.out.println(u_email);
+		int result = service.emailCheck(u_email);
+		String data;
+		if(result > 0) {
+			data = "1";
+		} else {
+			data = "0";
+		}
+		
+		return data;
+	}
+	
 	//사용자 리스트
 
-	@RequestMapping(value = "admin/adminUserList")
+	@RequestMapping(value = "admin/adminUserList1")
 	@ResponseBody
 	public JqGrid adminUserList(@RequestParam(value="page", required=false, defaultValue="1") String page, HttpServletRequest request,
 			@RequestParam(value="rows", required=false, defaultValue="") String rows) {
@@ -265,10 +280,10 @@ public class UserInfoController {
 		return obj;
 	}
 
-	@RequestMapping(value = "test/test")
+	@RequestMapping(value = "admin/adminUserList")
 	public String test() {
 		
-		return "admin/test";
+		return "admin/adminUserList";
 	}
 	
 	

@@ -89,7 +89,12 @@
 	WHERE U_ID = #{u_id}
 	</select>
 	
+	<select id="emailCheck" parameterType="UserInfo" resultType="int">
+	SELECT COUNT(*)
+	FROM USER_INFO
+	WHERE U_EMAIL = #{u_email}
 	
+	</select>
 	
   
   </mapper>

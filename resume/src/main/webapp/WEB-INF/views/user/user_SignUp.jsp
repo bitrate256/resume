@@ -29,42 +29,52 @@
 
 </style>
 <script>
-
-
-
-
-function idCheck() {
+$(function(){
 	
-	var inputed = $("#u_id").val();
-	console.log(inputed);
-	$.ajax ({
-		data : {
-			id : inputed
-		},
-		url : '${pageContext.request.contextPath}/user/idCheck?u_id='+ inputed,
-		success : function(data) {
-			if(inputed == "" && data == '0'){
-				$('.signupBtn').prop("idsabled", true);
-				$('.signupBtn').css("background-color", "#aaaaaa");
-				$('.signupBtn').css("background-color", "#FFCECE");
-				idCheck = 0;
-			} else if (data == '0'){
-				$('.signupBtn').css("background-color", "#B0F6AC");
-				idCheck = 1;				
-			} else if (data == '1') {
-				$('.signupBtn').prop("disabled", true);
-				$('.signupBtn').css("background-color", "#aaaaaa");
-				$('.signupBtn').css("background-color", "#FFCECE");
-				idCheck = 0;
-			}
-		}
+
+	$("#u_id").blur(function() {
+
+		var u_id = $('#u_id').val();
 		
-		
-	});
+		$.ajax({
+			url : '${pageContext.request.contextPath}/user/idCheck?u_id='+ u_id,
+			type : 'get',
+			dataType : 'text',
+			success : function(data) {
+				console.log("1 = 중복o / 0 = 중복x : "+ data);	
+				
+				
+			
+				
+				if (u_id == "") {
+						
+						$("#id_check").text("사번을 입력해주세요");
+						$("#id_check").css("color", "red");
+						
+					} 
+										
+							
+					else if(data == '1'){
+							
+						$('#id_check').text("이미 사용중인 사번입니다.");
+						$('#id_check').css('color', 'red');
+						
+						} else {
+							$('#id_check').text("사용가능한 사번입니다.");
+							$('#id_check').css('color', 'blue');
+					}
+							
+					
+					}, error : function() {
+							console.log("실패");
+				}
+			});
+		});
+});
 
 
 
-}
+
 
 
 $(function(){
@@ -320,10 +330,10 @@ function check_u_rnumber() {
 	
 
 	<p class="login-box-msg">새로운 사용자 등록</p>
-	<form action="<%=contextPath%>/user/userSignUpResult" method="post" name="form" onsubmit="return checkSubmit();">
+	<form action="<%=contextPath%>/user/userSignUpResult" method="post" name="form">
 		<br>
 		<div class="form-group has-feedback">
-			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번" oninput="idCheck()">
+			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번(해당년도 + 4자리)" required="required">
 			<div id="id_check"></div>
       	</div>
       	<div class="form-group has-feedback">

@@ -7,6 +7,11 @@
 <%@include file="../common/head.jsp" %>
 <%@include file="../user/common/user_main_header.jsp" %>
 <%@include file="../user/common/user_left_column.jsp" %>
+<style>
+
+
+
+</style>
 <script>
 $(document).ready(function() {
 	jqgridTable.init();
@@ -33,7 +38,7 @@ var jqgridTable =
 
 				
 			$jqGrid.jqGrid({
-				url: "<c:url value="/"/>admin/adminUserList",
+				url: "<c:url value="/"/>admin/adminUserList1",
 				mtype: "post",
 				datatype	:	"json",
 				colNames	:	cnames,
