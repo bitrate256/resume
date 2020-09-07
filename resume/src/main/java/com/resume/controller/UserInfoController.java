@@ -58,25 +58,23 @@ public class UserInfoController {
 	@RequestMapping(value = "user/userloginEnd")
 	public String userloginEnd(Model model, UserInfo user, HttpSession session) {
 		logger.info("this is a userloginEnd method");
-		
+
 		UserInfo result = service.userSelectOne(user);
 		String path = "";
 		boolean passMatch = passwordEncoder.matches(user.getU_pwd().trim(), result.getU_pwd().trim());
 		System.out.println(passMatch);
-		System.out.println("user.getU_pwd = "+user.getU_pwd().toString());
-		System.out.println("result.getU_pwd = "+result.getU_pwd().toString());
-		if(result !=null && passMatch) {
-				
+		System.out.println("user.getU_pwd = " + user.getU_pwd().toString());
+		System.out.println("result.getU_pwd = " + result.getU_pwd().toString());
+		if (result != null && passMatch) {
+
 			path = "redirect:/userHome";
 			session.setAttribute("loginUser", result);
-				
-			}
-		else {
-				session.setAttribute("loginUser", null);
-				path = "redirect:/user/userlogin";
-			}
-		
-		
+
+		} else {
+			session.setAttribute("loginUser", null);
+			path = "redirect:/user/userlogin";
+		}
+
 		return path;
 	}
 	
@@ -136,25 +134,22 @@ public class UserInfoController {
 	@RequestMapping(value = "user/userSignUpResult")
 	public String userSignUpResult(UserInfo uDto, @RequestParam("u_rnumber1") String u_rnumber1,
 			@RequestParam("u_rnumber2") String u_rnumber2) {
-		System.out.println("컨트롤러  user정보 = "+uDto);
-		String u_rnumber = u_rnumber1+u_rnumber2;
+		System.out.println("컨트롤러  user정보 = " + uDto);
+		String encRnumber = passwordEncoder.encode(u_rnumber2.substring(1, 7));
+		System.out.println(u_rnumber2.substring(0, 1));
+		String u_rnumber3 = u_rnumber2.substring(0, 1) + encRnumber;
+
+		String u_rnumber = u_rnumber1 + u_rnumber3;
 		uDto.setU_rnumber(u_rnumber);
-//		System.out.println(uDto.getU_rnumber());
-		
+		System.out.println(uDto.getU_rnumber());
+
 		String encPassword = passwordEncoder.encode(uDto.getU_pwd());
 		uDto.setU_pwd(encPassword);
-		System.out.println("암호화된 비밀번호 = "+uDto.getU_pwd());
-		
-		String test = uDto.getU_rnumber().substring(0, 7);
-		String test2 = uDto.getU_rnumber().substring(7, 13);
-		System.out.println(test);
-		System.out.println(test2);
-		
-		String encRnumber = passwordEncoder.encode(u_rnumber.substring(7, 13));
-		uDto.setU_rnumber(encRnumber);
+		System.out.println("암호화된 비밀번호 = " + uDto.getU_pwd());
+
 		service.userInsert(uDto);
-		
-		return "redirect:/user/userlogin";
+
+		return "redirect:/admin/adminUserList";
 	}
 	
 //	사번 중복체크
@@ -196,42 +191,41 @@ public class UserInfoController {
 		return "admin/adminUserList";
 	}
 	
-	//사용자 리스트 ajax
+	// 사용자 리스트 ajax
 	@RequestMapping(value = "admin/adminUserListAjax")
-	public String adminUserListAjax(@RequestParam(value = "cPage", defaultValue = "1")int cPage,
-			@RequestParam(value = "searchSort", defaultValue = "")String searchSort,
-			@RequestParam(value ="searchVal", defaultValue = "") String searchVal,
-			Model model, HttpSession session) {
+	public String adminUserListAjax(@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal, Model model, HttpSession session) {
 		logger.info("this is a adminUserList method");
-		
-		//검색 객체 값 넣기
-				SearchDto searchDto = new SearchDto(searchSort, searchVal);
-				
-				//총 레코드 가져오기
-				int nCount = service.selectUserCount(searchDto);
-				
-				//현재 출력 페이지
-				int curPage = cPage;
-				
-				//페이지 객체에 값 저장
-				BoardPager boardPager = new BoardPager(nCount, curPage);
-				
-				//페이지 겍체에 검색 정보 저장
-				boardPager.setSearchSort(searchSort);
-				boardPager.setSearchVal(searchVal);
-				
-				//전체 리스트 출력
-				List<UserInfo> adminUserList = service.selectUserList(boardPager);
-				model.addAttribute("adminUserList", adminUserList);
-				model.addAttribute("boardPager", boardPager);
-		
+
+		// 검색 객체 값 넣기
+		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+
+		// 총 레코드 가져오기
+		int nCount = service.selectUserCount(searchDto);
+
+		// 현재 출력 페이지
+		int curPage = cPage;
+
+		// 페이지 객체에 값 저장
+		BoardPager boardPager = new BoardPager(nCount, curPage);
+
+		// 페이지 겍체에 검색 정보 저장
+		boardPager.setSearchSort(searchSort);
+		boardPager.setSearchVal(searchVal);
+
+		// 전체 리스트 출력
+		List<UserInfo> adminUserList = service.selectUserList(boardPager);
+		model.addAttribute("adminUserList", adminUserList);
+		model.addAttribute("boardPager", boardPager);
+
 		return "admin/ajax/adminUserList_ajax";
 	}
 	
 	
 	
 	
-	//사용자 리스트 jqGrid
+	// 사용자 리스트 jqGrid
 
 //	@RequestMapping(value = "admin/adminUserList1")
 //	@ResponseBody
@@ -353,7 +347,11 @@ public class UserInfoController {
 //		return "admin/adminUserList";
 //	}
 	
-	
+	@RequestMapping(value = "test")
+	public String test() {
+		
+		return "user/test";
+	}
 	
 	
 }//class end

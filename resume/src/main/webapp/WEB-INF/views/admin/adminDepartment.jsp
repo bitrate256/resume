@@ -53,7 +53,6 @@ $(function(){
 });
 
 
-
 </script>
 
 
@@ -113,7 +112,7 @@ $(function(){
 	</form>
 			
 	</div>
-
+									
 			</section>
 			<!-- /.content -->
 
