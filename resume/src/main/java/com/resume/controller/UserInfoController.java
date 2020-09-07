@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,10 @@ public class UserInfoController {
 	
 	@Autowired
 	private UserInfoService service;
+	
+	@Autowired
+	PasswordEncoder  passwordEncoder;
+	
 	
 	// 사용자 홈 화면
 	@RequestMapping(value = "userHome")
@@ -128,6 +133,10 @@ public class UserInfoController {
 		String u_rnumber = u_rnumber1+u_rnumber2;
 		uDto.setU_rnumber(u_rnumber);
 		System.out.println(uDto.getU_rnumber());
+		
+		String encPassword = passwordEncoder.encode(uDto.getU_pwd());
+		uDto.setU_pwd(encPassword);
+		System.out.println("암호화된 비밀번호 = "+uDto.getU_pwd());
 		service.userInsert(uDto);
 		
 		return "redirect:/user/userlogin";
