@@ -3,11 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<% pageContext.setAttribute("replaceChar", "\n");  %>
+<%
+	pageContext.setAttribute("replaceChar", "\n");
+%>
 
 <%@include file="../common/head.jsp"%>
 <%@include file="../user/common/user_main_header.jsp"%>
 <%@include file="../user/common/user_left_column.jsp"%>
+
+<!-- jQuery UI CSS파일  -->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
+<!-- jQuery 기본 js파일  -->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!-- jQuery UI 라이브러리 js파일  -->
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
 <style>
 .register-box {
 	width: 400px;
@@ -27,6 +40,77 @@
 	pointer-events: none;
 }
 </style>
+
+<head>
+<!-- date picker 스크립트 -->
+<!-- maxDate 제한이 없어야 함. -->
+<!-- 작성중. 참고 링크 http://www.nextree.co.kr/p9887/ -->
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$.datepicker.setDefaults($.datepicker.regional['ko']);
+				$("#startDate")
+						.datepicker(
+								{
+									changeMonth : true,
+									changeYear : true,
+									nextText : '다음 달',
+									prevText : '이전 달',
+									dayNames : [ '일요일', '월요일', '화요일', '수요일',
+											'목요일', '금요일', '토요일' ],
+									dayNamesMin : [ '일', '월', '화', '수', '목',
+											'금', '토' ],
+									monthNamesShort : [ '1월', '2월', '3월', '4월',
+											'5월', '6월', '7월', '8월', '9월',
+											'10월', '11월', '12월' ],
+									monthNames : [ '1월', '2월', '3월', '4월',
+											'5월', '6월', '7월', '8월', '9월',
+											'10월', '11월', '12월' ],
+									dateFormat : "yy-mm-dd",
+									maxDate : 14, // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
+									onClose : function(selectedDate) {
+										//시작일(startDate) datepicker가 닫힐때
+										//종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+										$("#endDate").datepicker("option",
+												"minDate", selectedDate);
+									}
+								});
+				$("#endDate")
+						.datepicker(
+								{
+									changeMonth : true,
+									changeYear : true,
+									nextText : '다음 달',
+									prevText : '이전 달',
+									dayNames : [ '일요일', '월요일', '화요일', '수요일',
+											'목요일', '금요일', '토요일' ],
+									dayNamesMin : [ '일', '월', '화', '수', '목',
+											'금', '토' ],
+									monthNamesShort : [ '1월', '2월', '3월', '4월',
+											'5월', '6월', '7월', '8월', '9월',
+											'10월', '11월', '12월' ],
+									monthNames : [ '1월', '2월', '3월', '4월',
+											'5월', '6월', '7월', '8월', '9월',
+											'10월', '11월', '12월' ],
+									dateFormat : "yy-mm-dd",
+									maxDate : 14, // 선택할수있는 최대날짜, ( 0 : 오늘 이후 날짜 선택 불가)
+									onClose : function(selectedDate) {
+										// 종료일(endDate) datepicker가 닫힐때
+										// 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 시작일로 지정
+										$("#startDate").datepicker("option",
+												"maxDate", selectedDate);
+									}
+								});
+				<!-- 함수명, 주소. -->
+				$("#userRequestOk").click(function() {
+					var url = "<%=contextPath%>
+	" + "/user/userRequestResult";
+					$("#userRequest").attr("action", url);
+					$("#userRequest").submit();
+				});
+			});
+</script>
+</head>
 
 <body class="sidebar-mini layout-fixed" style="height: auto;">
 
@@ -62,58 +146,58 @@
 				<!-- <section class="col-md-3 connectedSortable ui-sortable"> -->
 				<!-- 이쪽에서 섹션 클래스를 묶어버려서 의도한 정렬이 되지 않았던 것. -->
 
-					<!-- Profile Image -->
-					<div class="card card-primary card-outline col-md-2">
-						<div class="card-body box-profile">
-							<div class="text-center">
-								<img class="profile-user-img img-fluid img-circle"
-									src="../../dist/img/user4-128x128.jpg"
-									alt="User profile picture">
-							</div>
-
-							<h3 class="profile-username text-center">이름</h3>
-
-							<p class="text-muted text-center">직군or직무or직위</p>
-
-							<ul class="list-group list-group-unbordered mb-3">
-								<li class="list-group-item"><b>리스트아이템</b> <a
-									class="float-right">수치/갯수</a></li>
-							</ul>
-
-							<a href="#" class="btn btn-primary btn-block"><b>사진 업로드</b></a>
+				<!-- Profile Image -->
+				<div class="card card-primary card-outline col-md-2">
+					<div class="card-body box-profile">
+						<div class="text-center">
+							<img class="profile-user-img img-fluid img-circle"
+								src="../../dist/img/user4-128x128.jpg"
+								alt="User profile picture">
 						</div>
-						<!-- /.card-body -->
+
+						<h3 class="profile-username text-center">이름</h3>
+
+						<p class="text-muted text-center">직군or직무or직위</p>
+
+						<ul class="list-group list-group-unbordered mb-3">
+							<li class="list-group-item"><b>리스트아이템</b> <a
+								class="float-right">수치/갯수</a></li>
+						</ul>
+
+						<a href="#" class="btn btn-primary btn-block"><b>사진 업로드</b></a>
 					</div>
-					<!-- /.card -->
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
 
-					<div class="card card-primary col-md-5">
-						<div class="card-header">
-							<h3 class="card-title">1. 신상기록</h3>
-						</div>
-						<!-- /.card-header -->
-						<div class="card-body">
+				<div class="card card-primary col-md-5">
+					<div class="card-header">
+						<h3 class="card-title">1. 신상기록</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
 
-							<strong><i class="fas fa-mobile-alt"></i> 성명</strong>
-							<p class="text-muted">홍길동</p>
-							<hr>
+						<strong><i class="fas fa-mobile-alt"></i> 성명</strong>
+						<p class="text-muted">홍길동</p>
+						<hr>
 
-							<strong><i class="fas fa-envelope"></i> 소속회사</strong>
-							<p class="text-muted">비앤오소프트(주)</p>
-							<hr>
+						<strong><i class="fas fa-envelope"></i> 소속회사</strong>
+						<p class="text-muted">비앤오소프트(주)</p>
+						<hr>
 
-							<strong><i class="fas fa-map-marker-alt mr-1"></i> 부서</strong>
-							<p class="text-muted">연구소</p>
-							<hr>
-							
-							<strong><i class="fas fa-map-marker-alt mr-1"></i> 병역</strong>
-							<p class="text-muted">만기전역</p>
-							<hr>
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 부서</strong>
+						<p class="text-muted">연구소</p>
+						<hr>
 
-							<strong><i class="fas fa-map-marker-alt mr-1"></i> 기술등급</strong>
-							<p class="text-muted">초급</p>
-							<hr>
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 병역</strong>
+						<p class="text-muted">만기전역</p>
+						<hr>
 
-<!--						<strong><i class="far fa-file-alt mr-1"></i> 개별항목</strong>
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 기술등급</strong>
+						<p class="text-muted">초급</p>
+						<hr>
+
+						<!--						<strong><i class="far fa-file-alt mr-1"></i> 개별항목</strong>
 							<p class="text-muted">
 								<span class="tag tag-danger">개별항목1</span> <span
 									class="tag tag-success">개별항목2</span> <span class="tag tag-info">개별항목3</span>
@@ -121,171 +205,196 @@
 									class="tag tag-primary">개별항목5</span>
 							</p>
  -->
- 
-						</div>
-						<!-- /.card-body -->
+
 					</div>
-					<!-- /.card -->
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
 
-					<!-- /.card -->
+				<!-- /.card -->
 
-					<div class="card card-primary col-md-5">
-						<div class="card-header">
-							<h3 class="card-title">_</h3>
-						</div>
-						<!-- /.card-header -->
-						<div class="card-body">
-
-							<strong><i class="fas fa-mobile-alt"></i> 주민번호</strong>
-							<p class="text-muted">XXXXXX-XXXXXXX</p>
-							<hr>
-
-							<strong><i class="fas fa-envelope"></i> 결혼</strong>
-							<p class="text-muted">미혼</p>
-							<hr>
-
-							<strong><i class="fas fa-map-marker-alt mr-1"></i> 직위</strong>
-							<p class="text-muted">사원</p>
-							<hr>
-
-							<strong><i class="fas fa-map-marker-alt mr-1"></i> 경력</strong>
-							<p class="text-muted">X년 X개월</p>
-							<hr>
-
-						</div>
-						<!-- /.card-body -->
+				<div class="card card-primary col-md-5">
+					<div class="card-header">
+						<h3 class="card-title">_</h3>
 					</div>
-					<!-- /.card -->
+					<!-- /.card-header -->
+					<div class="card-body">
+
+						<strong><i class="fas fa-mobile-alt"></i> 주민번호</strong>
+						<p class="text-muted">XXXXXX-XXXXXXX</p>
+						<hr>
+
+						<strong><i class="fas fa-envelope"></i> 결혼</strong>
+						<p class="text-muted">미혼</p>
+						<hr>
+
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 직위</strong>
+						<p class="text-muted">사원</p>
+						<hr>
+
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 경력</strong>
+						<p class="text-muted">X년 X개월</p>
+						<hr>
+
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
 				<!-- </section>  -->
 
 			</div>
 
-					<div class="card card-primary">
+			<div class="card card-primary">
+				<div class="card-header">
+					<h3 class="card-title"></h3>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+
+					<strong><i class="fas fa-mobile-alt"></i> 전화</strong>
+					<p class="text-muted">010-1111-2222</p>
+					<hr>
+
+					<strong><i class="fas fa-envelope"></i> 이메일</strong>
+					<p class="text-muted">abc@mail.com</p>
+					<hr>
+
+					<strong><i class="fas fa-map-marker-alt mr-1"></i> 주소</strong>
+					<p class="text-muted">서울 XX구 XX대로</p>
+					<hr>
+
+				</div>
+				<!-- /.card-body -->
+			</div>
+
+			<!-- 2. 학력 -->
+			<div class="row">
+				<div class="card card-primary col-md-6">
+					<!-- general form elements disabled -->
+					<div class="card card-warning">
 						<div class="card-header">
-							<h3 class="card-title"></h3>
+							<h3 class="card-title">2. 학력</h3>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-
-							<strong><i class="fas fa-mobile-alt"></i> 전화</strong>
-							<p class="text-muted">010-1111-2222</p>
-							<hr>
-
-							<strong><i class="fas fa-envelope"></i> 이메일</strong>
-							<p class="text-muted">abc@mail.com</p>
-							<hr>
-
-							<strong><i class="fas fa-map-marker-alt mr-1"></i> 주소</strong>
-							<p class="text-muted">서울 XX구 XX대로</p>
-							<hr>
-
-						</div>
-						<!-- /.card-body -->
-					</div>
-
-			<div class="col-md-12">
-				<!-- general form elements disabled -->
-				<div class="card card-warning">
-					<div class="card-header">
-						<h3 class="card-title">2. 학력</h3>
-					</div>
-					<!-- /.card-header -->
-					<div class="card-body">
-						<form role="form">
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- text input -->
-									<div class="form-group">
-										<label>Text</label> <input type="text" class="form-control"
-											placeholder="Enter ...">
+							<form role="form">
+								<div class="row">
+									<div class="col-sm-6">
+										<!-- text input -->
+										<div class="form-group">
+											<label>학교/과정명</label> <input type="text" class="form-control"
+												placeholder="XX고등학교 졸업 / 날짜">
+										</div>
 									</div>
-								</div>
-								<div class="col-sm-6">
+									<div class="col-sm-6">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<label>졸업 날짜</label>
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 비활성화 폼	
+                                <div class="col-sm-6">
 									<div class="form-group">
 										<label>Text Disabled</label> <input type="text"
 											class="form-control" placeholder="Enter ..." disabled="">
 									</div>
+								</div> -->
 								</div>
-							</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<!-- textarea -->
+										<div class="form-group">
+											<input type="text" class="form-control"
+												placeholder="X과 졸업 / 날짜">
+											</textarea>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate2"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<!-- textarea -->
+										<div class="form-group">
+											<input type="text" class="form-control"
+												placeholder="X과 졸업 / 날짜">
+											</textarea>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<!-- textarea -->
+										<div class="form-group">
+											<input type="text" class="form-control"
+												placeholder="X과 졸업 / 날짜">
+											</textarea>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- 셀렉트박스.
 							<div class="row">
 								<div class="col-sm-6">
-									<!-- textarea -->
-									<div class="form-group">
-										<label>Textarea</label>
-										<textarea class="form-control" rows="3"
-											placeholder="Enter ..."></textarea>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>Textarea Disabled</label>
-										<textarea class="form-control" rows="3"
-											placeholder="Enter ..." disabled=""></textarea>
-									</div>
-								</div>
-							</div>
-
-							<!-- input states -->
-							<div class="form-group">
-								<label class="col-form-label" for="inputSuccess"><i
-									class="fas fa-check"></i> Input with success</label> <input type="text"
-									class="form-control is-valid" id="inputSuccess"
-									placeholder="Enter ...">
-							</div>
-							<div class="form-group">
-								<label class="col-form-label" for="inputWarning"><i
-									class="far fa-bell"></i> Input with warning</label> <input type="text"
-									class="form-control is-warning" id="inputWarning"
-									placeholder="Enter ...">
-							</div>
-							<div class="form-group">
-								<label class="col-form-label" for="inputError"><i
-									class="far fa-times-circle"></i> Input with error</label> <input
-									type="text" class="form-control is-invalid" id="inputError"
-									placeholder="Enter ...">
-							</div>
-
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- checkbox -->
-									<div class="form-group">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox"> <label
-												class="form-check-label">Checkbox</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" checked="">
-											<label class="form-check-label">Checkbox checked</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" disabled="">
-											<label class="form-check-label">Checkbox disabled</label>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<!-- radio -->
-									<div class="form-group">
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="radio1">
-											<label class="form-check-label">Radio</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="radio1"
-												checked=""> <label class="form-check-label">Radio
-												checked</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" disabled="">
-											<label class="form-check-label">Radio disabled</label>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- select -->
+									select
 									<div class="form-group">
 										<label>Select</label> <select class="form-control">
 											<option>option 1</option>
@@ -308,500 +417,613 @@
 										</select>
 									</div>
 								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- Select multiple-->
-									<div class="form-group">
-										<label>Select Multiple</label> <select multiple=""
-											class="form-control">
-											<option>option 1</option>
-											<option>option 2</option>
-											<option>option 3</option>
-											<option>option 4</option>
-											<option>option 5</option>
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>Select Multiple Disabled</label> <select multiple=""
-											class="form-control" disabled="">
-											<option>option 1</option>
-											<option>option 2</option>
-											<option>option 3</option>
-											<option>option 4</option>
-											<option>option 5</option>
-										</select>
-									</div>
-								</div>
-							</div>
-						</form>
+							</div> -->
+							</form>
+						</div>
+						<!-- /.card-body -->
 					</div>
-					<!-- /.card-body -->
+					<!-- /.card -->
 				</div>
-				<!-- /.card -->
-				<!-- general form elements disabled -->
-				<div class="card card-secondary">
-					<div class="card-header">
-						<h3 class="card-title">Custom Elements</h3>
+
+				<!-- 3. 자격증 -->
+				<div class="card card-primary col-md-6">
+					<!-- general form elements disabled -->
+					<div class="card card-warning">
+						<div class="card-header">
+							<h3 class="card-title">3. 자격증</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<form role="form">
+								<div class="row">
+									<!-- 셀렉트 박스 -->
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>자격증명</label> <select class="form-control">
+												<option>option 1</option>
+												<option>option 2</option>
+												<option>option 3</option>
+												<option>option 4</option>
+												<option>option 5</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<label>취득 날짜</label>
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- 셀렉트 박스 -->
+									<div class="col-sm-6">
+										<div class="form-group">
+											<select class="form-control">
+												<option>option 1</option>
+												<option>option 2</option>
+												<option>option 3</option>
+												<option>option 4</option>
+												<option>option 5</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- 셀렉트 박스 -->
+									<div class="col-sm-6">
+										<div class="form-group">
+											<select class="form-control">
+												<option>option 1</option>
+												<option>option 2</option>
+												<option>option 3</option>
+												<option>option 4</option>
+												<option>option 5</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- 셀렉트 박스 -->
+									<div class="col-sm-6">
+										<div class="form-group">
+											<select class="form-control">
+												<option>option 1</option>
+												<option>option 2</option>
+												<option>option 3</option>
+												<option>option 4</option>
+												<option>option 5</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</form>
+						</div>
+						<!-- /.card-body -->
 					</div>
-					<!-- /.card-header -->
-					<div class="card-body">
-						<form role="form">
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- checkbox -->
-									<div class="form-group">
-										<div class="custom-control custom-checkbox">
-											<input class="custom-control-input" type="checkbox"
-												id="customCheckbox1" value="option1"> <label
-												for="customCheckbox1" class="custom-control-label">Custom
-												Checkbox</label>
-										</div>
-										<div class="custom-control custom-checkbox">
-											<input class="custom-control-input" type="checkbox"
-												id="customCheckbox2" checked=""> <label
-												for="customCheckbox2" class="custom-control-label">Custom
-												Checkbox checked</label>
-										</div>
-										<div class="custom-control custom-checkbox">
-											<input class="custom-control-input" type="checkbox"
-												id="customCheckbox3" disabled=""> <label
-												for="customCheckbox3" class="custom-control-label">Custom
-												Checkbox disabled</label>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<!-- radio -->
-									<div class="form-group">
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" type="radio"
-												id="customRadio1" name="customRadio"> <label
-												for="customRadio1" class="custom-control-label">Custom
-												Radio</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" type="radio"
-												id="customRadio2" name="customRadio" checked=""> <label
-												for="customRadio2" class="custom-control-label">Custom
-												Radio checked</label>
-										</div>
-										<div class="custom-control custom-radio">
-											<input class="custom-control-input" type="radio"
-												id="customRadio3" disabled=""> <label
-												for="customRadio3" class="custom-control-label">Custom
-												Radio disabled</label>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- select -->
-									<div class="form-group">
-										<label>Custom Select</label> <select class="custom-select">
-											<option>option 1</option>
-											<option>option 2</option>
-											<option>option 3</option>
-											<option>option 4</option>
-											<option>option 5</option>
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>Custom Select Disabled</label> <select
-											class="custom-select" disabled="">
-											<option>option 1</option>
-											<option>option 2</option>
-											<option>option 3</option>
-											<option>option 4</option>
-											<option>option 5</option>
-										</select>
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- Select multiple-->
-									<div class="form-group">
-										<label>Custom Select Multiple</label> <select multiple=""
-											class="custom-select">
-											<option>option 1</option>
-											<option>option 2</option>
-											<option>option 3</option>
-											<option>option 4</option>
-											<option>option 5</option>
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>Custom Select Multiple Disabled</label> <select
-											multiple="" class="custom-select" disabled="">
-											<option>option 1</option>
-											<option>option 2</option>
-											<option>option 3</option>
-											<option>option 4</option>
-											<option>option 5</option>
-										</select>
-									</div>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input"
-										id="customSwitch1"> <label
-										class="custom-control-label" for="customSwitch1">Toggle
-										this custom switch element</label>
-								</div>
-							</div>
-							<div class="form-group">
-								<div
-									class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-									<input type="checkbox" class="custom-control-input"
-										id="customSwitch3"> <label
-										class="custom-control-label" for="customSwitch3">Toggle
-										this custom switch element with custom colors danger/success</label>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input" disabled=""
-										id="customSwitch2"> <label
-										class="custom-control-label" for="customSwitch2">Disabled
-										custom switch element</label>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="customRange1">Custom range</label> <input
-									type="range" class="custom-range" id="customRange1">
-							</div>
-							<div class="form-group">
-								<label for="customRange1">Custom range
-									(custom-range-danger)</label> <input type="range"
-									class="custom-range custom-range-danger" id="customRange1">
-							</div>
-							<div class="form-group">
-								<label for="customRange1">Custom range
-									(custom-range-teal)</label> <input type="range"
-									class="custom-range custom-range-teal" id="customRange1">
-							</div>
-							<div class="form-group">
-								<!-- <label for="customFile">Custom File</label> -->
-
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="customFile">
-									<label class="custom-file-label" for="customFile">Choose
-										file</label>
-								</div>
-							</div>
-							<div class="form-group"></div>
-						</form>
-					</div>
-					<!-- /.card-body -->
-				</div>
-				<!-- /.card -->
-			</div>
-		</div>
-		<!-- /.content -->
-
-
-
-	</div>
-	<!-- /.content-wrapper -->
-
-	<!-- Main Footer -->
-	<%@include file="../user/common/user_main_footer.jsp"%>
-
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark">
-		<!-- Control sidebar content goes here -->
-		<div class="p-3 control-sidebar-content">
-			<h5>Customize AdminLTE</h5>
-			<hr class="mb-2">
-			<div class="mb-1">
-				<input type="checkbox" value="1" class="mr-1"><span>No
-					Navbar border</span>
-			</div>
-			<div class="mb-1">
-				<input type="checkbox" value="1" class="mr-1"><span>Body
-					small text</span>
-			</div>
-			<div class="mb-1">
-				<input type="checkbox" value="1" class="mr-1"><span>Navbar
-					small text</span>
-			</div>
-			<div class="mb-1">
-				<input type="checkbox" value="1" class="mr-1"><span>Sidebar
-					nav small text</span>
-			</div>
-			<div class="mb-1">
-				<input type="checkbox" value="1" class="mr-1"><span>Footer
-					small text</span>
-			</div>
-			<div class="mb-1">
-				<input type="checkbox" value="1" class="mr-1"><span>Sidebar
-					nav flat style</span>
-			</div>
-			<div class="mb-1">
-				<input type="checkbox" value="1" class="mr-1"><span>Sidebar
-					nav legacy style</span>
-			</div>
-			<div class="mb-1">
-				<input type="checkbox" value="1" class="mr-1"><span>Sidebar
-					nav compact</span>
-			</div>
-			<div class="mb-1">
-				<input type="checkbox" value="1" class="mr-1"><span>Sidebar
-					nav child indent</span>
-			</div>
-			<div class="mb-1">
-				<input type="checkbox" value="1" class="mr-1"><span>Main
-					Sidebar disable hover/focus auto expand</span>
-			</div>
-			<div class="mb-4">
-				<input type="checkbox" value="1" class="mr-1"><span>Brand
-					small text</span>
-			</div>
-			<h6>Navbar Variants</h6>
-			<div class="d-flex">
-				<div class="d-flex flex-wrap mb-3">
-					<div class="bg-primary elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-secondary elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-info elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-success elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-danger elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-indigo elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-purple elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-pink elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-navy elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-lightblue elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-teal elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-cyan elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-dark elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-gray-dark elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-gray elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-light elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-warning elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-white elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-					<div class="bg-orange elevation-2"
-						style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
+					<!-- /.card -->
 				</div>
 			</div>
-			<h6>Accent Color Variants</h6>
-			<div class="d-flex"></div>
-			<div class="d-flex flex-wrap mb-3">
-				<div class="bg-primary elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-warning elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-info elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-danger elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-success elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-indigo elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-lightblue elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-navy elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-purple elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-fuchsia elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-pink elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-maroon elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-orange elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-lime elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-teal elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-olive elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
+
+			<!-- 4. 경력 -->
+			<div class="row">
+				<div class="card card-primary col-md-12">
+					<!-- general form elements disabled -->
+					<div class="card card-warning">
+						<div class="card-header">
+							<h3 class="card-title">4. 경력</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<form role="form">
+								<div class="row">
+									<div class="col-sm-4">
+										<!-- text input -->
+										<div class="form-group">
+											<label>근무 회사명</label> <input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 range -->
+										<div class="form-group">
+											<label>기 간</label>
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text"> <i
+														class="far fa-calendar-alt"></i>
+													</span>
+												</div>
+												<input type="text" class="form-control float-right"
+													id="workrange">
+											</div>
+											<!-- /.input group -->
+										</div>
+									</div>
+									<div class="col-sm-2">
+										<!-- text input -->
+										<div class="form-group">
+											<label>직 위</label> <input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<label>담당 업무</label> <input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text"> <i
+														class="far fa-calendar-alt"></i>
+													</span>
+												</div>
+												<input type="text" class="form-control float-right"
+													id="reservation">
+											</div>
+											<!-- /.input group -->
+										</div>
+									</div>
+									<div class="col-sm-2">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text"> <i
+														class="far fa-calendar-alt"></i>
+													</span>
+												</div>
+												<input type="text" class="form-control float-right"
+													id="reservation">
+											</div>
+											<!-- /.input group -->
+										</div>
+									</div>
+									<div class="col-sm-2">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text"> <i
+														class="far fa-calendar-alt"></i>
+													</span>
+												</div>
+												<input type="text" class="form-control float-right"
+													id="reservation">
+											</div>
+											<!-- /.input group -->
+										</div>
+									</div>
+									<div class="col-sm-2">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+				</div>
 			</div>
-			<h6>Dark Sidebar Variants</h6>
-			<div class="d-flex"></div>
-			<div class="d-flex flex-wrap mb-3">
-				<div class="bg-primary elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-warning elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-info elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-danger elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-success elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-indigo elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-lightblue elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-navy elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-purple elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-fuchsia elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-pink elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-maroon elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-orange elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-lime elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-teal elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-olive elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-			</div>
-			<h6>Light Sidebar Variants</h6>
-			<div class="d-flex"></div>
-			<div class="d-flex flex-wrap mb-3">
-				<div class="bg-primary elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-warning elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-info elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-danger elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-success elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-indigo elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-lightblue elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-navy elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-purple elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-fuchsia elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-pink elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-maroon elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-orange elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-lime elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-teal elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-olive elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-			</div>
-			<h6>Brand Logo Variants</h6>
-			<div class="d-flex"></div>
-			<div class="d-flex flex-wrap mb-3">
-				<div class="bg-primary elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-secondary elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-info elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-success elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-danger elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-indigo elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-purple elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-pink elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-navy elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-lightblue elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-teal elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-cyan elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-dark elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-gray-dark elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-gray elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-light elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-warning elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-white elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<div class="bg-orange elevation-2"
-					style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-				<a href="javascript:void(0)">clear</a>
+
+			<!-- 5. 교육 -->
+			<div class="row">
+				<div class="card card-primary col-md-7">
+					<div class="card card-warning">
+						<div class="card-header">
+							<h3 class="card-title">5. 교육</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<form role="form">
+								<div class="row">
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<label>교육기관</label> <input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<label>시작일</label>
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<label>종료일</label>
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<label>교육과정명</label> <input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+							</form>
+							<form role="form">
+								<div class="row">
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+							</form>
+							<form role="form">
+								<div class="row">
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+							</form>
+							<form role="form">
+								<div class="row">
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- 데이트 picker -->
+										<div class="form-group">
+											<div class="input-group date" id="reservationdate"
+												data-target-input="nearest">
+												<input type="text" class="form-control datetimepicker-input"
+													data-target="#reservationdate">
+												<div class="input-group-append"
+													data-target="#reservationdate" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+				</div>
+
+				<!-- 6. 특수기술 -->
+				<div class="card card-primary col-md-5">
+					<div class="card card-warning">
+						<div class="card-header">
+							<h3 class="card-title">6. 특수기술</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<form role="form">
+								<div class="row">
+									<div class="col-sm-8">
+										<!-- text input -->
+										<div class="form-group">
+											<label>사용 가능한 프로그램</label> <input type="text"
+												class="form-control">
+										</div>
+									</div>
+									<!-- 셀렉트 박스 -->
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label>숙련도</label> <select class="form-control">
+												<option>상</option>
+												<option>중</option>
+												<option>하</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-8">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<!-- 셀렉트 박스 -->
+									<div class="col-sm-4">
+										<div class="form-group">
+											<select class="form-control">
+												<option>상</option>
+												<option>중</option>
+												<option>하</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-8">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<!-- 셀렉트 박스 -->
+									<div class="col-sm-4">
+										<div class="form-group">
+											<select class="form-control">
+												<option>상</option>
+												<option>중</option>
+												<option>하</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-8">
+										<!-- text input -->
+										<div class="form-group">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<!-- 셀렉트 박스 -->
+									<div class="col-sm-4">
+										<div class="form-group">
+											<select class="form-control">
+												<option>상</option>
+												<option>중</option>
+												<option>하</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</form>
+
+						</div>
+						<!-- /.card-body -->
+					</div>
+				</div>
 			</div>
 		</div>
-	</aside>
-	<!-- /.control-sidebar -->
-	<div id="sidebar-overlay"></div>
+		<!-- Main Footer -->
+		<%@ include file="../user/common/user_mainFooter.jsp"%>
 	</div>
-	<!-- ./wrapper -->
-
-
-
-
-	<div class="daterangepicker ltr show-ranges opensright">
-		<div class="ranges">
-			<ul>
-				<li data-range-key="Today">Today</li>
-				<li data-range-key="Yesterday">Yesterday</li>
-				<li data-range-key="Last 7 Days">Last 7 Days</li>
-				<li data-range-key="Last 30 Days">Last 30 Days</li>
-				<li data-range-key="This Month">This Month</li>
-				<li data-range-key="Last Month">Last Month</li>
-				<li data-range-key="Custom Range">Custom Range</li>
-			</ul>
-		</div>
-		<div class="drp-calendar left">
-			<div class="calendar-table"></div>
-			<div class="calendar-time" style="display: none;"></div>
-		</div>
-		<div class="drp-calendar right">
-			<div class="calendar-table"></div>
-			<div class="calendar-time" style="display: none;"></div>
-		</div>
-		<div class="drp-buttons">
-			<span class="drp-selected"></span>
-			<button class="cancelBtn btn btn-sm btn-default" type="button">Cancel</button>
-			<button class="applyBtn btn btn-sm btn-primary" disabled="disabled"
-				type="button">Apply</button>
-		</div>
-	</div>
-	<div class="jqvmap-label" style="display: none;"></div>
 </body>
 </html>
 
