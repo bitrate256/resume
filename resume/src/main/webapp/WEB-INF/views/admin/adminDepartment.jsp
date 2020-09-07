@@ -7,7 +7,53 @@
 <%@include file="../common/head.jsp" %>
 <%@include file="../user/common/user_main_header.jsp" %>
 <%@include file="../user/common/user_left_column.jsp" %>
+<script>
 
+$(function(){
+	
+
+	$("#d_name").blur(function() {
+
+		var d_name = $('#d_name').val();
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/admin/departmentCheck?d_name='+ d_name,
+			type : 'get',
+			dataType : 'text',
+			success : function(data) {
+				console.log("1 = 중복o / 0 = 중복x : "+ data);	
+				
+				
+			
+				
+				if (d_name == "") {
+						
+						$("#name_check").text("부서명을 입력해주세요");
+						$("#name_check").css("color", "red");
+						
+					} 
+										
+							
+					else if(data == '1'){
+							
+						$('#name_check').text("부서명이 중복됩니다.");
+						$('#name_check').css('color', 'red');
+						
+						} else {
+							$('#name_check').text("사용가능한 부서명입니다.");
+							$('#name_check').css('color', 'blue');
+					}
+							
+					
+					}, error : function() {
+							console.log("실패");
+				}
+			});
+		});
+});
+
+
+</script>
 
 
 <body class="sidebar-mini layout-fixed" style="height: auto;">
@@ -38,10 +84,10 @@
 
 		<div class="register-box-body">
 	<p class="login-box-msg">부서 등록</p>
-	<form action="<%=contextPath%>/admin/departmentCheck" method="post" name="form">
+	<form action="<%=contextPath%>/admin/departmentInsert" method="post" name="form">
 		<br>
 
-		<div class="form-group has-feedback" id="departmentCheck">
+		<div class="form-group has-feedback">
 			<input type="text" class="form-control col-6" id="d_name" name="d_name" placeholder="부서 이름">
 			<div id="name_check"></div>
       	</div>
@@ -55,7 +101,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-        	<input type="submit" class="btn btn-primary" id="submit" name="submit" value="부서 등록">
+        	<input type="submit" class="btn btn-primary" id="submit" name="submit" value="부서 등록" onclick="submitCheck()">
 			<button type="button" class="btn btn-primary" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">취소</button>
         </div>
         <!-- /.col -->
@@ -66,7 +112,7 @@
 	</form>
 			
 	</div>
-
+									
 			</section>
 			<!-- /.content -->
 

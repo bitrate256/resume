@@ -30,7 +30,7 @@
   <!-- 메인 사이드바 -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="javascript:location.href='<c:url value="/"/>userHome'" class="brand-link">
       <!-- 사이트 이미지 아이콘 변경 필요함 -->
       
       <span class="brand-text font-weight-light">이력 관리 시스템</span>
@@ -116,7 +116,13 @@
               <li class="nav-item">
                 <a class="nav-link" href="javascript:location.href='<c:url value="/"/>admin/department'">
                   <i class="fas fa-user-friends"></i>
-                  <p>부서 관리</p>
+                  <p>부서 등록</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link" href="javascript:location.href='<c:url value="/"/>admin/adminDepartmentList'">
+                  <i class="fas fa-user-friends"></i>
+                  <p>부서 목록</p>
                 </a>
               </li>
             </ul>

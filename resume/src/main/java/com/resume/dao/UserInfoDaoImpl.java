@@ -8,7 +8,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.resume.dto.BoardPager;
 import com.resume.dto.JqGrid;
+import com.resume.dto.SearchDto;
 import com.resume.dto.UserInfo;
 
 @Repository
@@ -18,7 +20,8 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	SqlSessionTemplate session;
 
 	private String queryprefix = "user.";
-
+	
+	//로그인 체크
 	@Override
 	public UserInfo userSelectOne(UserInfo user) {
 		
@@ -40,7 +43,7 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	}
 	
 	
-	//사용자 전체 조회
+	//사용자 전체 조회(그리드)
 	@Override
 	public List<UserInfo> userInfoList(String page, String rows) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -49,7 +52,7 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		return session.selectList(queryprefix+"userInfoList", map);
 	}
 	
-	//사용자 전체 카운트
+	//사용자 전체 카운트(그리드)
 	@Override
 	public JqGrid gridCount() {
 		
@@ -62,6 +65,34 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	public int userIdCheck(int u_id) {
 		
 		return session.selectOne(queryprefix+"userIdCheck", u_id);
+	}
+	
+	
+	//이메일 중복 체크
+	@Override
+	public int emailCheck(String u_eamil) {
+		
+		System.out.println("u_eamil = "+u_eamil);
+		
+		return session.selectOne(queryprefix+"emailCheck", u_eamil);
+	}
+	
+	
+	//사용자 전체 목록(ajax)
+	@Override
+	public List<UserInfo> selectUserList(BoardPager boardPager) {
+		
+		List<UserInfo> selectUserList = new ArrayList<UserInfo>();
+		selectUserList = session.selectList(queryprefix+"selectUserList", boardPager);
+		
+		return selectUserList;
+	}
+	
+	//사용자 전체 레코드(ajax)
+	@Override
+	public int selectUserCount(SearchDto searchDto) {
+		
+		return session.selectOne(queryprefix+"selectUserCount", searchDto);
 	}
 	
 	

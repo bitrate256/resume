@@ -12,7 +12,10 @@
       <typeAlias type="com.resume.dto.SkillInventory" alias="SkillInventory" />
       <typeAlias type="com.resume.dto.SpecialTech" alias="SpecialTech" />
       <typeAlias type="com.resume.dto.Ceritificate" alias="Ceritificate" />
-
+      <typeAlias type="com.resume.dto.JoinDto" alias="JoinDto"/>
+      <typeAlias type="com.resume.dto.BoardPager" alias="BoardPager"/>
+      <typeAlias type="com.resume.dto.SearchDto" alias="SearchDto"/>
+      <typeAlias type="com.resume.dto.JqGrid" alias="JqGrid"/>
 
    </typeAliases>
 </configuration>
