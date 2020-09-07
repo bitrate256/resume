@@ -65,6 +65,16 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	}
 	
 	
+	//이메일 중복 체크
+	@Override
+	public int emailCheck(String u_eamil) {
+		
+		System.out.println("u_eamil = "+u_eamil);
+		
+		return session.selectOne(queryprefix+"emailCheck", u_eamil);
+	}
+	
+	
 
 	
 	

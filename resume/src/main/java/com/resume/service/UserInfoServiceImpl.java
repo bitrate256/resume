@@ -61,6 +61,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 	
 	
+	//이메일 중복 체크
+	@Override
+	public int emailCheck(String u_email) {
+		
+		return dao.emailCheck(u_email);
+	}
+	
+	
 	
 
 	
