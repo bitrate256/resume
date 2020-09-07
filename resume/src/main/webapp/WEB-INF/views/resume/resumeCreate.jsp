@@ -1016,6 +1016,159 @@
 						<!-- /.card-body -->
 					</div>
 				</div>
+				
+								<!-- SKILL INVENTORY -->
+				<div class="card card-primary col-md-12">
+					<div class="card card-success">
+						<div class="card-header">
+							<h3 class="card-title">SKILL INVENTORY</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-2">
+									<!-- text input -->
+									<div class="form-group">
+										<label>프로젝트명(업무명)</label> <input type="text"
+											class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<label>참여기간</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<label>고객사</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<label>근무회사</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<label>역할</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<label>기종</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<label>OS</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<label>언어</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<label>DBMS</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<label>TOOL</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<label>기타</label> <input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+
+							<!-- 7개 ROW 추가 필요. -->
+
+						</div>
+						<!-- /.card-body -->
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- Main Footer -->
