@@ -50,5 +50,109 @@
 	WHERE U_ID = #{u_id}
 	
 	</update>
+	
+		<!-- 
+	ACADEMIC
+	CERTIFICATE
+	CAREER
+	EDUCATION
+	SPECIAL_TECH
+	SKILL_INVENTORY
+	FILE
+	 -->
+<!-- 	 
+	<resultMap type="DEPARTMENT" id="DEPARTMENT">
+	<result column="d_id" property="d_id"/>
+	<result column="d_name" property="d_name"/>
+	</resultMap>
+	 
+	<resultMap type="USER_INFO" id="USER_INFO">
+	<result column="u_id" property="u_id"/>
+	<result column="u_pwd" property="u_pwd"/>
+	<result column="u_name" property="u_name"/>
+	<result column="u_rnumber" property="u_rnumber"/>
+	<result column="u_company" property="u_company"/>
+	<result column="u_marry" property="u_marry"/>
+	<result column="u_position" property="u_position"/>
+	<result column="u_ms" property="u_ms"/>
+	<result column="u_career" property="u_career"/>
+	<result column="u_tgrade" property="u_tgrade"/>
+	<result column="u_phone" property="u_phone"/>
+	<result column="u_email" property="u_email"/>
+	<result column="u_address" property="u_address"/>
+	<result column="u_status" property="u_status"/>
+	</resultMap>
+	
+	
+	<resultMap type="RESUME" id="RESUME">
+	<result column="r_id" property="r_id"/>
+	<result column="r_status" property="r_status"/>
+	<result column="r_newdate" property="r_newdate"/>
+	</resultMap>
+	
+	<resultMap type="ACADEMIC" id="ACADEMIC">
+	<result column="a_hschool" property="a_hschool"/>
+	<result column="a_university" property="a_university"/>
+	<result column="a_gschool" property="a_gschool"/>
+	<result column="a_hschooldate" property="a_hschooldate"/>
+	<result column="a_universitydate" property="a_universitydate"/>
+	<result column="a_gschooldate" property="a_gschooldate"/>
+	</resultMap>
+	
+	<resultMap type="CERTIFICATE" id="CERTIFICATE">
+	<result column="ce_code" property="ce_code"/>
+	<result column="ce_text" property="ce_text"/>
+	</resultMap>
+	
+	<resultMap type="CAREER" id="CAREER">
+	<result column="c_name" property="c_name"/>
+	<result column="c_start" property="c_start"/>
+	<result column="c_end" property="c_end"/>
+	<result column="c_position" property="c_position"/>
+	<result column="c_task" property="c_task"/>
+	</resultMap>
+	
+	<resultMap type="EDUCATION" id="EDUCATION">
+	<result column="e_place" property="e_place"/>
+	<result column="e_started" property="e_started"/>
+    <result column="e_end" property="e_end"/>
+    <result column="e_name" property="e_name"/>
+	</resultMap>
+	
+	<resultMap type="SPECIAL_TECH" id="SPECIAL_TECH">
+	<result column="st_ap" property="st_ap"/>
+	<result column="st_level" property="st_level"/>
+	</resultMap>
+	
+	<resultMap type="SKILL_INVENTORY" id="SKILL_INVENTORY">
+	<result column="si_name" property="si_name"/>
+	<result column="si_start" property="si_start"/>
+	<result column="si_end" property="si_end"/>
+	<result column="si_customer" property="si_customer"/>
+	<result column="si_company" property="si_company"/>
+	<result column="si_role" property="si_role"/>
+	<result column="si_model" property="si_model"/>
+	<result column="si_os" property="si_os"/>
+	<result column="si_language" property="si_language"/>
+	<result column="si_dbms" property="si_dbms"/>
+	<result column="si_tool" property="si_tool"/>
+	<result column="si_etc" property="si_etc"/>
+	</resultMap>
+	
+
+	
+    이력 상세보기
+	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	SELECT
+	u.u_id,u.u_rnumber, u.u_company, u.u_marry, u.u_position, u.u_ms, u.u_career, u.u_tgrade, u.u_phone, u.u_email, u.u_address, u.u_status,
+	
+	
+	       
+	FROM USER_INFO U
+	JOIN ACADEMIC A
+	ON 
+	WHERE U_ID = #{u_id}
+	
+	</select> -->
   
   </mapper>
