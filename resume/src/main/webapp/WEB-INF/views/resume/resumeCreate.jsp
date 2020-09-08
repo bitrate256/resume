@@ -58,7 +58,8 @@
 </script>
 
 <!-- 자격 취득일자 date picker 함수 -->
-<script>
+<!-- 같은 함수 사용하는 것으로 변경. 해당 함수는 사용하지 않음. -->
+<!-- <script>
 	$(function() {
 		//input을 datepicker로 선언
 		$("#certi_date").datepicker(
@@ -80,14 +81,15 @@
 				});
 		//초기값을 오늘 날짜로 설정
 		$('#certi_date').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-	});
+	}); -->
 </script>
 
 <!-- 최종학력 date picker 함수 -->
+<!-- 같은 함수 사용하는 것으로 변경. 함수 이름은 datepicker 로 정의. -->
 <script>
 	$(function() {
 		//input을 datepicker로 선언
-		$(".grad_date").datepicker(
+		$(".datepicker").datepicker(
 				{
 					dateFormat : 'yy-mm-dd', //Input Display Format 변경
 					showOtherMonths : true, //빈 공간에 현재월의 앞뒤월의 날짜를 표시
@@ -105,7 +107,7 @@
 					maxDate : "+0" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
 				});
 		//초기값을 오늘 날짜로 설정
-		$('#grad_date').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+		$('#date_picker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	});
 </script>
 
@@ -286,7 +288,7 @@
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label>졸업 날짜</label> <input type="text"
-											class="form-control grad_date">
+											class="form-control datepicker">
 									</div>
 								</div>
 								<!-- 비활성화 폼	
@@ -294,7 +296,7 @@
 									<div class="form-group">
 										<label>Text Disabled</label> <input type="text"
 											class="form-control" placeholder="Enter ..." disabled="">
-									</div> 집가고싶어용
+									</div>
 								</div> -->
 							</div>
 						</form>
@@ -336,7 +338,85 @@
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label>취득 날짜</label> <input type="text"
-											class="form-control grad_date">
+											class="form-control datepicker">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<!-- selectbox / input -->
+								<div class="col-sm-6">
+									<div class="form-group">
+										<input type="text" name="certi_value"
+											value="" ReadOnly="true" class="form-control"></input> <select
+											name="certiCheck"
+											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
+											<option value="notSelected">::선택하세요::</option>
+											<option value="etc">직접입력</option>
+											<option value="정보처리기사">정보처리기사</option>
+											<option value="정보처리산업기사">정보처리산업기사</option>
+											<option value="리눅스마스터">리눅스마스터</option>
+											<option value="네트워크관리사">네트워크관리사</option>
+										</select>
+									</div>
+								</div>
+
+								<!-- 데이트 picker -->
+								<div class="col-sm-6">
+									<div class="form-group">
+										<input type="text"
+											class="form-control datepicker">
+									</div>
+								</div>
+							</div>
+														<div class="row">
+								<!-- selectbox / input -->
+								<div class="col-sm-6">
+									<div class="form-group">
+										<input type="text" name="certi_value"
+											value="" ReadOnly="true" class="form-control"></input> <select
+											name="certiCheck"
+											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
+											<option value="notSelected">::선택하세요::</option>
+											<option value="etc">직접입력</option>
+											<option value="정보처리기사">정보처리기사</option>
+											<option value="정보처리산업기사">정보처리산업기사</option>
+											<option value="리눅스마스터">리눅스마스터</option>
+											<option value="네트워크관리사">네트워크관리사</option>
+										</select>
+									</div>
+								</div>
+
+								<!-- 데이트 picker -->
+								<div class="col-sm-6">
+									<div class="form-group">
+										<input type="text"
+											class="form-control datepicker">
+									</div>
+								</div>
+							</div>
+														<div class="row">
+								<!-- selectbox / input -->
+								<div class="col-sm-6">
+									<div class="form-group">
+										<input type="text" name="certi_value"
+											value="" ReadOnly="true" class="form-control"></input> <select
+											name="certiCheck"
+											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
+											<option value="notSelected">::선택하세요::</option>
+											<option value="etc">직접입력</option>
+											<option value="정보처리기사">정보처리기사</option>
+											<option value="정보처리산업기사">정보처리산업기사</option>
+											<option value="리눅스마스터">리눅스마스터</option>
+											<option value="네트워크관리사">네트워크관리사</option>
+										</select>
+									</div>
+								</div>
+
+								<!-- 데이트 picker -->
+								<div class="col-sm-6">
+									<div class="form-group">
+										<input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
 							</div>
@@ -360,26 +440,24 @@
 					<div class="card-body">
 						<form role="form">
 							<div class="row">
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<!-- text input -->
 									<div class="form-group">
 										<label>근무 회사명</label> <input type="text" class="form-control">
 									</div>
 								</div>
-								<div class="col-sm-3">
-									<!-- 데이트 range -->
+								<!-- 데이트 picker -->
+								<div class="col-sm-2">
 									<div class="form-group">
-										<label>기 간</label>
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text"> <i
-													class="far fa-calendar-alt"></i>
-												</span>
-											</div>
-											<input type="text" class="form-control float-right"
-												id="workrange">
-										</div>
-										<!-- /.input group -->
+										<label>시작일</label> <input type="text"
+											class="form-control datepicker">
+									</div>
+								</div>
+								<!-- 데이트 picker -->
+								<div class="col-sm-2">
+									<div class="form-group">
+										<label>종료일</label> <input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-2">
@@ -396,25 +474,24 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<!-- text input -->
 									<div class="form-group">
 										<input type="text" class="form-control">
 									</div>
 								</div>
-								<div class="col-sm-3">
-									<!-- 데이트 picker -->
+								<!-- 데이트 picker -->
+								<div class="col-sm-2">
 									<div class="form-group">
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text"> <i
-													class="far fa-calendar-alt"></i>
-												</span>
-											</div>
-											<input type="text" class="form-control float-right"
-												id="reservation">
-										</div>
-										<!-- /.input group -->
+										<input type="text"
+											class="form-control datepicker">
+									</div>
+								</div>
+								<!-- 데이트 picker -->
+								<div class="col-sm-2">
+									<div class="form-group">
+										<input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-2">
@@ -431,25 +508,24 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<!-- text input -->
 									<div class="form-group">
 										<input type="text" class="form-control">
 									</div>
 								</div>
-								<div class="col-sm-3">
-									<!-- 데이트 picker -->
+								<!-- 데이트 picker -->
+								<div class="col-sm-2">
 									<div class="form-group">
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text"> <i
-													class="far fa-calendar-alt"></i>
-												</span>
-											</div>
-											<input type="text" class="form-control float-right"
-												id="reservation">
-										</div>
-										<!-- /.input group -->
+										<input type="text"
+											class="form-control datepicker">
+									</div>
+								</div>
+								<!-- 데이트 picker -->
+								<div class="col-sm-2">
+									<div class="form-group">
+										<input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-2">
@@ -466,25 +542,24 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<!-- text input -->
 									<div class="form-group">
 										<input type="text" class="form-control">
 									</div>
 								</div>
-								<div class="col-sm-3">
-									<!-- 데이트 picker -->
+								<!-- 데이트 picker -->
+								<div class="col-sm-2">
 									<div class="form-group">
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text"> <i
-													class="far fa-calendar-alt"></i>
-												</span>
-											</div>
-											<input type="text" class="form-control float-right"
-												id="reservation">
-										</div>
-										<!-- /.input group -->
+										<input type="text"
+											class="form-control datepicker">
+									</div>
+								</div>
+								<!-- 데이트 picker -->
+								<div class="col-sm-2">
+									<div class="form-group">
+										<input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-2">
@@ -525,38 +600,18 @@
 										<label>교육기관</label> <input type="text" class="form-control">
 									</div>
 								</div>
+								<!-- 데이트 picker -->
 								<div class="col-sm-3">
-									<!-- 데이트 picker -->
 									<div class="form-group">
-										<label>시작일</label>
-										<div class="input-group date" id="reservationdate1"
-											data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input"
-												data-target="#reservationdate1">
-											<div class="input-group-append"
-												data-target="#reservationdate1" data-toggle="datetimepicker">
-												<div class="input-group-text">
-													<i class="fa fa-calendar"></i>
-												</div>
-											</div>
-										</div>
+										<label>시작일</label> <input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
+								<!-- 데이트 picker -->
 								<div class="col-sm-3">
-									<!-- 데이트 picker -->
 									<div class="form-group">
-										<label>종료일</label>
-										<div class="input-group date" id="reservationdate2"
-											data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input"
-												data-target="#reservationdate2">
-											<div class="input-group-append"
-												data-target="#reservationdate2" data-toggle="datetimepicker">
-												<div class="input-group-text">
-													<i class="fa fa-calendar"></i>
-												</div>
-											</div>
-										</div>
+										<label>종료일</label> <input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-3">
@@ -575,36 +630,18 @@
 										<input type="text" class="form-control">
 									</div>
 								</div>
+								<!-- 데이트 picker -->
 								<div class="col-sm-3">
-									<!-- 데이트 picker -->
 									<div class="form-group">
-										<div class="input-group date" id="reservationdate3"
-											data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input"
-												data-target="#reservationdate3">
-											<div class="input-group-append"
-												data-target="#reservationdate3" data-toggle="datetimepicker">
-												<div class="input-group-text">
-													<i class="fa fa-calendar"></i>
-												</div>
-											</div>
-										</div>
+										<input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
+								<!-- 데이트 picker -->
 								<div class="col-sm-3">
-									<!-- 데이트 picker -->
 									<div class="form-group">
-										<div class="input-group date" id="reservationdate4"
-											data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input"
-												data-target="#reservationdate4">
-											<div class="input-group-append"
-												data-target="#reservationdate4" data-toggle="datetimepicker">
-												<div class="input-group-text">
-													<i class="fa fa-calendar"></i>
-												</div>
-											</div>
-										</div>
+										<input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-3">
@@ -623,36 +660,18 @@
 										<input type="text" class="form-control">
 									</div>
 								</div>
+								<!-- 데이트 picker -->
 								<div class="col-sm-3">
-									<!-- 데이트 picker -->
 									<div class="form-group">
-										<div class="input-group date" id="reservationdate5"
-											data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input"
-												data-target="#reservationdate5">
-											<div class="input-group-append"
-												data-target="#reservationdate5" data-toggle="datetimepicker">
-												<div class="input-group-text">
-													<i class="fa fa-calendar"></i>
-												</div>
-											</div>
-										</div>
+										<input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
+								<!-- 데이트 picker -->
 								<div class="col-sm-3">
-									<!-- 데이트 picker -->
 									<div class="form-group">
-										<div class="input-group date" id="reservationdate6"
-											data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input"
-												data-target="#reservationdate6">
-											<div class="input-group-append"
-												data-target="#reservationdate6" data-toggle="datetimepicker">
-												<div class="input-group-text">
-													<i class="fa fa-calendar"></i>
-												</div>
-											</div>
-										</div>
+										<input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-3">
@@ -671,36 +690,18 @@
 										<input type="text" class="form-control">
 									</div>
 								</div>
+								<!-- 데이트 picker -->
 								<div class="col-sm-3">
-									<!-- 데이트 picker -->
 									<div class="form-group">
-										<div class="input-group date" id="reservationdate7"
-											data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input"
-												data-target="#reservationdate7">
-											<div class="input-group-append"
-												data-target="#reservationdate7" data-toggle="datetimepicker">
-												<div class="input-group-text">
-													<i class="fa fa-calendar"></i>
-												</div>
-											</div>
-										</div>
+										<input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
+								<!-- 데이트 picker -->
 								<div class="col-sm-3">
-									<!-- 데이트 picker -->
 									<div class="form-group">
-										<div class="input-group date" id="reservationdate8"
-											data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input"
-												data-target="#reservationdate8">
-											<div class="input-group-append"
-												data-target="#reservationdate8" data-toggle="datetimepicker">
-												<div class="input-group-text">
-													<i class="fa fa-calendar"></i>
-												</div>
-											</div>
-										</div>
+										<input type="text"
+											class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-3">
