@@ -36,5 +36,13 @@ public interface UserInfoService {
 	//사용자 전체 레코드(ajax)
 	public int selectUserCount(SearchDto searchDto);
 	
+	//사용자 상세보기
+	public UserInfo adminUserSelectOneUP(UserInfo user);
+	
+	//사용자 수정
+	public void adminUserUpdate(UserInfo user);
+	
+	//사용자 삭제
+	public void adminUserDelete(int u_id);
 
 }//inter end
