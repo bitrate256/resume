@@ -15,43 +15,359 @@
 	) WHERE rn BETWEEN #{start} AND #{end}
 	</sql>
 	
-	<!-- 이력 등록 -->
+	<!-- 이력 등록 (이력 테이블) -->
 	<insert id="resumeInsert" parameterType="Resume">
-	INSERT INTO RESUME(
-	R_ID,
-	U_ID,
-	D_ID,
-	R_STATUS,
-	R_NEWDATE
-	)
-	VALUES(
-	RESUME_SEQ.NEXTVAL,
-	#{r_id},
-	#{u_id},
-	#{d_id},
-	#{r_status},
-	#{r_newdate}
-	)
+		INSERT INTO RESUME(
+		R_ID,
+		U_ID,
+		D_ID,
+		R_STATUS,
+		R_NEWDATE
+		)
+		VALUES(
+		RESUME_SEQ.NEXTVAL,
+		#{r_id},
+		#{u_id},
+		#{d_id},
+		#{r_status},
+		#{r_newdate}
+		)
 	</insert>
 	
-<!-- 	이력 상세보기 -->
+    <!-- 이력 등록 (학력 테이블) -->
+	<insert id="resumeInsert" parameterType="Resume">
+		INSERT INTO ACADEMIC(
+		R_ID,
+		U_ID,
+		D_ID,
+		A_HSCHOLL,
+		A_UNIVERSITY,
+		A_GSCHOOL,
+		A_HSCHOOLDATE,
+		A_UNIVERSITYDATE,
+		A_GSCHOOLDATE
+		)
+		VALUES(
+		RESUME_SEQ.NEXTVAL,
+		#{r_id},
+		#{u_id},
+		#{d_id},
+		#{a_hschool},
+		#{a_university},
+		#{a_gschool},
+		#{a_hschooldate},
+		#{a_universitydate},
+		#{a_gschooldate}
+		)
+	</insert>
+	
+	<!-- 이력 등록 (자격증 테이블) -->
+	<insert id="resumeInsert" parameterType="Resume">
+		INSERT INTO CERTIFICATE(
+		R_ID,
+		U_ID,
+		D_ID,
+		CE_CODE,
+		CE_TEXT
+		)
+		VALUES(
+		RESUME_SEQ.NEXTVAL,
+		#{r_id},
+		#{u_id},
+		#{d_id},
+		#{ce_code},
+		#{ce_text}
+		)
+	</insert>
+	
+	<!-- 이력 등록 (경력 테이블) -->
+	<insert id="resumeInsert" parameterType="Resume">
+		INSERT INTO CAREER(
+		R_ID,
+		U_ID,
+		D_ID,
+		C_NAME,
+		C_START,
+		C_END,
+		C_POSITION,
+		C_TASK
+		)
+		VALUES(
+		RESUME_SEQ.NEXTVAL,
+		#{r_id},
+		#{u_id},
+		#{d_id},
+		#{c_name},
+		#{c_start},
+		#{c_end},
+		#{c_position},
+		#{c_task}
+		)
+	</insert>
+	
+	<!-- 이력 등록 (교육 테이블) -->
+	<insert id="resumeInsert" parameterType="Resume">
+		INSERT INTO EDUCATION(
+		R_ID,
+		U_ID,
+		D_ID,
+		E_PLACE,
+		E_E_STARTED,
+		E_END,
+		E_NAME
+		)
+		VALUES(
+		RESUME_SEQ.NEXTVAL,
+		#{r_id},
+		#{u_id},
+		#{d_id},
+		#{e_place},
+		#{e_started},
+		#{e_end},
+		#{e_name}
+		)
+	</insert>
+	
+	<!-- 이력 등록 (특수기술 테이블) -->
+	<insert id="resumeInsert" parameterType="Resume">
+		INSERT INTO SPECIAL_TECH(
+		R_ID,
+		U_ID,
+		D_ID,
+		ST_AP,
+		ST_LEVEL
+		)
+		VALUES(
+		RESUME_SEQ.NEXTVAL,
+		#{r_id},
+		#{u_id},
+		#{d_id},
+		#{st_ap},
+		#{st_level}
+		)
+	</insert>
+	
+	<!-- 이력 등록 (스킬인벤토리 테이블) -->
+	<insert id="resumeInsert" parameterType="Resume">
+		INSERT INTO SKILL_INVENTORY(
+		R_ID,
+		U_ID,
+		D_ID,
+		SI_NAME,
+		SI_START,
+		SI_END,
+		SI_CUSTOMER,
+		SI_COMPANY,
+		SI_ROLE,
+		SI_MODEL,
+		SI_OS,
+		SI_LANGUAGE,
+		SI_TOOL,
+		SI_ETC
+		)
+		VALUES(
+		RESUME_SEQ.NEXTVAL,
+		#{r_id},
+		#{u_id},
+		#{d_id},
+		#{si_name},
+		#{si_start},
+		#{si_end},
+		#{si_customer},
+		#{si_company},
+		#{si_role},
+		#{si_model},
+		#{si_os},
+		#{si_language},
+		#{si_dbms},
+		#{si_tool},
+		#{si_etc}
+		)
+	</insert>
+	
+	<!-- 이력 등록 (파일 테이블) -->
+	<insert id="resumeInsert" parameterType="Resume">
+		INSERT INTO FILE(
+		R_ID,
+		U_ID,
+		D_ID,
+		F_ORI,
+		F_SAVE,
+		F_SIZE
+		)
+		VALUES(
+		RESUME_SEQ.NEXTVAL,
+		#{r_id},
+		#{u_id},
+		#{d_id},
+		#{f_ori},
+		#{f_save},
+		#{f_size}
+		)
+	</insert>
+	
+
+	
+    <!-- 이력 상세보기 (사용자 테이블) -->
 	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
 	SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
 	FROM USER_INFO
 	WHERE U_ID = #{u_id}
-	
 	</select>
 	
-<!-- 	이력 수정(사용자) -->
-<!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
-	<update id="myPageUserInfo" parameterType="Resume">
-	UPDATE RESUME R
-	SET r.u_id = #{SELECT ~}
+	<!-- 이력 상세보기 (이력 테이블) -->
+	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	SELECT R_ID, U_ID, D_ID, R_STATUS, R_NEWDATE
+	FROM RESUME
 	WHERE U_ID = #{u_id}
+	</select>
+
+	<!-- 이력 상세보기 (학력 테이블) -->
+	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	SELECT R_ID, U_ID, D_ID, A_HSCHOOL, A_UNIVERSITY, A_GSCHOOL, A_HSCHOOLDATE, A_UNIVERSITYDATE, A_GSCHOOLDATE
+	FROM ACADEMIC
+	WHERE U_ID = #{u_id}
+	</select>
+
+	<!-- 이력 상세보기 (자격 테이블) -->
+	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	SELECT R_ID, U_ID, D_ID, CE_CODE, CE_TEXT
+	FROM CERTIFICATE
+	WHERE U_ID = #{u_id}
+	</select>
 	
+	<!-- 이력 상세보기 (경력 테이블) -->
+	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	SELECT R_ID, U_ID, D_ID, C_NAME, C_START, C_END, C_POSITION, C_TASK
+	FROM CAREER
+	WHERE U_ID = #{u_id}
+	</select>
+	
+	<!-- 이력 상세보기 (교육 테이블) -->
+	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	SELECT R_ID, U_ID, D_ID, E_PLACE, E_STARTED, E_END, E_NAME
+	FROM EDUCATION
+	WHERE U_ID = #{u_id}
+	</select>
+	
+	<!-- 이력 상세보기 (특수기술 테이블) -->
+	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	SELECT R_ID, U_ID, D_ID, ST_AP, ST_LEVEL
+	FROM SPECIAL_TECH
+	WHERE U_ID = #{u_id}
+	</select>
+	
+	<!-- 이력 상세보기 (스킬인벤토리 테이블) -->
+	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	SELECT R_ID, U_ID, D_ID, SI_NAME, SI_START, SI_END, SI_CUSTOMER, SI_COMPANY, SI_ROLE, SI_MODEL, SI_OS, SI_LANGUAGE, SI_TOOL, SI_ETC
+	FROM SKILL_INVENTORY
+	WHERE U_ID = #{u_id}
+	</select>
+	
+	
+	
+	<update id="adminUserUpdate" parameterType="UserInfo">
+	UPDATE USER_INFO
+	SET D_ID = #{d_id},
+	U_POSITION = #{u_position},
+	U_EMAIL = #{u_email},
+	U_STATUS = #{u_status}
+	WHERE U_ID = #{u_id}
 	</update>
 	
-		<!-- 
+    <!-- 이력 수정 (이력 테이블) -->
+    <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
+	<update id="myPageUserInfo" parameterType="Resume">
+	UPDATE RESUME
+	SET R_STATUS = #{r_id},
+	R_NEWDATE = #{r_newdate}
+	WHERE R_ID = #{r_id}
+	</update>
+	
+    <!-- 이력 수정 (학력 테이블) -->
+    <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
+	<update id="myPageUserInfo" parameterType="Resume">
+	UPDATE ACADEMIC
+	SET A_HSCHOOL = #{a_hschool},
+	A_UNICERSITY = #{a_university},
+	A_GSCHOOL = #{a_gschool},
+	A_HSCHOOLDATE = #{a_hschooldate},
+	A_GSCHOOLDATE = #{a_universitydate},
+	A_GSCHOOLDATE = #{a_gschooldate}
+	WHERE R_ID = #{r_id}
+	</update>
+	
+	<!-- 이력 수정 (학력 테이블) -->
+    <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
+	<update id="myPageUserInfo" parameterType="Resume">
+	UPDATE CERTIFICATE
+	SET CE_CODE = #{ce_code},
+	CE_TEXT = #{ce_text}
+	WHERE R_ID = #{r_id}
+	</update>
+	
+	<!-- 이력 수정 (경력 테이블) -->
+    <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
+	<update id="myPageUserInfo" parameterType="Resume">
+	UPDATE CAREER
+	SET C_NAME = #{c_name},
+	C_START = #{c_start},
+	C_END = #{c_end},
+	C_POSITION = #{c_position},
+	C_TASK = #{c_task}
+	WHERE R_ID = #{r_id}
+	</update>
+	
+	<!-- 이력 수정 (교육 테이블) -->
+    <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
+	<update id="myPageUserInfo" parameterType="Resume">
+	UPDATE EDUCATION
+	SET E_PLACE = #{e_place},
+	E_STARTED = #{e_started},
+	E_END = #{e_end},
+	E_NAME = #{e_name}
+	WHERE R_ID = #{r_id}
+	</update>
+
+	<!-- 이력 수정 (특수기술 테이블) -->
+    <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
+	<update id="myPageUserInfo" parameterType="Resume">
+	UPDATE SPECIAL_TECH
+	SET ST_AP = #{st_ap},
+	ST_LEVEL = #{st_level}
+	WHERE R_ID = #{r_id}
+	</update>
+	
+	<!-- 이력 수정 (스킬인벤토리 테이블) -->
+    <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
+	<update id="myPageUserInfo" parameterType="Resume">
+	UPDATE SKILL_INVENTORY
+	SET SI_NAME = #{si_name},
+	SI_START = #{si_start},
+	SI_END = #{si_end},
+	SI_CUSTOMER = #{si_customer},
+	SI_COMPANY = #{si_company},
+	SI_ROLE = #{si_role},
+	SI_MODEL = #{si_model},
+	SI_OS = #{si_os},
+	SI_LANGUAGE = #{si_language},
+	SI_DBMS = #{si_dbms},
+	SI_TOOL = #{si_tool},
+	ST_ETC = #{si_etc}
+	WHERE R_ID = #{r_id}
+	</update>
+	
+	<!-- 이력 수정 (파일 테이블) -->
+    <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
+	<update id="myPageUserInfo" parameterType="Resume">
+	UPDATE FILE
+	SET F_ORI = #{f_ori},
+	F_SAVE = #{f_save},
+	F_SIZE = #{f_size}
+	WHERE R_ID = #{r_id}
+	</update>
+
+	<!-- 
 	ACADEMIC
 	CERTIFICATE
 	CAREER
