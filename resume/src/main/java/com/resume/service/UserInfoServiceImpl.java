@@ -84,6 +84,27 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return dao.selectUserCount(searchDto);
 	}
 	
+	//사용자 상세보기
+	@Override
+	public UserInfo adminUserSelectOneUP(UserInfo user) {
+		
+		return dao.adminUserSelectOneUP(user);
+	}
+	
+	//사용자 수정
+	@Override
+	public void adminUserUpdate(UserInfo user) {
+		
+		dao.adminUserUpdate(user);
+	}
+	
+	//사용자 삭제
+	@Override
+	public void adminUserDelete(int u_id) {
+		
+		dao.adminUserDelete(u_id);
+	}
+	
 	
 	
 

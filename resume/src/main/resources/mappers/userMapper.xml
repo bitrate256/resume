@@ -143,6 +143,42 @@
 		WHERE U_EMAIL = #{u_email}
 
 	</select>
-
+	
+	<select id="adminUserSelectOneUP" parameterType="UserInfo" resultType="UserInfo">
+	SELECT U_ID,
+	D_ID,
+	U_PWD,
+	U_RNUMBER,
+	U_NAME,
+	U_COMPANY,
+	U_MARRY,
+	U_POSITION,
+	U_MS,
+	U_CAREER,
+	U_TGRADE,
+	U_PHONE,
+	U_EMAIL,
+	U_ADDRESS,
+	U_STATUS
+	FROM USER_INFO
+	WHERE U_ID = #{u_id}
+	</select>
+	
+	<update id="adminUserUpdate" parameterType="UserInfo">
+	UPDATE USER_INFO
+	SET D_ID = #{d_id},
+	U_POSITION = #{u_position},
+	U_EMAIL = #{u_email},
+	U_STATUS = #{u_status}
+	WHERE U_ID = #{u_id}
+	
+	</update>
+	
+	<delete id="adminUserDelete" parameterType="int">
+		DELETE FROM USER_INFO
+		WHERE U_ID = #{u_id}
+		
+	
+	</delete>
 
 </mapper>

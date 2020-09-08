@@ -7,7 +7,32 @@
 <%@include file="../common/head.jsp" %>
 <%@include file="../user/common/user_main_header.jsp" %>
 <%@include file="../user/common/user_left_column.jsp" %>
+<script>
+$(document).ready(function() {
+	//승인 반려
+	$("#adminUserUpdate").click(function() {
 
+		
+
+		var url = "<%=contextPath%>"+"/admin/adminUserUpdateForm"; 
+				$("#adminUserUpdateForm").attr("action", url);
+				$("#adminUserUpdateForm").submit();
+
+		});
+
+	
+$("#adminUserDelete").click(function() {
+
+		
+
+		var url = "<%=contextPath%>"+"/admin/adminUserDelete"; 
+				$("#adminUserUpdateForm").attr("action", url);
+				$("#adminUserUpdateForm").submit();
+
+		});
+	});
+
+</script>
 
 <body class="sidebar-mini layout-fixed" style="height: auto;">
 
@@ -24,8 +49,8 @@
 					<!-- /.col -->
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">우상단 메뉴</a></li>
-							<li class="breadcrumb-item active">현재 메뉴 이름</li>
+							<li class="breadcrumb-item"><button id="adminUserUpdate" class="btn btn-warning btn-flat" >수정</button></li>
+							<li class="breadcrumb-item active"><button id="adminUserDelete" class="btn btn-danger btn-flat" >삭제</button></li>						
 						</ol>
 					</div>
 					<!-- /.col -->
@@ -52,9 +77,14 @@
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-					<form action="<%=contextPath%>/resume/resumeCreate" method="post" name="form" onsubmit="return checkSubmit();">
+					<form id="adminUserUpdateForm">
+					<strong> 사번</strong>
+						<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번" value="${userInfo.u_id }" readonly="readonly"> 
+						<hr>
+					
+					
 						<strong> 성명</strong>
-						<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름" value="${loginUser.u_name }" readonly="readonly"> 
+						<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름" value="${userInfo.u_name }" readonly="readonly"> 
 						<hr>
 
 						<strong> 소속회사</strong>
@@ -62,15 +92,45 @@
 						<hr>
 
 						<strong> 부서</strong>
-						<p class="text-muted">연구소</p>
+						<p class="text-muted">${userInfo.d_id }</p>
 						<hr>
 
 						<strong> 병역</strong>
-						<p class="text-muted">만기전역</p>
+						<select class="form-control" name="u_ms" value="u_ms" disabled="disabled">
+                    <c:if test="${ userInfo.u_ms eq 'F'}">
+                    <option>필</option>
+                    </c:if>
+                    <c:if test="${ userInfo.u_ms eq 'FN'}">
+                    <option>미필</option>
+                    </c:if>
+                    <c:if test="${ userInfo.u_ms eq 'N'}">
+                    <option>면제</option>
+                    </c:if>
+                    <c:if test="${ userInfo.u_ms eq 'NA'}">
+                    <option>해당없음</option>
+                    </c:if>
+                    <option value="F">필</option>
+                    <option value="FN">미필</option>
+                    <option value="N">면제</option>
+                    <option value="NA">해당없음</option>
+                  </select>
 						<hr>
 
 						<strong> 기술등급</strong>
-						<p class="text-muted">초급</p>
+						<select class="form-control" name="u_tgrade" value="${userInfo.u_tgrade }" disabled="disabled">
+                    <c:if test="${userInfo.u_tgrade eq 'S' }">
+                    <option>특급</option>
+                  </c:if>
+                  <c:if test="${userInfo.u_tgrade eq 'H' }">
+                    <option>고급</option>
+                  </c:if>
+                  <c:if test="${userInfo.u_tgrade eq 'M' }">
+                    <option>중급</option>
+                  </c:if>
+                  <c:if test="${userInfo.u_tgrade eq 'B' }">
+                    <option>초급</option>
+                  </c:if>
+                  </select>
 						<hr>
 
 						<!--						<strong><i class="far fa-file-alt mr-1"></i> 개별항목</strong>
@@ -81,7 +141,7 @@
 									class="tag tag-primary">개별항목5</span>
 							</p>
  -->
-                    </form>
+
 					</div>
 					<!-- /.card-body -->
 				</div>
@@ -91,31 +151,66 @@
 
 				<div class="card card-primary col-md-5">
 					<div class="card-header">
-						<h3 class="card-title">_</h3>
+
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
 
 
 						<strong> 결혼</strong>
-						<p class="text-muted">미혼</p>
+						<select class="form-control" name="u_marry" value="u_marry" required disabled="disabled">
+                    <c:if test="${userInfo.u_marry eq 'Y' }">
+                    <option>기혼</option>
+                    </c:if>
+                    <c:if test="${userInfo.u_marry eq 'N'}">
+                    <option>미혼</option>
+                    </c:if>
+                    <option value="Y">기혼</option>
+                    <option value="N">미혼</option>
+                  </select>
 						<hr>
 
 						<strong> 직위</strong>
-						<p class="text-muted">사원</p>
+						<p class="text-muted">${userInfo.u_position }</p>
 						<hr>
 
 						<strong> 경력</strong>
-						<p class="text-muted">X년 X개월</p>
+						<p class="text-muted">${userInfo.u_career }</p>
 						<hr>
-
 					</div>
+					<strong><i class="fas fa-mobile-alt"></i> 전화</strong>
+					<p class="text-muted">${userInfo.u_phone }</p>
+					<hr>
+
+					<strong><i class="fas fa-envelope"></i> 이메일</strong>
+					<p class="text-muted">${userInfo.u_email }</p>
+					<hr>
 					<!-- /.card-body -->
 				</div>
-				<!-- /.card -->
+				<!-- /.card --> 
 				<!-- </section>  -->
 
 			</div>
+
+			<div class="card card-primary">
+				<div class="card-header">
+					<h3 class="card-title"></h3>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+
+					
+
+					<strong><i class="fas fa-map-marker-alt mr-1"></i> 주소</strong>
+					<p class="text-muted">${userInfo.u_address }</p>
+					<hr>
+
+				</div>
+				<!-- /.card-body -->
+			</div>
+
+			</div>
+                    </form>
 		<!-- /.content-wrapper -->
 
 		<!-- Main Footer -->
