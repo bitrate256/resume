@@ -222,6 +222,19 @@ public class UserInfoController {
 		return "admin/ajax/adminUserList_ajax";
 	}
 	
+	//사용자 상세보기
+	@RequestMapping(value = "admin/adminUserSelectOne")
+	public String adminUserSelectOne(){
+		
+		return "admin/adminUserSelectOne";
+	}
+	
+	//사용자 수정
+	@RequestMapping(value = "admin/adminUserUpdate")
+	public String adminUserUpdate() {
+		
+		return "";
+	}
 	
 	
 	

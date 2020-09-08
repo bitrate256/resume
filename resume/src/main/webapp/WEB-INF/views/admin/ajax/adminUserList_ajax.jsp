@@ -5,6 +5,53 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%String contextPath = request.getContextPath(); %>
 
+<script type="text/javascript">
+
+
+//버튼 클릭시 Row 값 가져오기
+$("#checkBtn").click(function(){ 
+	
+	var str = ""
+	var tdArr = new Array();	// 배열 선언
+	var checkBtn = $(this);
+	
+	// checkBtn.parent() : checkBtn의 부모는 <td>이다.
+	// checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+	var tr = checkBtn.parent().parent();
+	var td = tr.children();
+	
+	console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+	var u_id = td.eq(0).text();
+	var d_id = td.eq(1).text();
+	var u_name = td.eq(2).text();
+	var u_phone = td.eq(3).text();
+	var u_email = td.eq(4).text();
+	var u_position = td.eq(5).text();
+	var u_status = td.eq(6).text();
+	
+	// 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+	td.each(function(i){	
+		tdArr.push(td.eq(i).text());
+		
+		
+	});
+	
+	console.log("배열에 담긴 값 : "+tdArr);
+	
+	str =u_id+ d_id+ u_name + u_phone +u_email+ u_position+ u_status;		
+	
+	$("#ex2_Result1").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());		
+	$("#ex2_Result2").html(str);	
+
+
+	
+});
+
+		
+
+
+
+</script>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 
@@ -38,7 +85,7 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-12">
-								<table id="example1"
+								<table id="example-table-2"
 									class="table table-bordered table-striped dataTable dtr-inline"
 									role="grid" aria-describedby="example1_info">
 									<thead>
@@ -69,6 +116,10 @@
 												rowspan="1" colspan="1"
 												aria-label="CSS grade: activate to sort column ascending">
 												재직여부</th>
+												<th class="sorting" tabindex="0" aria-controls="example1"
+												rowspan="1" colspan="1"
+												aria-label="CSS grade: activate to sort column ascending">
+												수정</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -76,47 +127,25 @@
 										<c:choose>
 										<c:when test="${adminUserList.u_status eq 'Y' }">
 										<tr role="row" class="odd">
-											<td tabindex="0" class="sorting_1">${adminUserList.u_id }</td>
-											<c:if test="${adminUserList.d_id eq 1 }">
-											<td>경영지원</td>
-											</c:if>
-											<c:if test="${adminUserList.d_id eq 2 }">
-											<td>연구소</td>
-											</c:if>
-											<c:if test="${adminUserList.d_id eq 3 }">
-											<td>SI사업부</td>
-											</c:if>
+											<td onclick="javascript:location.href='<c:url value="/"/>admin/adminUserSelectOne?u_id=${adminUserList.u_id }'">${adminUserList.u_id }</td>
+											<td>${adminUserList.d_id}</td>
 											<td>${adminUserList.u_name }</td>
 											<td>${adminUserList.u_phone }</td>
 											<td>${adminUserList.u_email }</td>
-											<c:if test="${adminUserList.u_position eq 1 }">
-											<td>대표이사</td>
-											</c:if>
-											<c:if test="${adminUserList.u_position eq 2 }">
-											<td>부장</td>
-											</c:if>
-											<c:if test="${adminUserList.u_position eq 3 }">
-											<td>차장</td>
-											</c:if>
-											<c:if test="${adminUserList.u_position eq 4 }">
-											<td>과장</td>
-											</c:if>
-											<c:if test="${adminUserList.u_position eq 5 }">
-											<td>대리</td>
-											</c:if>
-											<c:if test="${adminUserList.u_position eq 6 }">
-											<td>사원</td>
-											</c:if>
-											<c:if test="${adminUserList.u_status eq 'Y' }">
-											<td>재직중</td>
-											</c:if>
+											<td>${adminUserList.u_position}</td>
+											<td id="status">${adminUserList.u_status}</td>
+											<td><input type="button" id="checkBtn" value="클릭" /></td>
 										</tr>
 										</c:when>
 										</c:choose>
+										
 										</c:forEach>
 										
 								</tbody>
+								
 								</table>
+								<div id="ex2_Result1"></div>
+								<div id="ex2_Result2"></div>
 							</div>
 						</div>
 						
