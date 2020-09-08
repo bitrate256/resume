@@ -27,9 +27,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	//부서 등록
 	@Override
-	public void departmentInsert(Department department) {
+	public int departmentInsert(Department department) {
 		
-		 dao.departmentInsert(department);
+		 return dao.departmentInsert(department);
 	}
 	
 	//부서 리스트

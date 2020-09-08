@@ -12,7 +12,7 @@ public interface DepartmentService {
 	public int departmentOverlap(Department department);
 	
 	//부서 등록
-	public void departmentInsert(Department department);
+	public int departmentInsert(Department department);
 	
 	//부서 리스트
 	public List<Department> departmentList(Department dto);

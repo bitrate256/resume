@@ -7,149 +7,115 @@
 <%@include file="../common/head.jsp" %>
 <%@include file="../user/common/user_main_header.jsp" %>
 <%@include file="../user/common/user_left_column.jsp" %>
-<script>
-$(function() {
-
-	$("#departmentSubmit").click(function() {
-	
-			$.ajax({
-					url : "${pageContext.request.contextPath}/admin/departmentInsert",
-					type : "POST",
-					data : $("#frm").serialize(),
-					dataType : "text",
-					success : function(data) {
-						console.log("1 = 성공o / 0 = 실패x : "+ data);
-					
-						if (data == "1") {
-							$('#result_check').text("부서등록 성공.");
-						}
-						else if(data == "0"){
-							$('#result_check').text("부서등록 실패.");
-						}
-						
-					},
-					error : function() {
-						alert("Error");
-					}
-			})
-		
-	});
-	
-	
-});
-
-
-$(function(){
-	
-
-	$("#d_name").blur(function() {
-
-		var d_name = $('#d_name').val();
-		
-		$.ajax({
-			url : '${pageContext.request.contextPath}/admin/departmentCheck?d_name='+ d_name,
-			type : 'get',
-			dataType : 'text',
-			success : function(data) {
-				console.log("1 = 중복o / 0 = 중복x : "+ data);	
-				
-				
-			
-				
-				if (d_name == "") {
-						
-						$("#name_check").text("부서명을 입력해주세요");
-						$("#name_check").css("color", "red");
-						
-					} 
-										
-							
-					else if(data == '1'){
-							
-						$('#name_check').text("부서명이 중복됩니다.");
-						$('#name_check').css('color', 'red');
-						
-						} else {
-							$('#name_check').text("사용가능한 부서명입니다.");
-							$('#name_check').css('color', 'blue');
-					}
-							
-					
-					}, error : function() {
-							console.log("실패");
-				}
-			});
-		});
-});
-
-
-</script>
 
 
 <body class="sidebar-mini layout-fixed" style="height: auto;">
 
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="min-height: 855px;">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">부서 관리</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">우상단 메뉴</a></li>
-              <li class="breadcrumb-item active">부서 등록</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-
-		<div class="register-box-body">
-	<p class="login-box-msg">부서 등록</p>
-	<form id="frm">
-		<br>
-
-		<div class="form-group has-feedback">
-			<input type="text" class="form-control col-6" id="d_name" name="d_name" placeholder="부서 이름">
-			<div id="name_check"></div>
-      	</div>
-      	
-      
-		<div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-
-          </div>
-        </div>
-        <!-- /.col -->
-        <div class="col-xs-4">
-        	<button type="button" class="btn btn-primary" id="departmentSubmit" name="departmentSubmit" >부서 등록</button>
-			<button type="button" class="btn btn-primary" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">취소</button>
-			<div id="result_check"></div>
-        </div>
-        <!-- /.col -->
-     	</div>
-		
-					
-		
-	</form>
-			
-	</div>
-									
-			</section>
-			<!-- /.content -->
-
-
-
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper" style="min-height: 855px;">
+		<!-- Content Header (Page header) -->
+		<div class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1 class="m-0 text-dark">사용자 상세보기</h1>
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a href="#">우상단 메뉴</a></li>
+							<li class="breadcrumb-item active">현재 메뉴 이름</li>
+						</ol>
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container-fluid -->
 		</div>
+		<!-- /.content-header -->
+
+		<!-- Main content -->
+		<div class="container-fluid">
+
+			<div class="row">
+
+				<!-- <section class="col-md-3 connectedSortable ui-sortable"> -->
+				<!-- 이쪽에서 섹션 클래스를 묶어버려서 의도한 정렬이 되지 않았던 것. -->
+
+
+
+				<div class="card card-primary col-md-5">
+					<div class="card-header">
+						<h3 class="card-title">1. 신상기록</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+					<form action="<%=contextPath%>/resume/resumeCreate" method="post" name="form" onsubmit="return checkSubmit();">
+						<strong> 성명</strong>
+						<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름" value="${loginUser.u_name }" readonly="readonly"> 
+						<hr>
+
+						<strong> 소속회사</strong>
+						<p class="text-muted">비앤오소프트(주)</p>
+						<hr>
+
+						<strong> 부서</strong>
+						<p class="text-muted">연구소</p>
+						<hr>
+
+						<strong> 병역</strong>
+						<p class="text-muted">만기전역</p>
+						<hr>
+
+						<strong> 기술등급</strong>
+						<p class="text-muted">초급</p>
+						<hr>
+
+						<!--						<strong><i class="far fa-file-alt mr-1"></i> 개별항목</strong>
+							<p class="text-muted">
+								<span class="tag tag-danger">개별항목1</span> <span
+									class="tag tag-success">개별항목2</span> <span class="tag tag-info">개별항목3</span>
+								<span class="tag tag-warning">개별항목4</span> <span
+									class="tag tag-primary">개별항목5</span>
+							</p>
+ -->
+                    </form>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+
+				<!-- /.card -->
+
+				<div class="card card-primary col-md-5">
+					<div class="card-header">
+						<h3 class="card-title">_</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+
+
+						<strong> 결혼</strong>
+						<p class="text-muted">미혼</p>
+						<hr>
+
+						<strong> 직위</strong>
+						<p class="text-muted">사원</p>
+						<hr>
+
+						<strong> 경력</strong>
+						<p class="text-muted">X년 X개월</p>
+						<hr>
+
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+				<!-- </section>  -->
+
+			</div>
 		<!-- /.content-wrapper -->
 
 		<!-- Main Footer -->

@@ -27,9 +27,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
 	// 부서 등록
 	@Override
-	public void departmentInsert(Department department) {
+	public int departmentInsert(Department department) {
 
-		session.insert(queryprefix + "departmentInsert", department);
+		return session.insert(queryprefix + "departmentInsert", department);
 	}
 
 	// 부서 리스트

@@ -62,13 +62,20 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 	
 	//부서 등록
 	@RequestMapping(value = "admin/departmentInsert")
-	public String departmentInsert(Department department) {
+	@ResponseBody
+	public String departmentInsert(Department department, @RequestParam("d_name")String d_name) {
+		String data = null;
+		department.setD_name(d_name);
+		int success = service.departmentInsert(department);
+		if(success > 0) {
+			data = "1";
+		}
+		else if(success < 0){
+			data = "0";
+		}
 		
-		service.departmentInsert(department);
 		
-		
-		
-		return "redirect:/admin/adminDepartmentList";
+		return data;
 	}
 	
 	//부서 리스트
