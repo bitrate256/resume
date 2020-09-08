@@ -112,7 +112,7 @@
 					</div>
 					<!-- /.card-body -->
 				</div>
-				<!-- /.card -->
+				<!-- /.card --> 
 				<!-- </section>  -->
 
 			</div>
