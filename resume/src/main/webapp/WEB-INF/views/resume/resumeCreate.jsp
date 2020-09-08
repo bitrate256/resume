@@ -113,7 +113,6 @@
 
 <body class="sidebar-mini layout-fixed" style="height: auto;">
 
-
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper" style="min-height: 855px;">
 		<!-- Content Header (Page header) -->
@@ -135,7 +134,6 @@
 				<!-- /.row -->
 			</div>
 			<!-- /.container-fluid -->
-
 		</div>
 		<!-- /.content-header -->
 
