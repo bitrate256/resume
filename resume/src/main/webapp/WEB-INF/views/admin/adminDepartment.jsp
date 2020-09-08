@@ -8,7 +8,26 @@
 <%@include file="../user/common/user_main_header.jsp" %>
 <%@include file="../user/common/user_left_column.jsp" %>
 <script>
+$(function() {
+	
 
+$('#departmentSubmit').click(function() {
+		
+		$.ajax({
+				url : "/admin/departmentInsert",
+				type : "POST",
+				data : $('#frm').serialize(),
+				success : function(data) {
+						$('#result').text(data);
+				},
+				
+				error : function() {
+					alert('등록실패');
+				}
+		});
+	
+});	
+});
 $(function(){
 	
 
@@ -84,7 +103,7 @@ $(function(){
 
 		<div class="register-box-body">
 	<p class="login-box-msg">부서 등록</p>
-	<form action="<%=contextPath%>/admin/departmentInsert" method="post" name="form">
+	<form id="frm" name="form">
 		<br>
 
 		<div class="form-group has-feedback">
@@ -101,7 +120,7 @@ $(function(){
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-        	<input type="submit" class="btn btn-primary" id="submit" name="submit" value="부서 등록" onclick="submitCheck()">
+        	<button type="button" id="departmentSubmit" class="btn btn-primary">부서 등록</button>
 			<button type="button" class="btn btn-primary" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">취소</button>
         </div>
         <!-- /.col -->
