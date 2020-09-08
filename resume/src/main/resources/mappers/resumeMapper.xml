@@ -138,7 +138,6 @@
 	<result column="si_tool" property="si_tool"/>
 	<result column="si_etc" property="si_etc"/>
 	</resultMap>
-	
 
 	
     이력 상세보기

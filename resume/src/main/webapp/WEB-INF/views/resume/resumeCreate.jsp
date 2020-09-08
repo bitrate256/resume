@@ -87,7 +87,7 @@
 <script>
 	$(function() {
 		//input을 datepicker로 선언
-		$("#grad_date").datepicker(
+		$(".grad_date").datepicker(
 				{
 					dateFormat : 'yy-mm-dd', //Input Display Format 변경
 					showOtherMonths : true, //빈 공간에 현재월의 앞뒤월의 날짜를 표시
@@ -285,8 +285,8 @@
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
-										<label>졸업 날짜</label> <input type="text" id="grad_date"
-											class="form-control">
+										<label>졸업 날짜</label> <input type="text"
+											class="form-control grad_date">
 									</div>
 								</div>
 								<!-- 비활성화 폼	
@@ -335,8 +335,8 @@
 								<!-- 데이트 picker -->
 								<div class="col-sm-6">
 									<div class="form-group">
-										<label>취득 날짜</label> <input type="text" id="certi_date"
-											class="form-control">
+										<label>취득 날짜</label> <input type="text"
+											class="form-control grad_date">
 									</div>
 								</div>
 							</div>
