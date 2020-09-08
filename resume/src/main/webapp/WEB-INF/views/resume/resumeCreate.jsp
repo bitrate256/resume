@@ -1,373 +1,970 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@include file="../common/head.jsp"%>
+<%@include file="../user/common/user_main_header.jsp"%>
+<%@include file="../user/common/user_left_column.jsp"%>
+<%
+	pageContext.setAttribute("replaceChar", "\n");
+%>
 
-<%@include file="../common/head.jsp" %>
-<%@include file="../user/common/user_main_header.jsp" %>
-<%@include file="../user/common/user_left_column.jsp" %>
+<!-- jQuery UI CSS파일  -->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
 
+
+<style>
+.register-box {
+	width: 400px;
+	margin: 3% auto;
+}
+
+.form-control-feedback {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 2;
+	display: block;
+	width: 34px;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	pointer-events: none;
+}
+</style>
+
+<head>
+
+<!-- 자격증 선택 함수 -->
+<script type="text/javascript">
+	function SetCertiTail(certiValue) {
+		/* 	  var certi = document.all("certi") */// 사용자 입력
+		var certiTail = document.all("certi_value") // Select box
+
+		if (certiValue == "notSelected")
+			return;
+		else if (certiValue == "etc") {
+			certiTail.readOnly = false;
+			certiTail.value = "";
+			certiTail.focus();
+		} else {
+			certiTail.readOnly = true;
+			certiTail.value = certiValue;
+		}
+	}
+</script>
+
+<!-- 자격 취득일자 date picker 함수 -->
+<script>
+	$(function() {
+		//input을 datepicker로 선언
+		$("#certi_date").datepicker(
+				{
+					dateFormat : 'yy-mm-dd', //Input Display Format 변경
+					showOtherMonths : true, //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+					showMonthAfterYear : true, //년도 먼저 나오고, 뒤에 월 표시
+					changeYear : true, //콤보박스에서 년 선택 가능
+					changeMonth : true, //콤보박스에서 월 선택 가능
+					yearSuffix : "년", //달력의 년도 부분 뒤에 붙는 텍스트
+					monthNamesShort : [ '1', '2', '3', '4', '5', '6', '7', '8',
+							'9', '10', '11', '12' ], //달력의 월 부분 텍스트
+					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+							'8월', '9월', '10월', '11월', '12월' ], //달력의 월 부분 Tooltip 텍스트
+					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ], //달력의 요일 부분 텍스트
+					dayNames : [ '일요일', '월요일', '화요일', '수요일', '목요일', '금요일',
+							'토요일' ], //달력의 요일 부분 Tooltip 텍스트
+					maxDate : "+0" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+				});
+		//초기값을 오늘 날짜로 설정
+		$('#certi_date').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+	});
+</script>
+
+<!-- 최종학력 date picker 함수 -->
+<script>
+	$(function() {
+		//input을 datepicker로 선언
+		$(".grad_date").datepicker(
+				{
+					dateFormat : 'yy-mm-dd', //Input Display Format 변경
+					showOtherMonths : true, //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+					showMonthAfterYear : true, //년도 먼저 나오고, 뒤에 월 표시
+					changeYear : true, //콤보박스에서 년 선택 가능
+					changeMonth : true, //콤보박스에서 월 선택 가능
+					yearSuffix : "년", //달력의 년도 부분 뒤에 붙는 텍스트
+					monthNamesShort : [ '1', '2', '3', '4', '5', '6', '7', '8',
+							'9', '10', '11', '12' ], //달력의 월 부분 텍스트
+					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+							'8월', '9월', '10월', '11월', '12월' ], //달력의 월 부분 Tooltip 텍스트
+					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ], //달력의 요일 부분 텍스트
+					dayNames : [ '일요일', '월요일', '화요일', '수요일', '목요일', '금요일',
+							'토요일' ], //달력의 요일 부분 Tooltip 텍스트
+					maxDate : "+0" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+				});
+		//초기값을 오늘 날짜로 설정
+		$('#grad_date').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+	});
+</script>
+
+</head>
 
 <body class="sidebar-mini layout-fixed" style="height: auto;">
 
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="min-height: 855px;">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">이력 등록 화면</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">우상단 메뉴</a></li>
-              <li class="breadcrumb-item active">현재 메뉴 이름</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-
-
-
-
-
-
-<div class="col-md-12">
-            <!-- general form elements disabled -->
-            <div class="card card-warning">
-              <div class="card-header">
-                <h3 class="card-title">1. 신상기록</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <form role="form">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Text</label>
-                        <input type="text" class="form-control" placeholder="Enter ...">
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Text Disabled</label>
-                        <input type="text" class="form-control" placeholder="Enter ..." disabled="">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <!-- textarea -->
-                      <div class="form-group">
-                        <label>Textarea</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Textarea Disabled</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..." disabled=""></textarea>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- input states -->
-                  <div class="form-group">
-                    <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i> Input with
-                      success</label>
-                    <input type="text" class="form-control is-valid" id="inputSuccess" placeholder="Enter ...">
-                  </div>
-                  <div class="form-group">
-                    <label class="col-form-label" for="inputWarning"><i class="far fa-bell"></i> Input with
-                      warning</label>
-                    <input type="text" class="form-control is-warning" id="inputWarning" placeholder="Enter ...">
-                  </div>
-                  <div class="form-group">
-                    <label class="col-form-label" for="inputError"><i class="far fa-times-circle"></i> Input with
-                      error</label>
-                    <input type="text" class="form-control is-invalid" id="inputError" placeholder="Enter ...">
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <!-- checkbox -->
-                      <div class="form-group">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox">
-                          <label class="form-check-label">Checkbox</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" checked="">
-                          <label class="form-check-label">Checkbox checked</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" disabled="">
-                          <label class="form-check-label">Checkbox disabled</label>
-                        </div>
-                      </div>
-                    </div> 
-                    <div class="col-sm-6">
-                      <!-- radio -->
-                      <div class="form-group">
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="radio1">
-                          <label class="form-check-label">Radio</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="radio1" checked="">
-                          <label class="form-check-label">Radio checked</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" disabled="">
-                          <label class="form-check-label">Radio disabled</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <!-- select -->
-                      <div class="form-group">
-                        <label>Select</label>
-                        <select class="form-control">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Select Disabled</label>
-                        <select class="form-control" disabled="">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <!-- Select multiple-->
-                      <div class="form-group">
-                        <label>Select Multiple</label>
-                        <select multiple="" class="form-control">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Select Multiple Disabled</label>
-                        <select multiple="" class="form-control" disabled="">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <!-- general form elements disabled -->
-            <div class="card card-secondary">
-              <div class="card-header">
-                <h3 class="card-title">Custom Elements</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <form role="form">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <!-- checkbox -->
-                      <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                          <label for="customCheckbox1" class="custom-control-label">Custom Checkbox</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="customCheckbox2" checked="">
-                          <label for="customCheckbox2" class="custom-control-label">Custom Checkbox checked</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="customCheckbox3" disabled="">
-                          <label for="customCheckbox3" class="custom-control-label">Custom Checkbox disabled</label>
-                        </div>
-                      </div>
-                    </div> 
-                    <div class="col-sm-6">
-                      <!-- radio -->
-                      <div class="form-group">
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio">
-                          <label for="customRadio1" class="custom-control-label">Custom Radio</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" checked="">
-                          <label for="customRadio2" class="custom-control-label">Custom Radio checked</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio3" disabled="">
-                          <label for="customRadio3" class="custom-control-label">Custom Radio disabled</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <!-- select -->
-                      <div class="form-group">
-                        <label>Custom Select</label>
-                        <select class="custom-select">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Custom Select Disabled</label>
-                        <select class="custom-select" disabled="">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <!-- Select multiple-->
-                      <div class="form-group">
-                        <label>Custom Select Multiple</label>
-                        <select multiple="" class="custom-select">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Custom Select Multiple Disabled</label>
-                        <select multiple="" class="custom-select" disabled="">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                      <label class="custom-control-label" for="customSwitch1">Toggle this custom switch element</label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                      <input type="checkbox" class="custom-control-input" id="customSwitch3">
-                      <label class="custom-control-label" for="customSwitch3">Toggle this custom switch element with custom colors danger/success</label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" disabled="" id="customSwitch2">
-                      <label class="custom-control-label" for="customSwitch2">Disabled custom switch element</label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="customRange1">Custom range</label>
-                    <input type="range" class="custom-range" id="customRange1">
-                  </div>
-                  <div class="form-group">
-                    <label for="customRange1">Custom range (custom-range-danger)</label>
-                    <input type="range" class="custom-range custom-range-danger" id="customRange1">
-                  </div>
-                  <div class="form-group">
-                    <label for="customRange1">Custom range (custom-range-teal)</label>
-                    <input type="range" class="custom-range custom-range-teal" id="customRange1">
-                  </div>
-                  <div class="form-group">
-                    <!-- <label for="customFile">Custom File</label> -->
-
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="customFile">
-                      <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                  </div>
-                </form>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-
-
-
-
-
-
-			</section>
-			<!-- /.contentㅎㅎㅎㅎ -->
-
-
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper" style="min-height: 855px;">
+		<!-- Content Header (Page header) -->
+		<div class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1 class="m-0 text-dark">개 인 이 력 카 드</h1>
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a href="#">우상단 메뉴</a></li>
+							<li class="breadcrumb-item active">현재 메뉴 이름</li>
+						</ol>
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container-fluid -->
 
 		</div>
-		<!-- /.content-wrapper -->
+		<!-- /.content-header -->
 
-		<!-- Main Footer -->
-	<%@include file="../user/common/user_main_footer.jsp" %>
+		<!-- Main content -->
+		<div class="container-fluid">
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-  <!-- Control sidebar content goes here -->
-  <div class="p-3 control-sidebar-content"><h5>Customize AdminLTE</h5><hr class="mb-2"><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>No Navbar border</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Body small text</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Navbar small text</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar nav small text</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Footer small text</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar nav flat style</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar nav legacy style</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar nav compact</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar nav child indent</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Main Sidebar disable hover/focus auto expand</span></div><div class="mb-4"><input type="checkbox" value="1" class="mr-1"><span>Brand small text</span></div><h6>Navbar Variants</h6><div class="d-flex"><div class="d-flex flex-wrap mb-3"><div class="bg-primary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-secondary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-info elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-success elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-indigo elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-purple elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-pink elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-navy elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lightblue elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-teal elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-cyan elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-dark elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-gray-dark elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-gray elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-light elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-warning elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-white elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-orange elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div></div></div><h6>Accent Color Variants</h6><div class="d-flex"></div><div class="d-flex flex-wrap mb-3"><div class="bg-primary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-warning elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-info elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-success elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-indigo elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lightblue elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-navy elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-purple elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-fuchsia elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-pink elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-maroon elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-orange elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lime elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-teal elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-olive elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div></div><h6>Dark Sidebar Variants</h6><div class="d-flex"></div><div class="d-flex flex-wrap mb-3"><div class="bg-primary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-warning elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-info elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-success elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-indigo elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lightblue elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-navy elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-purple elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-fuchsia elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-pink elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-maroon elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-orange elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lime elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-teal elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-olive elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div></div><h6>Light Sidebar Variants</h6><div class="d-flex"></div><div class="d-flex flex-wrap mb-3"><div class="bg-primary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-warning elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-info elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-success elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-indigo elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lightblue elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-navy elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-purple elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-fuchsia elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-pink elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-maroon elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-orange elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lime elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-teal elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-olive elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div></div><h6>Brand Logo Variants</h6><div class="d-flex"></div><div class="d-flex flex-wrap mb-3"><div class="bg-primary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-secondary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-info elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-success elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-indigo elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-purple elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-pink elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-navy elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lightblue elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-teal elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-cyan elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-dark elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-gray-dark elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-gray elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-light elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-warning elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-white elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-orange elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><a href="javascript:void(0)">clear</a></div></div></aside>
-  <!-- /.control-sidebar -->
-<div id="sidebar-overlay"></div></div>
-<!-- ./wrapper -->
+			<div class="row">
 
+				<!-- <section class="col-md-3 connectedSortable ui-sortable"> -->
+				<!-- 이쪽에서 섹션 클래스를 묶어버려서 의도한 정렬이 되지 않았던 것. -->
 
+				<!-- Profile Image -->
+				<div class="card card-primary card-outline col-md-2">
+					<div class="card-body box-profile">
+						<div class="text-center">
+							<img class="profile-user-img img-fluid img-circle"
+								src="../../dist/img/user4-128x128.jpg"
+								alt="User profile picture">
+						</div>
 
+						<h3 class="profile-username text-center">이름</h3>
 
-<div class="daterangepicker ltr show-ranges opensright"><div class="ranges"><ul><li data-range-key="Today">Today</li><li data-range-key="Yesterday">Yesterday</li><li data-range-key="Last 7 Days">Last 7 Days</li><li data-range-key="Last 30 Days">Last 30 Days</li><li data-range-key="This Month">This Month</li><li data-range-key="Last Month">Last Month</li><li data-range-key="Custom Range">Custom Range</li></ul></div><div class="drp-calendar left"><div class="calendar-table"></div><div class="calendar-time" style="display: none;"></div></div><div class="drp-calendar right"><div class="calendar-table"></div><div class="calendar-time" style="display: none;"></div></div><div class="drp-buttons"><span class="drp-selected"></span><button class="cancelBtn btn btn-sm btn-default" type="button">Cancel</button><button class="applyBtn btn btn-sm btn-primary" disabled="disabled" type="button">Apply</button> </div></div><div class="jqvmap-label" style="display: none;"></div></body></html>
+						<p class="text-muted text-center">직군or직무or직위</p>
+
+						<ul class="list-group list-group-unbordered mb-3">
+							<li class="list-group-item"><b>리스트아이템</b> <a
+								class="float-right">수치/갯수</a></li>
+						</ul>
+
+						<a href="#" class="btn btn-primary btn-block"><b>사진 업로드</b></a>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+
+				<div class="card card-primary col-md-5">
+					<div class="card-header">
+						<h3 class="card-title">1. 신상기록</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+					<form action="<%=contextPath%>/resume/resumeCreate" method="post" name="form" onsubmit="return checkSubmit();">
+						<strong><i class="fas fa-mobile-alt"></i> 성명</strong>
+						<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름" value="${loginUser.u_name }" readonly="readonly"> 
+						<hr>
+
+						<strong><i class="fas fa-envelope"></i> 소속회사</strong>
+						<p class="text-muted">비앤오소프트(주)</p>
+						<hr>
+
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 부서</strong>
+						<p class="text-muted">연구소</p>
+						<hr>
+
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 병역</strong>
+						<p class="text-muted">만기전역</p>
+						<hr>
+
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 기술등급</strong>
+						<p class="text-muted">초급</p>
+						<hr>
+
+						<!--						<strong><i class="far fa-file-alt mr-1"></i> 개별항목</strong>
+							<p class="text-muted">
+								<span class="tag tag-danger">개별항목1</span> <span
+									class="tag tag-success">개별항목2</span> <span class="tag tag-info">개별항목3</span>
+								<span class="tag tag-warning">개별항목4</span> <span
+									class="tag tag-primary">개별항목5</span>
+							</p>
+ -->
+                    </form>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+
+				<!-- /.card -->
+
+				<div class="card card-primary col-md-5">
+					<div class="card-header">
+						<h3 class="card-title">_</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+
+						<strong><i class="fas fa-mobile-alt"></i> 주민번호</strong>
+						<p class="text-muted">XXXXXX-XXXXXXX</p>
+						<hr>
+
+						<strong><i class="fas fa-envelope"></i> 결혼</strong>
+						<p class="text-muted">미혼</p>
+						<hr>
+
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 직위</strong>
+						<p class="text-muted">사원</p>
+						<hr>
+
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 경력</strong>
+						<p class="text-muted">X년 X개월</p>
+						<hr>
+
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+				<!-- </section>  -->
+
+			</div>
+
+			<div class="card card-primary">
+				<div class="card-header">
+					<h3 class="card-title"></h3>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+
+					<strong><i class="fas fa-mobile-alt"></i> 전화</strong>
+					<p class="text-muted">010-1111-2222</p>
+					<hr>
+
+					<strong><i class="fas fa-envelope"></i> 이메일</strong>
+					<p class="text-muted">abc@mail.com</p>
+					<hr>
+
+					<strong><i class="fas fa-map-marker-alt mr-1"></i> 주소</strong>
+					<p class="text-muted">서울 XX구 XX대로</p>
+					<hr>
+
+				</div>
+				<!-- /.card-body -->
+			</div>
+
+			<!-- 2. 학력 -->
+			<div class="card card-primary col-md-12">
+				<!-- general form elements disabled -->
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title">2. 최종학력</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<form role="form">
+							<div class="row">
+								<div class="col-sm-6">
+									<!-- text input -->
+									<div class="form-group">
+										<label>학교/과정명</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>졸업 날짜</label> <input type="text"
+											class="form-control grad_date">
+									</div>
+								</div>
+								<!-- 비활성화 폼	
+                                <div class="col-sm-6">
+									<div class="form-group">
+										<label>Text Disabled</label> <input type="text"
+											class="form-control" placeholder="Enter ..." disabled="">
+									</div> 집가고싶어용
+								</div> -->
+							</div>
+						</form>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+			</div>
+
+			<!-- 3. 자격증 -->
+			<div class="card card-primary col-md-12">
+				<!-- general form elements disabled -->
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title">3. 자격증</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<form role="form">
+							<div class="row">
+								<!-- selectbox / input -->
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>자격증 선택</label> <input type="text" name="certi_value"
+											value="" ReadOnly="true" class="form-control"></input> <select
+											name="certiCheck"
+											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
+											<option value="notSelected">::선택하세요::</option>
+											<option value="etc">직접입력</option>
+											<option value="정보처리기사">정보처리기사</option>
+											<option value="정보처리산업기사">정보처리산업기사</option>
+											<option value="리눅스마스터">리눅스마스터</option>
+											<option value="네트워크관리사">네트워크관리사</option>
+										</select>
+									</div>
+								</div>
+
+								<!-- 데이트 picker -->
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>취득 날짜</label> <input type="text"
+											class="form-control grad_date">
+									</div>
+								</div>
+							</div>
+					</div>
+					</form>
+				</div>
+				<!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+		</div>
+
+		<!-- 4. 경력 -->
+		<div class="row">
+			<div class="card card-primary col-md-12">
+				<!-- general form elements disabled -->
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title">4. 경력</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<form role="form">
+							<div class="row">
+								<div class="col-sm-4">
+									<!-- text input -->
+									<div class="form-group">
+										<label>근무 회사명</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 range -->
+									<div class="form-group">
+										<label>기 간</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"> <i
+													class="far fa-calendar-alt"></i>
+												</span>
+											</div>
+											<input type="text" class="form-control float-right"
+												id="workrange">
+										</div>
+										<!-- /.input group -->
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<!-- text input -->
+									<div class="form-group">
+										<label>직 위</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<label>담당 업무</label> <input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"> <i
+													class="far fa-calendar-alt"></i>
+												</span>
+											</div>
+											<input type="text" class="form-control float-right"
+												id="reservation">
+										</div>
+										<!-- /.input group -->
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"> <i
+													class="far fa-calendar-alt"></i>
+												</span>
+											</div>
+											<input type="text" class="form-control float-right"
+												id="reservation">
+										</div>
+										<!-- /.input group -->
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"> <i
+													class="far fa-calendar-alt"></i>
+												</span>
+											</div>
+											<input type="text" class="form-control float-right"
+												id="reservation">
+										</div>
+										<!-- /.input group -->
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+			</div>
+		</div>
+
+		<!-- 5. 교육 -->
+		<div class="row">
+			<div class="card card-primary col-md-7">
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title">5. 교육</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<form role="form">
+							<div class="row">
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<label>교육기관</label> <input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<label>시작일</label>
+										<div class="input-group date" id="reservationdate1"
+											data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input"
+												data-target="#reservationdate1">
+											<div class="input-group-append"
+												data-target="#reservationdate1" data-toggle="datetimepicker">
+												<div class="input-group-text">
+													<i class="fa fa-calendar"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<label>종료일</label>
+										<div class="input-group date" id="reservationdate2"
+											data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input"
+												data-target="#reservationdate2">
+											<div class="input-group-append"
+												data-target="#reservationdate2" data-toggle="datetimepicker">
+												<div class="input-group-text">
+													<i class="fa fa-calendar"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<label>교육과정명</label> <input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+						</form>
+						<form role="form">
+							<div class="row">
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<div class="input-group date" id="reservationdate3"
+											data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input"
+												data-target="#reservationdate3">
+											<div class="input-group-append"
+												data-target="#reservationdate3" data-toggle="datetimepicker">
+												<div class="input-group-text">
+													<i class="fa fa-calendar"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<div class="input-group date" id="reservationdate4"
+											data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input"
+												data-target="#reservationdate4">
+											<div class="input-group-append"
+												data-target="#reservationdate4" data-toggle="datetimepicker">
+												<div class="input-group-text">
+													<i class="fa fa-calendar"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+						</form>
+						<form role="form">
+							<div class="row">
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<div class="input-group date" id="reservationdate5"
+											data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input"
+												data-target="#reservationdate5">
+											<div class="input-group-append"
+												data-target="#reservationdate5" data-toggle="datetimepicker">
+												<div class="input-group-text">
+													<i class="fa fa-calendar"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<div class="input-group date" id="reservationdate6"
+											data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input"
+												data-target="#reservationdate6">
+											<div class="input-group-append"
+												data-target="#reservationdate6" data-toggle="datetimepicker">
+												<div class="input-group-text">
+													<i class="fa fa-calendar"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+						</form>
+						<form role="form">
+							<div class="row">
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<div class="input-group date" id="reservationdate7"
+											data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input"
+												data-target="#reservationdate7">
+											<div class="input-group-append"
+												data-target="#reservationdate7" data-toggle="datetimepicker">
+												<div class="input-group-text">
+													<i class="fa fa-calendar"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- 데이트 picker -->
+									<div class="form-group">
+										<div class="input-group date" id="reservationdate8"
+											data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input"
+												data-target="#reservationdate8">
+											<div class="input-group-append"
+												data-target="#reservationdate8" data-toggle="datetimepicker">
+												<div class="input-group-text">
+													<i class="fa fa-calendar"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+			</div>
+
+			<!-- 6. 특수기술 -->
+			<div class="card card-primary col-md-5">
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title">6. 특수기술</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<form role="form">
+							<div class="row">
+								<div class="col-sm-8">
+									<!-- text input -->
+									<div class="form-group">
+										<label>사용 가능한 프로그램</label> <input type="text"
+											class="form-control">
+									</div>
+								</div>
+								<!-- 셀렉트 박스 -->
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>숙련도</label> <select class="form-control">
+											<option>상</option>
+											<option>중</option>
+											<option>하</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-8">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<!-- 셀렉트 박스 -->
+								<div class="col-sm-4">
+									<div class="form-group">
+										<select class="form-control">
+											<option>상</option>
+											<option>중</option>
+											<option>하</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-8">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<!-- 셀렉트 박스 -->
+								<div class="col-sm-4">
+									<div class="form-group">
+										<select class="form-control">
+											<option>상</option>
+											<option>중</option>
+											<option>하</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-8">
+									<!-- text input -->
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<!-- 셀렉트 박스 -->
+								<div class="col-sm-4">
+									<div class="form-group">
+										<select class="form-control">
+											<option>상</option>
+											<option>중</option>
+											<option>하</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</form>
+
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+
+			<!-- SKILL INVENTORY -->
+			<div class="card card-primary col-md-12">
+				<div class="card card-success">
+					<div class="card-header">
+						<h3 class="card-title">SKILL INVENTORY</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-2">
+								<!-- text input -->
+								<div class="form-group">
+									<label>프로젝트명(업무명)</label> <input type="text"
+										class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<label>참여기간</label> <input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<label>고객사</label> <input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<label>근무회사</label> <input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<label>역할</label> <input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<label>기종</label> <input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<label>OS</label> <input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<label>언어</label> <input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<label>DBMS</label> <input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<label>TOOL</label> <input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<label>기타</label> <input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-2">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-1">
+								<!-- text input -->
+								<div class="form-group">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+
+						<!-- 7개 ROW 추가 필요. -->
+
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Main Footer -->
+	<%@ include file="../user/common/user_mainFooter.jsp"%>
+	</div>
+</body>
+</html>
 

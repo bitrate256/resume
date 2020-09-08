@@ -40,8 +40,8 @@ public class ResumeController {
 	
 	// 이력 업로드 화면
 	@RequestMapping(value = "resume/resumeCreate")
-	public String resumeCreate() {
-		
+	public String resumeCreate(UserInfo user, Model model) {
+		model.addAttribute("loginUser", user);
 		return "resume/resumeCreate";
 	}
 	
