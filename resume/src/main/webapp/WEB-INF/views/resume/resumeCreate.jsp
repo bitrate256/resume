@@ -305,7 +305,7 @@
 									<div class="form-group">
 										<label>Text Disabled</label> <input type="text"
 											class="form-control" placeholder="Enter ..." disabled="">
-									</div>
+									</div> 집가고싶어용
 								</div> -->
 								</div>
 								<div class="row">
