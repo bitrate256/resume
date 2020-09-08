@@ -37,9 +37,11 @@
 	
     
     <!-- jQuery -->
+    <script src="<%=contextPath %>/plugins/jquery/jquery-3.3.1.min.js"></script>
 	<script src="<%=contextPath %>/plugins/jquery/jquery.min.js"></script>
 	<!-- jQuery UI 1.11.4 -->
 	<script src="<%=contextPath %>/plugins/jquery-ui/jquery-ui.min.js"></script>
+
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
 		$.widget.bridge('uibutton', $.ui.button)
@@ -78,6 +80,7 @@
 	
 	<!-- jqGrid -->
 	<script type="text/javascript" src="<%= contextPath %>/plugins/jqGrid/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="<%= contextPath %>/plugins/jqGrid/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="<%= contextPath %>/plugins/jqGrid/grid.locale-kr.js"></script>
 	<script type="text/javascript" src="<%= contextPath %>/plugins/jqGrid/jquery-ui.js"></script>
 	<script type="text/javascript" src="<%= contextPath %>/plugins/jqGrid/jquery.jqGrid.min.js"></script>

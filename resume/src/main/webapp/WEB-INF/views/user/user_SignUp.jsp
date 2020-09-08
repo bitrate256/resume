@@ -33,7 +33,7 @@
 $(function(){
 	
 
-	$("#u_id").blur(function() {
+	$("#uIdCheck").click(function() {
 
 		var u_id = $('#u_id').val();
 		
@@ -81,7 +81,7 @@ $(function(){
 $(function(){
 	
 
-	$("#u_email").blur(function() {
+	$("#uEmailCheck").click(function() {
 		// id = "id_reg" / name = "userId"
 		var u_email = $('#u_email').val();
 		
@@ -335,6 +335,7 @@ function check_u_rnumber() {
 		<br>
 		<div class="form-group has-feedback">
 			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번(해당년도 + 4자리)" required="required">
+			<button type="button" class="btn btn-success" id="uIdCheck">중복확인</button>
 			<div id="id_check"></div>
       	</div>
       	<div class="form-group has-feedback">
@@ -342,7 +343,7 @@ function check_u_rnumber() {
       	</div>
 		<div class="form-group has-feedback">
 			<input type="text" class="form-control" id="u_email" name="u_email" placeholder="이메일">
-			
+			<button type="button" class="btn btn-success" id="uEmailCheck">중복확인</button>
 			<div id="email_check"></div>
       	</div>
       	
@@ -394,7 +395,7 @@ function check_u_rnumber() {
 		<input type="button" class="btn btn-info"  onClick="goPopup();" value="주소찾기">
 	</div>
       	<div class="form-group has-feedback">
-      	부서 이름
+      	부서
         <select class="form-control" name="d_id" value="d_id" >
                     <option value="1">경영지원</option>
                     <option value="2">연구소</option>
@@ -433,7 +434,7 @@ function check_u_rnumber() {
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-        	<input type="submit" class="btn btn-primary btn-block btn-flat signupBtn" id="submit" name="submit" value="Sign Up" >
+        	<button type="button" class="btn btn-primary btn-block btn-flat signupBtn" id="userInsert" name="userInsert">Sign Up</button>
 			<button type="button" class="btn btn-primary btn-block btn-flat" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">Cancle</button>
         </div>
         <!-- /.col -->
