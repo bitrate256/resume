@@ -42,7 +42,7 @@ $(function() {
 $(function(){
 	
 
-	$("#d_name").blur(function() {
+	$("#d_nameCheck").click(function() {
 
 		var d_name = $('#d_name').val();
 		
@@ -119,6 +119,7 @@ $(function(){
 
 		<div class="form-group has-feedback">
 			<input type="text" class="form-control col-6" id="d_name" name="d_name" placeholder="부서 이름">
+			<button type="button" class="btn btn-primary" id="d_nameCheck">중복확인</button>
 			<div id="name_check"></div>
       	</div>
       	
