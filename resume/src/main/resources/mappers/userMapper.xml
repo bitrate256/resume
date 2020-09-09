@@ -164,7 +164,9 @@
 	<update id="adminUserUpdate" parameterType="UserInfo">
 	UPDATE USER_INFO
 	SET D_ID = #{d_id},
+	U_TGRADE = #{u_tgrade},
 	U_POSITION = #{u_position},
+	U_CAREER = #{u_career},
 	U_EMAIL = #{u_email},
 	U_STATUS = #{u_status}
 	WHERE U_ID = #{u_id}

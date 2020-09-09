@@ -218,6 +218,7 @@ public class UserInfoController {
 	//사용자 상세보기
 	@RequestMapping(value = "admin/adminUserSelectOne")
 	public String adminUserSelectOne(UserInfo user, Model model){
+
 		
 		UserInfo userInfo =  service.adminUserSelectOneUP(user);
 		System.out.println(userInfo);
@@ -228,10 +229,23 @@ public class UserInfoController {
 	}
 	
 	//사용자 수정
-	@RequestMapping(value = "admin/adminUserUpdate")
-	public String adminUserUpdate() {
+	@RequestMapping(value = "admin/adminUserUpdateForm")
+	public String adminUserUpdate(UserInfo user, Model model) {
 		
-		return "";
+		UserInfo userInfo =  service.adminUserSelectOneUP(user);
+		System.out.println(userInfo);
+		model.addAttribute("userInfo", userInfo);
+		
+		return "admin/adminUserUpdateForm";
+	}
+	
+	//사용자 수정 완료
+	@RequestMapping(value = "admin/adminUserUpdateEnd")
+	public String adminUserUpdateEnd(UserInfo user) {
+		
+		service.adminUserUpdate(user);
+		
+		return "redirect:/admin/adminUserList";
 	}
 	
 	//사용자 삭제

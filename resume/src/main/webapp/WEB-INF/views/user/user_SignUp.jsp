@@ -367,6 +367,7 @@ function check_u_rnumber() {
       	</div>
       	
       	<div class="form-group has-feedback">
+      	  <input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름" >
         	<br>
         	<select class="form-control" name="u_marry" value="u_marry" required>
                     <option>결혼여부</option>
@@ -429,7 +430,7 @@ function check_u_rnumber() {
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-        	<button type="button" class="btn btn-primary btn-block btn-flat signupBtn" id="userInsert" name="userInsert">Sign Up</button>
+        	<button type="submit" class="btn btn-primary btn-block btn-flat signupBtn" id="userInsert" name="userInsert">Sign Up</button>
 			<button type="button" class="btn btn-primary btn-block btn-flat" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">Cancle</button>
         </div>
         <!-- /.col -->
