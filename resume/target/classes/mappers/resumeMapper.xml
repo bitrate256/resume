@@ -35,7 +35,7 @@
 	</insert>
 	
     <!-- 이력 등록 (학력 테이블) -->
-	<insert id="resumeInsert" parameterType="Resume">
+	<insert id="academicInsert" parameterType="Resume">
 		INSERT INTO ACADEMIC(
 		R_ID,
 		U_ID,
@@ -62,7 +62,7 @@
 	</insert>
 	
 	<!-- 이력 등록 (자격증 테이블) -->
-	<insert id="resumeInsert" parameterType="Resume">
+	<insert id="certificateInsert" parameterType="Resume">
 		INSERT INTO CERTIFICATE(
 		R_ID,
 		U_ID,
@@ -81,7 +81,7 @@
 	</insert>
 	
 	<!-- 이력 등록 (경력 테이블) -->
-	<insert id="resumeInsert" parameterType="Resume">
+	<insert id="careerInsert" parameterType="Resume">
 		INSERT INTO CAREER(
 		R_ID,
 		U_ID,
@@ -106,7 +106,7 @@
 	</insert>
 	
 	<!-- 이력 등록 (교육 테이블) -->
-	<insert id="resumeInsert" parameterType="Resume">
+	<insert id="educationInsert" parameterType="Resume">
 		INSERT INTO EDUCATION(
 		R_ID,
 		U_ID,
@@ -129,7 +129,7 @@
 	</insert>
 	
 	<!-- 이력 등록 (특수기술 테이블) -->
-	<insert id="resumeInsert" parameterType="Resume">
+	<insert id="specialTechInsert" parameterType="Resume">
 		INSERT INTO SPECIAL_TECH(
 		R_ID,
 		U_ID,
@@ -148,7 +148,7 @@
 	</insert>
 	
 	<!-- 이력 등록 (스킬인벤토리 테이블) -->
-	<insert id="resumeInsert" parameterType="Resume">
+	<insert id="skillInventoryInsert" parameterType="Resume">
 		INSERT INTO SKILL_INVENTORY(
 		R_ID,
 		U_ID,
@@ -186,7 +186,7 @@
 	</insert>
 	
 	<!-- 이력 등록 (파일 테이블) -->
-	<insert id="resumeInsert" parameterType="Resume">
+	<insert id="fileInsert" parameterType="Resume">
 		INSERT INTO FILE(
 		R_ID,
 		U_ID,
@@ -209,7 +209,7 @@
 
 	
     <!-- 이력 상세보기 (사용자 테이블) -->
-	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	<select id="userInfoSelectOne" parameterType="int" resultType="Resume">
 	SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
 	FROM USER_INFO
 	WHERE U_ID = #{u_id}
@@ -223,61 +223,52 @@
 	</select>
 
 	<!-- 이력 상세보기 (학력 테이블) -->
-	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	<select id="academicSelectOne" parameterType="int" resultType="Resume">
 	SELECT R_ID, U_ID, D_ID, A_HSCHOOL, A_UNIVERSITY, A_GSCHOOL, A_HSCHOOLDATE, A_UNIVERSITYDATE, A_GSCHOOLDATE
 	FROM ACADEMIC
 	WHERE U_ID = #{u_id}
 	</select>
 
 	<!-- 이력 상세보기 (자격 테이블) -->
-	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	<select id="certificateSelectOne" parameterType="int" resultType="Resume">
 	SELECT R_ID, U_ID, D_ID, CE_CODE, CE_TEXT
 	FROM CERTIFICATE
 	WHERE U_ID = #{u_id}
 	</select>
 	
 	<!-- 이력 상세보기 (경력 테이블) -->
-	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	<select id="careerSelectOne" parameterType="int" resultType="Resume">
 	SELECT R_ID, U_ID, D_ID, C_NAME, C_START, C_END, C_POSITION, C_TASK
 	FROM CAREER
 	WHERE U_ID = #{u_id}
 	</select>
 	
 	<!-- 이력 상세보기 (교육 테이블) -->
-	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	<select id="educationSelectOne" parameterType="int" resultType="Resume">
 	SELECT R_ID, U_ID, D_ID, E_PLACE, E_STARTED, E_END, E_NAME
 	FROM EDUCATION
 	WHERE U_ID = #{u_id}
 	</select>
 	
 	<!-- 이력 상세보기 (특수기술 테이블) -->
-	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	<select id="specialTechSelectOne" parameterType="int" resultType="Resume">
 	SELECT R_ID, U_ID, D_ID, ST_AP, ST_LEVEL
 	FROM SPECIAL_TECH
 	WHERE U_ID = #{u_id}
 	</select>
 	
 	<!-- 이력 상세보기 (스킬인벤토리 테이블) -->
-	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
+	<select id="skillInventorySelectOne" parameterType="int" resultType="Resume">
 	SELECT R_ID, U_ID, D_ID, SI_NAME, SI_START, SI_END, SI_CUSTOMER, SI_COMPANY, SI_ROLE, SI_MODEL, SI_OS, SI_LANGUAGE, SI_TOOL, SI_ETC
 	FROM SKILL_INVENTORY
 	WHERE U_ID = #{u_id}
 	</select>
 	
-	
-	
-	<update id="adminUserUpdate" parameterType="UserInfo">
-	UPDATE USER_INFO
-	SET D_ID = #{d_id},
-	U_POSITION = #{u_position},
-	U_EMAIL = #{u_email},
-	U_STATUS = #{u_status}
-	WHERE U_ID = #{u_id}
-	</update>
+	<!-- ///// 테이블 수정 ///// -->
 	
     <!-- 이력 수정 (이력 테이블) -->
     <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
-	<update id="myPageUserInfo" parameterType="Resume">
+	<update id="resumeUpdate" parameterType="Resume">
 	UPDATE RESUME
 	SET R_STATUS = #{r_id},
 	R_NEWDATE = #{r_newdate}
@@ -286,7 +277,7 @@
 	
     <!-- 이력 수정 (학력 테이블) -->
     <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
-	<update id="myPageUserInfo" parameterType="Resume">
+	<update id="academicUpdate" parameterType="Resume">
 	UPDATE ACADEMIC
 	SET A_HSCHOOL = #{a_hschool},
 	A_UNICERSITY = #{a_university},
@@ -299,7 +290,7 @@
 	
 	<!-- 이력 수정 (학력 테이블) -->
     <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
-	<update id="myPageUserInfo" parameterType="Resume">
+	<update id="certificateUpdate" parameterType="Resume">
 	UPDATE CERTIFICATE
 	SET CE_CODE = #{ce_code},
 	CE_TEXT = #{ce_text}
@@ -308,7 +299,7 @@
 	
 	<!-- 이력 수정 (경력 테이블) -->
     <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
-	<update id="myPageUserInfo" parameterType="Resume">
+	<update id="careerUpdate" parameterType="Resume">
 	UPDATE CAREER
 	SET C_NAME = #{c_name},
 	C_START = #{c_start},
@@ -320,7 +311,7 @@
 	
 	<!-- 이력 수정 (교육 테이블) -->
     <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
-	<update id="myPageUserInfo" parameterType="Resume">
+	<update id="educationUpdate" parameterType="Resume">
 	UPDATE EDUCATION
 	SET E_PLACE = #{e_place},
 	E_STARTED = #{e_started},
@@ -331,7 +322,7 @@
 
 	<!-- 이력 수정 (특수기술 테이블) -->
     <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
-	<update id="myPageUserInfo" parameterType="Resume">
+	<update id="specialTechUpdate" parameterType="Resume">
 	UPDATE SPECIAL_TECH
 	SET ST_AP = #{st_ap},
 	ST_LEVEL = #{st_level}
@@ -340,7 +331,7 @@
 	
 	<!-- 이력 수정 (스킬인벤토리 테이블) -->
     <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
-	<update id="myPageUserInfo" parameterType="Resume">
+	<update id="skillInventoryUpdate" parameterType="Resume">
 	UPDATE SKILL_INVENTORY
 	SET SI_NAME = #{si_name},
 	SI_START = #{si_start},
@@ -359,7 +350,7 @@
 	
 	<!-- 이력 수정 (파일 테이블) -->
     <!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY -->
-	<update id="myPageUserInfo" parameterType="Resume">
+	<update id="fileUpdate" parameterType="Resume">
 	UPDATE FILE
 	SET F_ORI = #{f_ori},
 	F_SAVE = #{f_save},
