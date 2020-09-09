@@ -64,7 +64,6 @@ public class ResumeController {
 	public String resumeInsert(Resume resume) {
 		logger.info("resumeInsert controller");
 		
-		
 		service.academicInsert(resume);
 		service.certificateInsert(resume);
 		service.careerInsert(resume);
