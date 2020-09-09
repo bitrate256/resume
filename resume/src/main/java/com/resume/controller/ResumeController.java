@@ -31,16 +31,23 @@ public class ResumeController {
 	@Autowired
 	private ResumeService service;
 	
+
+	
 	// 이력 리스트 화면
 	@RequestMapping(value = "resume/resumeList")
-	public String resumeList() {
+	public String resumeList(HttpSession session, Model model) {
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		model.addAttribute("loginUser", user);
 		
 		return "resume/resumeList";
 	}
 	
 	// 이력 업로드 화면
 	@RequestMapping(value = "resume/resumeCreate")
-	public String resumeCreate(UserInfo user, Model model) {
+	public String resumeCreate(HttpSession session, Model model, Resume resume) {
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		System.out.println(user);
+		service.resumeInsert(resume);
 		model.addAttribute("loginUser", user);
 		return "resume/resumeCreate";
 	}
@@ -50,7 +57,14 @@ public class ResumeController {
 	public String resumeInsert(Resume resume) {
 		logger.info("resumeInsert controller");
 		
-		service.resumeInsert(resume);
+		
+		service.academicInsert(resume);
+		service.certificateInsert(resume);
+		service.careerInsert(resume);
+		service.educationInsert(resume);
+		service.specialTechInsert(resume);
+		service.skillInventoryInsert(resume);
+		service.fileInsert(resume);
 		
 		return "redirect:/resume/resumeList";
 	}

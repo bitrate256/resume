@@ -41,11 +41,9 @@
 	<p class="login-box-msg">새 이력 작성</p>
 	<form action="<%=contextPath%>/resume/resumeCreate" method="post" name="form">
 		<br>
+		<input hidden="${loginUser.u_id }">
+		<input hidden="${loginUser.d_id }">
 
-		<div class="form-group has-feedback" id="departmentCheck">
-			<input type="text" class="form-control col-6" id="d_name" name="d_name" placeholder="부서 이름">
-			<div id="name_check"></div>
-      	</div>
       	
       
 		<div class="row">

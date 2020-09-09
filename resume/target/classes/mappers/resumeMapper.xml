@@ -26,11 +26,10 @@
 		)
 		VALUES(
 		RESUME_SEQ.NEXTVAL,
-		#{r_id},
 		#{u_id},
 		#{d_id},
-		#{r_status},
-		#{r_newdate}
+		DEFAULT,
+		SYSDATE
 		)
 	</insert>
 	
