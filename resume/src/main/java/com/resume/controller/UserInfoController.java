@@ -1,5 +1,6 @@
 package com.resume.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,41 +20,33 @@ import com.resume.dto.SearchDto;
 import com.resume.dto.UserInfo;
 import com.resume.service.UserInfoService;
 
-
-
 @Controller
 public class UserInfoController {
-	
+
 	private static Logger logger = LoggerFactory.getLogger(UserInfoController.class);
-	
+
 	@Autowired
 	private UserInfoService service;
-	
+
 	@Autowired
-	PasswordEncoder  passwordEncoder;
-	
-	
+	PasswordEncoder passwordEncoder;
+
 	// 사용자 홈 화면
 	@RequestMapping(value = "userHome")
 	public String userHome() {
 		logger.info("this is userHome method");
 
-		
-		
 		return "user/userHome";
 	}
-	
+
 	// 사용자 로그인 화면
 	@RequestMapping(value = "user/userlogin")
 	public String userlogin(UserInfo uDto) {
 		logger.info("this is userlogin method");
-		
-		
-		
-		
+
 		return "user/user_login";
 	}
-	
+
 	// 사용자 로그인
 	@RequestMapping(value = "user/userloginEnd")
 	public String userloginEnd(Model model, UserInfo user, HttpSession session) {
@@ -62,79 +55,81 @@ public class UserInfoController {
 		UserInfo result = service.userSelectOne(user);
 		String path = "";
 		boolean passMatch = passwordEncoder.matches(user.getU_pwd().trim(), result.getU_pwd().trim());
-		System.out.println(passMatch);
-		System.out.println("user.getU_pwd = " + user.getU_pwd().toString());
-		System.out.println("result.getU_pwd = " + result.getU_pwd().toString());
-		if (result != null && passMatch) {
+//		System.out.println(passMatch);
+//		System.out.println("user.getU_pwd = " + user.getU_pwd().toString());
+//		System.out.println("result.getU_pwd = " + result.getU_pwd().toString());
+		List<UserInfo> loginUserList = new ArrayList<UserInfo>();
+		loginUserList = service.loginUserList(user);
+		int size = loginUserList.size();
 
-			path = "redirect:/userHome";
-			session.setAttribute("loginUser", result);
+		for (int i = 0; i < size; i++) {
+			if (result != null && passMatch && loginUserList.get(i).getU_status().equals("Y")) {
 
-		} else {
-			session.setAttribute("loginUser", null);
-			path = "redirect:/user/userlogin";
+				path = "redirect:/userHome";
+				session.setAttribute("loginUser", result);
+
+			} else if (loginUserList.get(i).getU_status().equals("Y")) {
+				path = "redirect:/user/userlogin";
+			} else {
+				session.setAttribute("loginUser", null);
+				path = "redirect:/user/userlogin";
+			}
 		}
 
 		return path;
 	}
-	
+
 	// 사용자 로그아웃
 	@RequestMapping(value = "user/userlogout")
 	public String userlogOut(HttpSession session) {
-		
+
 		logger.info("this is a userlogOut method");
-		if(session.getAttribute("loginUser") !=null) {
+		if (session.getAttribute("loginUser") != null) {
 			session.removeAttribute("loginUser");
 		}
-		
+
 		return "redirect:/userHome";
 	}
-	
-	//사용자 마이페이지
+
+	// 사용자 마이페이지
 	@RequestMapping(value = "user/myPage")
 	public String yPage(Model model, HttpSession session) {
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		model.addAttribute("loginUser",user);
-		
-		
+		model.addAttribute("loginUser", user);
+
 		return "user/myPage";
 	}
-	
-	//사용자 정보 업데이트
+
+	// 사용자 정보 업데이트
 	@RequestMapping(value = "user/userInfoUpdateEnd")
 	public String userInfoUpdate(UserInfo uDto) {
-		
+
 		String encPassword = passwordEncoder.encode(uDto.getU_pwd());
 		uDto.setU_pwd(encPassword);
-		System.out.println("암호화된 비밀번호 = "+uDto.getU_pwd());
+		System.out.println("암호화된 비밀번호 = " + uDto.getU_pwd());
 		service.userInfoUpdate(uDto);
-		
+
 		return "forward:/user/myPage";
 	}
 
-	
-	
-	
 //------------------------------------------------------------------------------관리자------------------------------------------------------------------------------	
-	//사용자 등록 폼
+	// 사용자 등록 폼
 	@RequestMapping(value = "user/userSignUp")
 	public String userSignUp() {
-		
-		
-		
+
 		return "user/user_SignUp";
 	}
-	//도로명주소 API
+
+	// 도로명주소 API
 	@RequestMapping(value = "user/userJuso")
 	public String userJuso() {
 		return "user/jusoPopup";
 	}
-	
-	//사용자 등록
+
+	// 사용자 등록
 	@RequestMapping(value = "user/userSignUpResult")
 	public String userSignUpResult(UserInfo uDto) {
 		System.out.println("컨트롤러  user정보 = " + uDto);
-		
 
 		String encPassword = passwordEncoder.encode(uDto.getU_pwd());
 		uDto.setU_pwd(encPassword);
@@ -144,7 +139,7 @@ public class UserInfoController {
 
 		return "redirect:/admin/adminUserList";
 	}
-	
+
 //	사번 중복체크
 	@RequestMapping(value = "/user/idCheck")
 	@ResponseBody
@@ -152,38 +147,38 @@ public class UserInfoController {
 		System.out.println(u_id);
 		int result = service.userIdCheck(u_id);
 		String data;
-		if(result > 0) {
+		if (result > 0) {
 			data = "1";
 		} else {
 			data = "0";
 		}
-		
-		return data;  
+
+		return data;
 	}
-	
-	//이메일 중복체크
+
+	// 이메일 중복체크
 	@RequestMapping(value = "user/emailCheck")
 	@ResponseBody
 	public String emailCheck(@RequestParam("u_email") String u_email) {
 		System.out.println(u_email);
 		int result = service.emailCheck(u_email);
 		String data;
-		if(result > 0) {
+		if (result > 0) {
 			data = "1";
 		} else {
 			data = "0";
 		}
-		
+
 		return data;
 	}
-	
-	//사용자 리스트 ajax
+
+	// 사용자 리스트 ajax
 	@RequestMapping(value = "admin/adminUserList")
 	public String adminUserList() {
-		
+
 		return "admin/adminUserList";
 	}
-	
+
 	// 사용자 리스트 ajax
 	@RequestMapping(value = "admin/adminUserListAjax")
 	public String adminUserListAjax(@RequestParam(value = "cPage", defaultValue = "1") int cPage,
@@ -214,51 +209,85 @@ public class UserInfoController {
 
 		return "admin/ajax/adminUserList_ajax";
 	}
-	
-	//사용자 상세보기
-	@RequestMapping(value = "admin/adminUserSelectOne")
-	public String adminUserSelectOne(UserInfo user, Model model){
 
-		
-		UserInfo userInfo =  service.adminUserSelectOneUP(user);
+	// 사용자 리스트 ajax
+	@RequestMapping(value = "admin/adminRunUserList")
+	public String adminRunUserList() {
+
+		return "admin/adminRunUserList";
+	}
+
+	// 사용자 리스트(퇴사자)
+	@RequestMapping(value = "admin/adminRunUserListAjax")
+	public String adminRunUserListAjax(@RequestParam(value = "cPage", defaultValue = "1") int cPage,
+			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
+			@RequestParam(value = "searchVal", defaultValue = "") String searchVal, Model model, HttpSession session) {
+		logger.info("this is a adminUserList method");
+
+		// 검색 객체 값 넣기
+		SearchDto searchDto = new SearchDto(searchSort, searchVal);
+
+		// 총 레코드 가져오기
+		int nCount = service.selectRunUserCount(searchDto);
+
+		// 현재 출력 페이지
+		int curPage = cPage;
+
+		// 페이지 객체에 값 저장
+		BoardPager boardPager = new BoardPager(nCount, curPage);
+
+		// 페이지 겍체에 검색 정보 저장
+		boardPager.setSearchSort(searchSort);
+		boardPager.setSearchVal(searchVal);
+
+		// 전체 리스트 출력
+		List<UserInfo> adminRunUserList = service.selectRunUserList(boardPager);
+		System.out.println(adminRunUserList);
+		model.addAttribute("adminRunUserList", adminRunUserList);
+		model.addAttribute("boardPager", boardPager);
+		return "admin/ajax/adminRunUserList_ajax";
+	}
+
+	// 사용자 상세보기
+	@RequestMapping(value = "admin/adminUserSelectOne")
+	public String adminUserSelectOne(UserInfo user, Model model) {
+
+		UserInfo userInfo = service.adminUserSelectOneUP(user);
 		System.out.println(userInfo);
 		model.addAttribute("userInfo", userInfo);
-		
-		
+
 		return "admin/adminUserSelectOne";
 	}
-	
-	//사용자 수정
+
+	// 사용자 수정
 	@RequestMapping(value = "admin/adminUserUpdateForm")
 	public String adminUserUpdate(UserInfo user, Model model) {
-		
-		UserInfo userInfo =  service.adminUserSelectOneUP(user);
+
+		UserInfo userInfo = service.adminUserSelectOneUP(user);
 		System.out.println(userInfo);
 		model.addAttribute("userInfo", userInfo);
-		
+
 		return "admin/adminUserUpdateForm";
 	}
-	
-	//사용자 수정 완료
+
+	// 사용자 수정 완료
 	@RequestMapping(value = "admin/adminUserUpdateEnd")
 	public String adminUserUpdateEnd(UserInfo user) {
-		
+
 		service.adminUserUpdate(user);
-		
+
 		return "redirect:/admin/adminUserList";
 	}
-	
-	//사용자 삭제
+
+	// 사용자 삭제
 	@RequestMapping(value = "admin/adminUserDelete")
 	public String adminUserDelete(@RequestParam("u_id") int u_id) {
-		
+
 //		service.adminUserDelete(u_id);
-		
+
 		return "redirect:/admin/adminUserList";
 	}
-	
-	
-	
+
 	// 사용자 리스트 jqGrid
 
 //	@RequestMapping(value = "admin/adminUserList1")
@@ -380,12 +409,11 @@ public class UserInfoController {
 //		
 //		return "admin/adminUserList";
 //	}
-	
+
 	@RequestMapping(value = "test")
 	public String test() {
-		
+
 		return "user/test";
 	}
-	
-	
-}//class end
+
+}// class end

@@ -118,6 +118,34 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		session.delete(queryprefix+"adminUserDelete", u_id);
 	}
 	
+	//퇴사자 전체 목록
+	@Override
+	public List<UserInfo> selectRunUserList(BoardPager boardPager) {
+		
+		List<UserInfo> userRunList = new ArrayList<UserInfo>();
+		userRunList = session.selectList(queryprefix+"selectRunUserList", boardPager);
+		
+		return userRunList;
+	}
+	
+	//퇴사자 전체 레코드
+	@Override
+	public int selectRunUserCount(SearchDto searchDto) {
+		
+		return session.selectOne(queryprefix+"selectRunUserCount", searchDto);
+	}
+	
+	
+	//로그인 확인 전체 목록
+	@Override
+	public List<UserInfo> loginUserList(UserInfo user) {
+		
+		List<UserInfo> loginUserList = new ArrayList<UserInfo>();
+		loginUserList = session.selectList(queryprefix+"loginUserList", user);
+		
+		return loginUserList;
+	}
+	
 	
 	
 	

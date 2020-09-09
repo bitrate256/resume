@@ -120,17 +120,17 @@ $("#checkBtn").click(function(){
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="adminUserList" items="${adminUserList }">
+										<c:forEach var="adminRunUserList" items="${adminRunUserList }">
 										<c:choose>
-										<c:when test="${adminUserList.u_status eq 'Y' }">
+										<c:when test="${adminRunUserList.u_status eq 'N' }">
 										<tr role="row" class="odd">
-											<td onclick="javascript:location.href='<c:url value="/"/>admin/adminUserSelectOne?u_id=${adminUserList.u_id }'">${adminUserList.u_id }</td>
-											<td>${adminUserList.d_id}</td>
-											<td>${adminUserList.u_name }</td>
-											<td>${adminUserList.u_phone }</td>
-											<td>${adminUserList.u_email }</td>
-											<td>${adminUserList.u_position}</td>
-											<td id="status">${adminUserList.u_status}</td>
+											<td onclick="javascript:location.href='<c:url value="/"/>admin/adminUserSelectOne?u_id=${adminRunUserList.u_id }'">${adminRunUserList.u_id }</td>
+											<td>${adminRunUserList.d_id}</td>
+											<td>${adminRunUserList.u_name }</td>
+											<td>${adminRunUserList.u_phone }</td>
+											<td>${adminRunUserList.u_email }</td>
+											<td>${adminRunUserList.u_position}</td>
+											<td id="status">${adminRunUserList.u_status}</td>
 										</tr>
 										</c:when>
 										</c:choose>
@@ -155,7 +155,7 @@ $("#checkBtn").click(function(){
 			<ul class="pagination">
 				<c:if test="${boardPager.curBlock > 1 }">
 					<li class="paginate_button previous disabled"><a
-							href="javascript:adminUserListAjaxfn(${boardPager.prevPage})">Previous</a>
+							href="javascript:adminRunUserListAjaxfn(${boardPager.prevPage})">Previous</a>
 					</li>
 				</c:if>
 				<c:forEach var="num" begin="${boardPager.blockBegin }" end="${boardPager.blockEnd }">
@@ -165,13 +165,13 @@ $("#checkBtn").click(function(){
 							</li>
 						</c:when>
 						<c:otherwise>
-							<li class="paginate_button"><a href="javascript:adminUserListAjaxfn(${num})">${num}</a></li>
+							<li class="paginate_button"><a href="javascript:adminRunUserListAjaxfn(${num})">${num}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${boardPager.curBlock <= boardPager.totBlock }">
 					<li class="paginate_button next" id="example1_next">
-						<a href="javascript:adminUserListAjaxfn(${boardPager.nextPage})">Next</a>
+						<a href="javascript:adminRunUserListAjaxfn(${boardPager.nextPage})">Next</a>
 					</li>
 				</c:if>
 			</ul>

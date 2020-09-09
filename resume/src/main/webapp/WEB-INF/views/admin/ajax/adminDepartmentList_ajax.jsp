@@ -55,7 +55,7 @@
 									<tbody>
 										<c:forEach var="departmentAllList" items="${departmentAllList }">
 										<tr role="row" class="odd">
-										<td tabindex="0" class="sorting_1">${departmentAllList.d_id }</td>
+										<td onclick="javascript:location.href='<c:url value="/"/>admin/adminDepartmentSelectOne?d_id=${departmentAllList.d_id }'">${departmentAllList.d_id }</td>
 										<td tabindex="0" class="sorting_1">${departmentAllList.d_name }</td>
 										</c:forEach>
 										
