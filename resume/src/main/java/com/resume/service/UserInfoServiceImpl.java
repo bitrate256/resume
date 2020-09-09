@@ -105,6 +105,27 @@ public class UserInfoServiceImpl implements UserInfoService {
 		dao.adminUserDelete(u_id);
 	}
 	
+	//퇴사자 전체 목록
+	@Override
+	public List<UserInfo> selectRunUserList(BoardPager boardPager) {
+		
+		return dao.selectRunUserList(boardPager);
+	}
+	
+	//퇴사자 전체 레코드
+	@Override
+	public int selectRunUserCount(SearchDto searchDto) {
+		
+		return dao.selectRunUserCount(searchDto);
+	}
+	
+	//로그인 확인 전체 리스트
+	@Override
+	public List<UserInfo> loginUserList(UserInfo user) {
+		
+		return dao.loginUserList(user);
+	}
+	
 	
 	
 

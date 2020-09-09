@@ -99,5 +99,12 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 		return "admin/ajax/adminDepartmentList_ajax";
 	}
 	
+	//부서 상세보기
+	@RequestMapping(value = "admin/adminDepartmentSelectOne")
+	public String adminDepartmentSelectOne() {
+		
+		return "";
+	}
+	
 	
 }//class end

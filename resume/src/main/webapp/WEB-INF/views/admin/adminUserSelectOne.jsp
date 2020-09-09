@@ -177,6 +177,12 @@ $("#adminUserDelete").click(function() {
 						<strong> 경력</strong>
 						<p class="text-muted">${userInfo.u_career }</p>
 						<hr>
+						<strong> 재직</strong>
+						<select class="form-control" name="u_status" value="u_status" disabled="disabled">
+                    <option value="Y" selected="selected">재직중</option>
+                    <option value="N">퇴사</option>
+                    </select>
+						<hr>
 					</div>
 					<strong><i class="fas fa-mobile-alt"></i> 전화</strong>
 					<p class="text-muted">${userInfo.u_phone }</p>
