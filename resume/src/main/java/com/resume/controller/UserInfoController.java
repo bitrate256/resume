@@ -132,16 +132,9 @@ public class UserInfoController {
 	
 	//사용자 등록
 	@RequestMapping(value = "user/userSignUpResult")
-	public String userSignUpResult(UserInfo uDto, @RequestParam("u_rnumber1") String u_rnumber1,
-			@RequestParam("u_rnumber2") String u_rnumber2) {
+	public String userSignUpResult(UserInfo uDto) {
 		System.out.println("컨트롤러  user정보 = " + uDto);
-		String encRnumber = passwordEncoder.encode(u_rnumber2.substring(1, 7));
-		System.out.println(u_rnumber2.substring(0, 1));
-		String u_rnumber3 = u_rnumber2.substring(0, 1) + encRnumber;
-
-		String u_rnumber = u_rnumber1 + u_rnumber3;
-		uDto.setU_rnumber(u_rnumber);
-		System.out.println(uDto.getU_rnumber());
+		
 
 		String encPassword = passwordEncoder.encode(uDto.getU_pwd());
 		uDto.setU_pwd(encPassword);

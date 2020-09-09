@@ -367,11 +367,6 @@ function check_u_rnumber() {
       	</div>
       	
       	<div class="form-group has-feedback">
-        	<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름"><br>
-      	<input type="text"  id="u_rnumber1" name="u_rnumber1" onkeyup="nextgo(this);" placeholder="주민등록번호 앞자리"/>
--<input type="password" id="u_rnumber2" name="u_rnumber2" placeholder="주민등록번호 뒷자리" />
-<input type="button" class="btn btn-success" onclick="checks();" value="주민등록번호 검사"/>
-
         	<br>
         	<select class="form-control" name="u_marry" value="u_marry" required>
                     <option>결혼여부</option>
