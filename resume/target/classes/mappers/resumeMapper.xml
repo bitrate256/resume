@@ -357,6 +357,10 @@
 	F_SIZE = #{f_size}
 	WHERE R_ID = #{r_id}
 	</update>
+	
+	
+	<!-- 이력 삭제 (이력 테이블) -->
+	<!-- ACADEMIC / CERTIFICATE / CAREER / EDUCATION / SPECIAL_TECH / SKILL_INVENTORY / FILE -->
 
 	<!-- 
 	ACADEMIC

@@ -58,4 +58,88 @@ public class ResumeServiceImpl implements ResumeService {
 		return 0;
 	}
 
+	@Override
+	public void academicInsert(Resume resume) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void certificateInsert(Resume resume) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void careerInsert(Resume resume) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void educationInsert(Resume resume) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void specialTechInsert(Resume resume) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void skillInventoryInsert(Resume resume) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void fileInsert(Resume resume) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Resume userInfoSelectOne(Resume resume) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Resume academicSelectOne(Resume resume) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Resume certificateSelectOne(Resume resume) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Resume careerSelectOne(Resume resume) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Resume educationSelectOne(Resume resume) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Resume specialTechSelectOne(Resume resume) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Resume skillInventorySelectOne(Resume resume) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

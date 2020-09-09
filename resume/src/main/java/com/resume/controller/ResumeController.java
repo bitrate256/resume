@@ -91,9 +91,8 @@ public class ResumeController {
 	}
 	
 	// 이력 상세 보기
-	//사용자 근무 상세보기
 	@RequestMapping(value = "resume/resumeSelectOne")
-	public String ResumeSelectOne(int r_id, Model model, HttpSession session) {
+	public String ResumeSelectOne(Model model, int r_id , HttpSession session) {
 		
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		model.addAttribute("user", user);
