@@ -219,83 +219,55 @@ function inputPhoneNumber(obj) {
     obj.value = phone;
 }
 // onsubmit
-function checkSubmit() {
-	
-	if(form.u_phone.value == "") {
-		$('#phone_check').text('번호를 입력해주세요');
-		$('#phone_check').css('color', 'red');
-		
-		return false;
-	} 
-	
-	if(form.u_name.value == "") {
-		$('#name_check').text('이름을 입력해주세요');
-		$('#name_check').css('color', 'red');
-		
-		return false;
-		
-	} 
 
-	
-	
-}
 
-function check_u_rnumber() { 
-	 var u_rnumber=document.getElementById('u_rnumber1').value+document.getElementById('u_rnumber2').value;
 
-	 //주민등록 번호 13자리를 검사한다.
-	  var fmt = /^\d{6}[1234]\d{6}$/;  //포멧 설정
-	  if (!fmt.test(u_rnumber)) {
-	   return false;
-	  }
+	function checkSubmit() {
+		if (form.u_id.value == "") {
+			alert('사번을 입력해 주세요');
 
-	  // 생년월일 검사
-	  var birthYear = (u_rnumber.charAt(6) <= "2") ? "19" : "20";
-	  birthYear += u_rnumber.substr(0, 2);
-	  var birthMonth = u_rnumber.substr(2, 2) - 1;
-	  var birthDate = u_rnumber.substr(4, 2);
-	  var birth = new Date(birthYear, birthMonth, birthDate);
+			return false;
 
-	  if ( birth.getYear() % 100 != u_rnumber.substr(0, 2) ||
-	       birth.getMonth() != birthMonth ||
-	       birth.getDate() != birthDate) {
-	     return false;
-	  }
+		}
+		if (form.u_phone.value == "") {
+			alert('핸드폰 번호를 입력해 주세요');
+			$('#u_phone').focus();
+			return false;
+		}
 
-	  // Check Sum 코드의 유효성 검사
-	  var buf = new Array(13);
-	  for (var i = 0; i < 13; i++) buf[i] = parseInt(u_rnumber.charAt(i));
-	 
-	  multipliers = [2,3,4,5,6,7,8,9,2,3,4,5];
-	  for (var sum = 0, i = 0; i < 12; i++) sum += (buf[i] *= multipliers[i]);
+		if (form.u_name.value == "") {
+			alert('이름을 입력해 주세요');
+			$('#u_name').focus();
+			return false;
 
-	  if ((11 - (sum % 11)) % 10 != buf[12]) {
-	     return false;
-	  }
+		}
+		if (form.u_email.value == "") {
+			alert('이메일을 입력해 주세요');
+			$('#u_email').focus();
+			return false;
 
-	 
-	  return true;
+		}
+		if (form.u_pwd.value == "") {
+			alert('비밀번호를 입력해 주세요');
+			$('#u_pwd').focus();
+			return false;
+
+		}
+		if (form.u_pwd2.value == "") {
+			alert('비밀번호를 확인해 주세요');
+			$('#u_pwd2').focus();
+			return false;
+
+		}
+
+		if (form.u_address.value == "") {
+			alert('주소를 입력해 주세요');
+			$('#u_address').focus();
+			return false;
+
+		}
 
 	}
-
-	function checks(){
-	 if(check_u_rnumber())//올바른 값이 들어왔을 때 실행될 코드
-	  alert("올바른 주민등록번호 입니다.");
-	 else//올바른 갑이 들어오지 않았을 때 실행될 코드
-	  alert("올바른 주민등록번호를 입력해 주십시오");
-	}
-
-	//앞의 텍스트박스에 6자리 글씨가 써지면 자동으로 다음 칸으로 커서가 넘어간다.
-	function nextgo(e){ 
-	  if (e.value.length>=6) {
-	   document.getElementById('u_rnumber2').focus();
-	  }
-	  
-
-	}
-	
-
-
 </script>
 
 
@@ -331,7 +303,7 @@ function check_u_rnumber() {
 	
 
 	<p class="login-box-msg">새로운 사용자 등록</p>
-	<form action="<%=contextPath%>/user/userSignUpResult" method="post" name="form">
+	<form action="<%=contextPath%>/user/userSignUpResult" method="post" name="form" onsubmit="return checkSubmit()">
 		<br>
 		<div class="form-group has-feedback">
 			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번(해당년도 + 4자리)" required="required">
@@ -364,19 +336,18 @@ function check_u_rnumber() {
       	<div class="form-group has-feedback">
        <input type="text" class="form-control" id="u_phone" name="u_phone" placeholder="핸드폰번호" 
        onkeyup=" inputPhoneNumber(this);" maxlength="13">
+       <div id="phone_check"></div>
       	</div>
       	
       	<div class="form-group has-feedback">
       	  <input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름" >
         	<br>
         	<select class="form-control" name="u_marry" value="u_marry" required>
-                    <option>결혼여부</option>
                     <option value="Y">기혼</option>
                     <option value="N">미혼</option>
                   </select>
-
+			
         	<select class="form-control" name="u_ms" value="u_ms">
-                    <option>병역여부</option>
                     <option value="F">필</option>
                     <option value="FN">미필</option>
                     <option value="N">면제</option>
