@@ -98,8 +98,8 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	//사용자 상세보기
 	@Override
 	public UserInfo adminUserSelectOneUP(UserInfo user) {
-		
-		return session.selectOne(queryprefix+"adminUserSelectOne", user);
+		System.out.println("사용자 상세보기 정보 = "+user);
+		return session.selectOne(queryprefix+"adminUserSelectOneUP", user);
 	}
 	
 	

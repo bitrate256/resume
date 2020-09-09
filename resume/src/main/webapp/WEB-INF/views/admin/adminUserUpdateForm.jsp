@@ -10,26 +10,16 @@
 <script>
 $(document).ready(function() {
 	
-	$("#adminUserUpdate").click(function() {
+	$("#adminUserUpdateEnd").click(function() {
 
 		
 
-		var url = "<%=contextPath%>"+"/admin/adminUserUpdateForm"; 
-				$("#adminUserUpdateForm").attr("action", url);
-				$("#adminUserUpdateForm").submit();
+		var url = "<%=contextPath%>"+"/admin/adminUserUpdateEnd"; 
+				$("#adminUserUpdateFinish").attr("action", url);
+				$("#adminUserUpdateFinish").submit();
 
 		});
 
-	
-$("#adminUserDelete").click(function() {
-
-		
-
-		var url = "<%=contextPath%>"+"/admin/adminUserDelete"; 
-				$("#adminUserUpdateForm").attr("action", url);
-				$("#adminUserUpdateForm").submit();
-
-		});
 	});
 
 </script>
@@ -49,8 +39,8 @@ $("#adminUserDelete").click(function() {
 					<!-- /.col -->
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><button id="adminUserUpdate" class="btn btn-warning btn-flat" >수정</button></li>
-							<li class="breadcrumb-item active"><button id="adminUserDelete" class="btn btn-danger btn-flat" >삭제</button></li>						
+							<li class="breadcrumb-item"><button id="adminUserUpdateEnd" class="btn btn-warning btn-flat" >수정 완료</button></li>
+													
 						</ol>
 					</div>
 					<!-- /.col -->
@@ -77,7 +67,7 @@ $("#adminUserDelete").click(function() {
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-					<form id="adminUserUpdateForm">
+					<form id="adminUserUpdateFinish" method="post">
 					<strong> 사번</strong>
 						<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번" value="${userInfo.u_id }" readonly="readonly"> 
 						<hr>
@@ -88,11 +78,15 @@ $("#adminUserDelete").click(function() {
 						<hr>
 
 						<strong> 소속회사</strong>
-						<p class="text-muted">비앤오소프트(주)</p>
+						<p class="text-muted">${userInfo.u_company }(주)</p>
 						<hr>
 
 						<strong> 부서</strong>
-						<p class="text-muted">${userInfo.d_id }</p>
+						<select class="form-control" name="d_id" value="d_id" >
+                    <option value="1">경영지원</option>
+                    <option value="2">연구소</option>
+                    <option value="3">SI사업본부</option>
+                  </select>
 						<hr>
 
 						<strong> 병역</strong>
@@ -117,19 +111,11 @@ $("#adminUserDelete").click(function() {
 						<hr>
 
 						<strong> 기술등급</strong>
-						<select class="form-control" name="u_tgrade" value="${userInfo.u_tgrade }" disabled="disabled">
-                    <c:if test="${userInfo.u_tgrade eq 'S' }">
-                    <option>특급</option>
-                  </c:if>
-                  <c:if test="${userInfo.u_tgrade eq 'H' }">
-                    <option>고급</option>
-                  </c:if>
-                  <c:if test="${userInfo.u_tgrade eq 'M' }">
-                    <option>중급</option>
-                  </c:if>
-                  <c:if test="${userInfo.u_tgrade eq 'B' }">
-                    <option>초급</option>
-                  </c:if>
+        <select class="form-control" name="u_tgrade" value="u_tgrade" >
+                    <option value="B">초급</option>
+                    <option value="M">중급</option>
+                    <option value="H">고급</option>
+                    <option value="S">특급</option>
                   </select>
 						<hr>
 
@@ -171,19 +157,32 @@ $("#adminUserDelete").click(function() {
 						<hr>
 
 						<strong> 직위</strong>
-						<p class="text-muted">${userInfo.u_position }</p>
+						<select class="form-control" name="u_position" value="u_position" >
+                    <option value="6">사원</option>
+                    <option value="5">대리</option>
+                    <option value="4">과장</option>
+                    <option value="3">차장</option>
+                    <option value="2">부장</option>
+                  </select>
 						<hr>
 
 						<strong> 경력</strong>
-						<p class="text-muted">${userInfo.u_career }</p>
+						<input type="text" class="form-control" id="u_career" name="u_career" placeholder="n년+n개월" value="${userInfo.u_career }">
+						<hr>
+											<strong> 재직</strong>
+						<select class="form-control" name="u_status" value="u_status" >
+                    <option value="Y" selected="selected">재직중</option>
+                    <option value="N">퇴사</option>
+                    </select>
 						<hr>
 					</div>
+
 					<strong><i class="fas fa-mobile-alt"></i> 전화</strong>
 					<p class="text-muted">${userInfo.u_phone }</p>
 					<hr>
 
 					<strong><i class="fas fa-envelope"></i> 이메일</strong>
-					<p class="text-muted">${userInfo.u_email }</p>
+					<input type="text" class="form-control" id="u_email" name="u_email" placeholder="이메일" value="${userInfo.u_email }">
 					<hr>
 					<!-- /.card-body -->
 				</div>

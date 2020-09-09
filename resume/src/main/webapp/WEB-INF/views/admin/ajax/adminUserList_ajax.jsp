@@ -116,10 +116,7 @@ $("#checkBtn").click(function(){
 												rowspan="1" colspan="1"
 												aria-label="CSS grade: activate to sort column ascending">
 												재직여부</th>
-												<th class="sorting" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1"
-												aria-label="CSS grade: activate to sort column ascending">
-												수정</th>
+
 										</tr>
 									</thead>
 									<tbody>
@@ -134,7 +131,6 @@ $("#checkBtn").click(function(){
 											<td>${adminUserList.u_email }</td>
 											<td>${adminUserList.u_position}</td>
 											<td id="status">${adminUserList.u_status}</td>
-											<td><input type="button" id="checkBtn" value="클릭" /></td>
 										</tr>
 										</c:when>
 										</c:choose>
