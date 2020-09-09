@@ -119,13 +119,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return dao.selectRunUserCount(searchDto);
 	}
 	
-	//로그인 확인 전체 리스트
-	@Override
-	public List<UserInfo> loginUserList(UserInfo user) {
-		
-		return dao.loginUserList(user);
-	}
-	
+
 	
 	
 

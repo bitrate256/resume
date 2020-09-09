@@ -51,7 +51,5 @@ public interface UserInfoDao {
 	// 퇴사자 전체 레코드(ajax)
 	public int selectRunUserCount(SearchDto searchDto);
 	
-	//로그인 확인 전체 목록
-	public List<UserInfo> loginUserList(UserInfo user);
 
 }// inter end
