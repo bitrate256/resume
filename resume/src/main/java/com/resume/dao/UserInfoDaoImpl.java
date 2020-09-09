@@ -136,17 +136,7 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	}
 	
 	
-	//로그인 확인 전체 목록
-	@Override
-	public List<UserInfo> loginUserList(UserInfo user) {
-		
-		List<UserInfo> loginUserList = new ArrayList<UserInfo>();
-		loginUserList = session.selectList(queryprefix+"loginUserList", user);
-		
-		return loginUserList;
-	}
-	
-	
+
 	
 	
 	

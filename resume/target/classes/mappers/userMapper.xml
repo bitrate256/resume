@@ -203,10 +203,5 @@
 		DELETE FROM USER_INFO
 		WHERE U_ID = #{u_id}
 	</delete>
-	
-	<select id="loginUserList" resultType="UserInfo">
-	SELECT *
-	FROM USER_INFO
-	</select>
 
 </mapper>

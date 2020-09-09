@@ -58,23 +58,20 @@ public class UserInfoController {
 //		System.out.println(passMatch);
 //		System.out.println("user.getU_pwd = " + user.getU_pwd().toString());
 //		System.out.println("result.getU_pwd = " + result.getU_pwd().toString());
-		List<UserInfo> loginUserList = new ArrayList<UserInfo>();
-		loginUserList = service.loginUserList(user);
-		int size = loginUserList.size();
+		UserInfo login = service.userSelectOne(user);
+		System.out.println(login);
+		
 
-		for (int i = 0; i < size; i++) {
-			if (result != null && passMatch && loginUserList.get(i).getU_status().equals("Y")) {
+			if (result != null && passMatch && login.getU_status().equals("Y")) {
 
-				path = "redirect:/userHome";
-				session.setAttribute("loginUser", result);
-
-			} else if (loginUserList.get(i).getU_status().equals("Y")) {
-				path = "redirect:/user/userlogin";
-			} else {
+					path = "redirect:/userHome";
+					session.setAttribute("loginUser", result);
+				}
+			else {
 				session.setAttribute("loginUser", null);
 				path = "redirect:/user/userlogin";
 			}
-		}
+			
 
 		return path;
 	}
