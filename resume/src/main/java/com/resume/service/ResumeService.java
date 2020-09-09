@@ -12,6 +12,14 @@ public interface ResumeService {
 	
 	// 이력 업로드
 	public void resumeInsert(Resume resume);
+	public void academicInsert(Resume resume);
+	public void certificateInsert(Resume resume);
+	public void careerInsert(Resume resume);
+	public void educationInsert(Resume resume);
+	public void specialTechInsert(Resume resume);
+	public void skillInventoryInsert(Resume resume);
+	public void fileInsert(Resume resume);
+	
 	
 	// 이력 수정
 	public void resumeUpdate(Resume resume);
@@ -26,5 +34,12 @@ public interface ResumeService {
 	public int selectResumeCount(SearchDto searchDto);
 	
 	//상세조회
+	public Resume userInfoSelectOne(Resume resume);
 	public Resume resumeSelectOne(int r_id);
+	public Resume academicSelectOne(Resume resume);
+	public Resume certificateSelectOne(Resume resume);
+	public Resume careerSelectOne(Resume resume);
+	public Resume educationSelectOne(Resume resume);
+	public Resume specialTechSelectOne(Resume resume);
+	public Resume skillInventorySelectOne(Resume resume);
 }
