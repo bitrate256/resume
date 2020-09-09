@@ -66,4 +66,14 @@ public class ResumeDaoImpl implements ResumeDao {
 		return null;
 	}
 	
+	
+	//resumeInfomation
+	@Override
+	public Resume resumeInfomation(Resume resume) {
+		
+		return session.selectOne(queryprefix+"resumeInfomation", resume);
+	}
+	
+	
+	
 }

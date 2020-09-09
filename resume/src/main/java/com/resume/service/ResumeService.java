@@ -42,4 +42,8 @@ public interface ResumeService {
 	public Resume educationSelectOne(Resume resume);
 	public Resume specialTechSelectOne(Resume resume);
 	public Resume skillInventorySelectOne(Resume resume);
+	
+	//r_id, u_id, d_id
+	public Resume resumeInfomation(Resume resume);
+	
 }

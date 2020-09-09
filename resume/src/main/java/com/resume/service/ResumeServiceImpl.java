@@ -141,5 +141,14 @@ public class ResumeServiceImpl implements ResumeService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	//resumeInfomation
+	@Override
+	public Resume resumeInfomation(Resume resume) {
+		
+		return dao.resumeInfomation(resume);
+	}
 
+	
+	
+	
 }

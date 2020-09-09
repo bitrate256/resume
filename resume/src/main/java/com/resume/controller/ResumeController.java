@@ -46,9 +46,16 @@ public class ResumeController {
 	@RequestMapping(value = "resume/resumeCreate")
 	public String resumeCreate(HttpSession session, Model model, Resume resume) {
 		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		System.out.println(user);
-		service.resumeInsert(resume);
 		model.addAttribute("loginUser", user);
+		resume.setU_id(user.getU_id());
+		resume.setD_id(user.getD_id());
+		service.resumeInsert(resume);
+//		Resume info =  service.resumeInfomation(resume);
+//		System.out.println(info);
+//		
+//		model.addAttribute("info", info);
+		
+		
 		return "resume/resumeCreate";
 	}
 	

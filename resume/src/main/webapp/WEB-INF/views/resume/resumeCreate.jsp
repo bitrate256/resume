@@ -129,6 +129,9 @@
 						<ol class="float-sm-right">
 							<div class="btn-group">
 								<!-- 좌우 버튼 크기차이 왜 발생하지??? -->
+								<input type="hidden" value="${info.r_id }">
+								<input type="hidden" value="${info.u_id }">
+								<input type="hidden" value="${info.d_id }">
 								<button type="submit" id="" name=""
 									class="btn btn-block bg-gradient-success">등록</button>
 								<button type="button" id=""	class="btn btn-block bg-gradient-danger">삭제</button>

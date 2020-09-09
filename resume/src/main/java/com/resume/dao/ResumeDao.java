@@ -28,6 +28,9 @@ public interface ResumeDao {
 	
 	// 이력 삭제
 	public Resume resumeDelete(Resume resume);
+	
+	//resumeInfomation
+	public Resume resumeInfomation(Resume resume);
 
 
 }
