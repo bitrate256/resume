@@ -35,14 +35,22 @@ $(function() {
 		
 // 	});
 	$("#departmentSubmit").click(function() {
+			
+		var d_name = $('#d_name').val();
+		if (d_name == "") {
+			alert('부서명을 입력해 주세요');
+			d_name.focus();
+			return false;
 
+		}
 		
+		else {
 		
 		var url = "<%=contextPath%>"+"/admin/departmentInsert"; 
 		$("#frm").attr("action", url);
 		$("#frm").submit();
 
-		
+		}
 		
 	});
 	
