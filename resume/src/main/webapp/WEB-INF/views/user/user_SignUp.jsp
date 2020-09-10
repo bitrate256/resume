@@ -217,6 +217,8 @@ function inputPhoneNumber(obj) {
         phone += number.substr(7);
     }
     obj.value = phone;
+    
+    
 }
 // onsubmit
 
@@ -268,6 +270,12 @@ function inputPhoneNumber(obj) {
 		}
 
 	}
+	
+	function inNumber(){
+		  if(event.keyCode<48 || event.keyCode>57){
+		     event.returnValue=false;
+		  }
+		}
 </script>
 
 
@@ -306,7 +314,7 @@ function inputPhoneNumber(obj) {
 	<form action="<%=contextPath%>/user/userSignUpResult" method="post" name="form" onsubmit="return checkSubmit()">
 		<br>
 		<div class="form-group has-feedback">
-			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번(해당년도 + 4자리)" required="required">
+			<input type="text" class="form-control" id="u_id" name="u_id" placeholder="사번(해당년도 + 4자리)" required="required" onkeypress="inNumber()">
 			<button type="button" class="btn btn-success" id="uIdCheck">중복확인</button>
 			<div id="id_check"></div>
       	</div>
@@ -334,7 +342,7 @@ function inputPhoneNumber(obj) {
       	</div>
       	
       	<div class="form-group has-feedback">
-       <input type="text" class="form-control" id="u_phone" name="u_phone" placeholder="핸드폰번호" 
+       <input type="text" class="form-control" id="u_phone" name="u_phone" placeholder="핸드폰번호" onkeypress="inNumber()"
        onkeyup=" inputPhoneNumber(this);" maxlength="13">
        <div id="phone_check"></div>
       	</div>
