@@ -2,10 +2,12 @@ package com.resume.dao;
 
 import java.util.List;
 
+import com.resume.dto.Academic;
 import com.resume.dto.BoardPager;
+import com.resume.dto.Career;
+import com.resume.dto.Ceritificate;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
-import com.resume.dto.SearchDto;
 import com.resume.dto.UserInfo;
 
 public interface ResumeDao {
@@ -22,7 +24,7 @@ public interface ResumeDao {
 	public List<JoinDto> selectAllResumeList(BoardPager boardPager);
 	
 	// 이력 상세 보기
-	public Resume resumeSelectOne(int r_id);
+	public Resume resumeSelectOne(Resume resume);
 	
 	// 이력 수정
 	public void resumeUpdate(Resume resume);
@@ -35,6 +37,15 @@ public interface ResumeDao {
 	
 	//
 	public UserInfo userInfoSelectOne(UserInfo resume);
+	
+	//학력
+	public void academicInsert(Academic resume);
+	
+	// 자격증
+	public void certificateInsert(Ceritificate resume);
+	
+	// 경력
+	public void careerInsert(Career resume);
 
 
 }
