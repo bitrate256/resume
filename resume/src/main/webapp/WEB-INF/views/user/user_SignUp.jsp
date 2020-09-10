@@ -291,7 +291,7 @@ function inputPhoneNumber(obj) {
 				alert("한글만 입력해 주세요"); 
 			document.getElementById("u_name").value=''; 
 			} 
-			} 
+			}  
 		}
 
 
