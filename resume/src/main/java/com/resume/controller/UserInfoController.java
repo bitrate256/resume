@@ -39,7 +39,7 @@ public class UserInfoController {
 	@RequestMapping(value = "userHome")
 	public String userHome() {
 		logger.info("this is userHome method");
-
+	
 		return "user/userHome";
 	}
 
@@ -47,7 +47,7 @@ public class UserInfoController {
 	@RequestMapping(value = "user/userlogin")
 	public String userlogin(UserInfo uDto) {
 		logger.info("this is userlogin method");
-
+		logger.info("음하하하하하하하하하하하");
 		return "user/user_login";
 	}
 
@@ -274,7 +274,7 @@ public class UserInfoController {
 	// 사용자 수정 완료
 	@RequestMapping(value = "admin/adminUserUpdateEnd")
 	public String adminUserUpdateEnd(UserInfo user) {
-
+			
 		service.adminUserUpdate(user);
 
 		return "redirect:/admin/adminUserList";
