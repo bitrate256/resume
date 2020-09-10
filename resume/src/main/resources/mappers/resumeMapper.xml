@@ -34,53 +34,41 @@
 	</insert>
 	
     <!-- 이력 등록 (학력 테이블) -->
-	<insert id="academicInsert" parameterType="Resume">
+	<insert id="academicInsert" parameterType="Academic">
 		INSERT INTO ACADEMIC(
 		R_ID,
 		U_ID,
 		D_ID,
-		A_HSCHOLL,
-		A_UNIVERSITY,
-		A_GSCHOOL,
-		A_HSCHOOLDATE,
-		A_UNIVERSITYDATE,
-		A_GSCHOOLDATE
+		A_HSCHOOL,
+		A_HSCHOOLDATE
 		)
 		VALUES(
-		RESUME_SEQ.NEXTVAL,
 		#{r_id},
 		#{u_id},
 		#{d_id},
 		#{a_hschool},
-		#{a_university},
-		#{a_gschool},
-		#{a_hschooldate},
-		#{a_universitydate},
-		#{a_gschooldate}
+		#{a_hschooldate}
 		)
 	</insert>
 	
 	<!-- 이력 등록 (자격증 테이블) -->
-	<insert id="certificateInsert" parameterType="Resume">
+	<insert id="certificateInsert" parameterType="Ceritificate">
 		INSERT INTO CERTIFICATE(
 		R_ID,
 		U_ID,
 		D_ID,
-		CE_CODE,
 		CE_TEXT
 		)
 		VALUES(
-		RESUME_SEQ.NEXTVAL,
 		#{r_id},
 		#{u_id},
 		#{d_id},
-		#{ce_code},
 		#{ce_text}
 		)
 	</insert>
 	
 	<!-- 이력 등록 (경력 테이블) -->
-	<insert id="careerInsert" parameterType="Resume">
+	<insert id="careerInsert" parameterType="Career">
 		INSERT INTO CAREER(
 		R_ID,
 		U_ID,
@@ -92,7 +80,6 @@
 		C_TASK
 		)
 		VALUES(
-		RESUME_SEQ.NEXTVAL,
 		#{r_id},
 		#{u_id},
 		#{d_id},
@@ -218,7 +205,7 @@
 	<select id="resumeSelectOne" parameterType="int" resultType="Resume">
 	SELECT R_ID, U_ID, D_ID, R_STATUS, R_NEWDATE
 	FROM RESUME
-	WHERE U_ID = #{u_id}
+	WHERE R_ID = #{r_id}
 	</select>
 
 	<!-- 이력 상세보기 (학력 테이블) -->

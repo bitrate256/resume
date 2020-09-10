@@ -50,7 +50,27 @@
 	</div>
 
 	<div id="resumeList"></div>
+<div class="register-box-body">
+				<form action="<%=contextPath%>/resume/resumeCreate" method="post"
+					name="form">
+					<br> <input hidden="${loginUser.u_id }"> <input
+						hidden="${loginUser.d_id }">
+					<div class="row">
+						<div class="col-xs-8">
+							<div class="checkbox icheck"></div>
+						</div>
+						<!-- /.col -->
+						<div class="col-xs-4">
+							<input type="submit" class="btn btn-primary" id="submit"
+								name="submit" value="새 이력 등록">
+							<button type="button" class="btn btn-primary"
+								onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">취소</button>
+						</div>
+						<!-- /.col -->
+					</div>
+				</form>
 
+			</div>
 </div>
 
 <%-- 	<!-- Content Wrapper. Contains page content -->

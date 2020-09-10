@@ -1,17 +1,18 @@
 package com.resume.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.resume.dto.Academic;
 import com.resume.dto.BoardPager;
+import com.resume.dto.Career;
+import com.resume.dto.Ceritificate;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
-import com.resume.dto.SearchDto;
 import com.resume.dto.UserInfo;
 
 @Repository
@@ -47,9 +48,9 @@ public class ResumeDaoImpl implements ResumeDao {
 	}
 	
 	// 이력 상세 보기
-	public Resume resumeSelectOne(int r_id) {
-		
-		return session.selectOne(queryprefix+"resumeSelectOne", r_id);
+	public Resume resumeSelectOne(Resume resume) {
+		System.out.println("DAO ="+resume);
+		return session.selectOne(queryprefix+"resumeSelectOne", resume);
 	}
 	
 	// 이력 수정
@@ -80,7 +81,25 @@ public class ResumeDaoImpl implements ResumeDao {
 		
 		return session.selectOne(queryprefix+"userInfoSelectOne", resume);
 	}
+
+	@Override
+	public void academicInsert(Academic resume) {
+		
+		session.insert(queryprefix+"academicInsert", resume);
+	}
+
+	@Override
+	public void certificateInsert(Ceritificate resume) {
+
+
+		session.insert(queryprefix+"certificateInsert", resume);		
+	}
 	
+	@Override
+	public void careerInsert(Career resume) {
+		
+		session.insert(queryprefix+"careerInsert", resume);
+	}
 	
 	
 	

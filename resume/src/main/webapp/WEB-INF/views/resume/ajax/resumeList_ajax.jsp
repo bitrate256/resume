@@ -111,7 +111,8 @@ $("#checkBtn").click(function(){
 									<tr role="row">
 										<td>${resumeAllList.u_id }</td>
 										<td>${resumeAllList.u_id }</td>
-										<td onclick="javascript:location.href='<c:url value="/"/>resume/resumeSelectOne?r_id=${resumeAllList.r_id }'">${resumeAllList.r_id }</td>
+										<td onclick="javascript:location.href='<c:url value="/"/>resume/resumeSelectOne?r_id=${resumeAllList.r_id }'">
+										${resumeAllList.r_id }</td>
 										<td>${resumeAllList.r_newdate }</td>
 									</tr>
 

@@ -42,7 +42,7 @@
 <script type="text/javascript">
 	function SetCertiTail(certiValue) {
 		/* 	  var certi = document.all("certi") */// 사용자 입력
-		var certiTail = document.all("certi_value") // Select box
+		var certiTail = document.all("ce_text") // Select box
 
 		if (certiValue == "notSelected")
 			return;
@@ -56,7 +56,6 @@
 		}
 	}
 </script>
-
 <!-- 자격 취득일자 date picker 함수 -->
 <!-- 같은 함수 사용하는 것으로 변경. 해당 함수는 사용하지 않음. -->
 <!-- <script>
@@ -125,17 +124,127 @@ $(document).ready(function() {
 		});
 
 	
-$("#resumeDelete").click(function() {
+<%-- $("#resumeDelete").click(function() {
 
 		
 
-		var url = "<%=contextPath%>"+"/admin/adminUserDelete"; 
-				$("#resumeUpdateForm").attr("action", url);
-				$("#resumeUpdateForm").submit();
+		var url = "<%=contextPath%>"+"/resume/resumeDelete";
+			$("#resumeUpdateForm").attr("action", url);
+			$("#resumeUpdateForm").submit();
 
-		});
+		}); --%>
 	});
 
+	// 비동기 함수 시작.
+	// 2. 학력 등록
+	$(function() {
+		$("#academicInsertButton")
+				.click(
+						function() {
+
+							$
+									.ajax({
+										url : "${pageContext.request.contextPath}/resume/resumeInsertAcademic",
+										type : "POST",
+										data : $("#academicInsert").serialize(),
+										dataType : "text",
+										success : function(data) {
+											console.log("1 = 성공o / 0 = 실패x : "
+													+ data);
+
+											if (data == "1") {
+												$('#academicResult').text(
+														"학력 성공.");
+												$('#academicResult').css(
+														"color", "blue");
+											} else if (data == "0") {
+												$('#academicResult').text(
+														"학력 실패.");
+												$('#academicResult').css(
+														"color", "red");
+											}
+										},
+										error : function() {
+											alert("Error");
+										}
+									})
+
+						});
+	});
+
+	// 3. 자격증 등록
+	$(function() {
+		$("#certiInsertButton")
+				.click(
+						function() {
+
+							$
+									.ajax({
+										url : "${pageContext.request.contextPath}/resume/resumeInsertCerti",
+										type : "POST",
+										data : $("#certificateInsert")
+												.serialize(),
+										dataType : "text",
+										success : function(data) {
+											console.log("1 = 성공o / 0 = 실패x : "
+													+ data);
+
+											if (data == "1") {
+												$('#certiResult')
+														.text("학력 성공.");
+												$('#certiResult').css("color",
+														"blue");
+											} else if (data == "0") {
+												$('#certiResult')
+														.text("학력 실패.");
+												$('#certiResult').css("color",
+														"red");
+											}
+										},
+										error : function() {
+											alert("Error");
+										}
+									})
+
+						});
+	});
+
+	// 4. 경력
+	$(function() {
+		$("#careerInsertButton")
+				.click(
+						function() {
+
+							$
+									.ajax({
+										url : "${pageContext.request.contextPath}/resume/resumeInsertCareer",
+										type : "POST",
+										data : $("#resumeInsertCareer")
+												.serialize(),
+										dataType : "text",
+										success : function(data) {
+											console.log("1 = 성공o / 0 = 실패x : "
+													+ data);
+
+											if (data == "1") {
+												$('#careerResult').text(
+														"경력등록 성공.");
+												$('#careerResult').css("color",
+														"blue");
+											} else if (data == "0") {
+												$('#careerResult').text(
+														"경력등록 실패.");
+												$('#careerResult').css("color",
+														"red");
+											}
+										},
+										error : function() {
+											alert("Error");
+										}
+									})
+
+						});
+	});
 </script>
 
 </head>
@@ -156,11 +265,13 @@ $("#resumeDelete").click(function() {
 						<ol class="float-sm-right">
 							<div class="btn-group">
 								<!-- 좌우 버튼 크기차이 왜 발생하지??? -->
-								<input type="hidden" value="${info.r_id }">
-								<input type="hidden" value="${info.u_id }">
-								<input type="hidden" value="${info.d_id }">
-								<button type="submit" id="" name="" class="btn btn-block bg-gradient-success">등록</button>
-								<button type="button" id=""	class="btn btn-block bg-gradient-danger">삭제</button>
+								<input type="hidden" value="${info.r_id }"> <input
+									type="hidden" value="${info.u_id }"> <input
+									type="hidden" value="${info.d_id }">
+								<button type="submit" id="" name=""
+									class="btn btn-block bg-gradient-success">등록</button>
+								<button type="button" id=""
+									class="btn btn-block bg-gradient-danger">삭제</button>
 							</div>
 						</ol>
 					</div>
@@ -332,13 +443,17 @@ $("#resumeDelete").click(function() {
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-						<form role="form" action="<%=contextPath%>/resume/resumeUpdate"
-							mothod="post" name="form">
+						<form role="form" id="academicInsert">
+
+							<input type="hidden" name="u_id" value="${resumeInfo.u_id }"></input>
+							<input type="hidden" name="d_id" value="${resumeInfo.d_id }"></input>
+							<input type="hidden" name="r_id" value="${resumeInfo.r_id }"></input>
 							<div class="row">
 								<div class="col-sm-6">
 									<!-- text input -->
 									<div class="form-group">
-										<label>학교/과정명</label> <input type="text" class="form-control" name="a_hschool">
+										<label>학교/과정명</label> <input type="text" class="form-control"
+											name="a_hschool">
 									</div>
 								</div>
 								<div class="col-sm-6">
@@ -347,18 +462,14 @@ $("#resumeDelete").click(function() {
 											class="form-control datepicker" name="a_hschooldate">
 									</div>
 								</div>
-								<!-- 비활성화 폼	
-                                <div class="col-sm-6">
-									<div class="form-group">
-										<label>Text Disabled</label> <input type="text"
-											class="form-control" placeholder="Enter ..." disabled="">
-									</div>
-								</div> -->
 							</div>
-							<button type="submit" id="resumeUpdate" name="resumeUpdate"
+							<button type="button" id="academicInsertButton"
+								name="academicInsertButton"
 								class="btn btn-block bg-gradient-success">등록</button>
-								
 						</form>
+						<div id="academicResult">
+							<!-- 비동기 성공여부 알림 -->
+						</div>
 					</div>
 					<!-- /.card-body -->
 				</div>
@@ -374,13 +485,16 @@ $("#resumeDelete").click(function() {
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-						<form role="form">
+						<form role="form" id="certificateInsert">
+							<input type="hidden" name="u_id" value="${resumeInfo.u_id }"></input>
+							<input type="hidden" name="d_id" value="${resumeInfo.d_id }"></input>
+							<input type="hidden" name="r_id" value="${resumeInfo.r_id }"></input>
 							<div class="row">
-								<!-- selectbox / input -->
+								<!-- select box input -->
 								<div class="col-sm-6">
 									<div class="form-group">
-										<label>자격증 선택</label> <input type="text" name="certi_value"
-											value="" ReadOnly="true" class="form-control"></input> <select
+										<label>자격증 선택</label> <input type="text" name="ce_text"
+											value="" ReadOnly="true" class="form-control" /> <select
 											name="certiCheck"
 											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
 											<option value="notSelected">::선택하세요::</option>
@@ -392,7 +506,6 @@ $("#resumeDelete").click(function() {
 										</select>
 									</div>
 								</div>
-
 								<!-- 데이트 picker -->
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -401,80 +514,14 @@ $("#resumeDelete").click(function() {
 									</div>
 								</div>
 							</div>
-							<div class="row">
-								<!-- selectbox / input -->
-								<div class="col-sm-6">
-									<div class="form-group">
-										<input type="text" name="certi_value" value="" ReadOnly="true"
-											class="form-control"></input> <select name="certiCheck"
-											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
-											<option value="notSelected">::선택하세요::</option>
-											<option value="etc">직접입력</option>
-											<option value="정보처리기사">정보처리기사</option>
-											<option value="정보처리산업기사">정보처리산업기사</option>
-											<option value="리눅스마스터">리눅스마스터</option>
-											<option value="네트워크관리사">네트워크관리사</option>
-										</select>
-									</div>
-								</div>
-
-								<!-- 데이트 picker -->
-								<div class="col-sm-6">
-									<div class="form-group">
-										<input type="text" class="form-control datepicker">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<!-- selectbox / input -->
-								<div class="col-sm-6">
-									<div class="form-group">
-										<input type="text" name="certi_value" value="" ReadOnly="true"
-											class="form-control"></input> <select name="certiCheck"
-											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
-											<option value="notSelected">::선택하세요::</option>
-											<option value="etc">직접입력</option>
-											<option value="정보처리기사">정보처리기사</option>
-											<option value="정보처리산업기사">정보처리산업기사</option>
-											<option value="리눅스마스터">리눅스마스터</option>
-											<option value="네트워크관리사">네트워크관리사</option>
-										</select>
-									</div>
-								</div>
-
-								<!-- 데이트 picker -->
-								<div class="col-sm-6">
-									<div class="form-group">
-										<input type="text" class="form-control datepicker">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<!-- selectbox / input -->
-								<div class="col-sm-6">
-									<div class="form-group">
-										<input type="text" name="certi_value" value="" ReadOnly="true"
-											class="form-control"></input> <select name="certiCheck"
-											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
-											<option value="notSelected">::선택하세요::</option>
-											<option value="etc">직접입력</option>
-											<option value="정보처리기사">정보처리기사</option>
-											<option value="정보처리산업기사">정보처리산업기사</option>
-											<option value="리눅스마스터">리눅스마스터</option>
-											<option value="네트워크관리사">네트워크관리사</option>
-										</select>
-									</div>
-								</div>
-
-								<!-- 데이트 picker -->
-								<div class="col-sm-6">
-									<div class="form-group">
-										<input type="text" class="form-control datepicker">
-									</div>
-								</div>
-							</div>
+							<button type="button" id="certiInsertButton"
+								name="certiInsertButton"
+								class="btn btn-block bg-gradient-success">등록</button>
+						</form>
 					</div>
-					</form>
+					<div id="certiResult">
+						<!-- 비동기 성공여부 알림 -->
+					</div>
 				</div>
 				<!-- /.card-body -->
 			</div>
@@ -491,12 +538,16 @@ $("#resumeDelete").click(function() {
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-						<form role="form">
+						<form role="form" id="resumeInsertCareer">
+							<input type="hidden" name="u_id" value="${resumeInfo.u_id }">
+							<input type="hidden" name="d_id" value="${resumeInfo.d_id }">
+							<input type="hidden" name="r_id" value="${resumeInfo.r_id }">
 							<div class="row">
 								<div class="col-sm-3">
 									<!-- text input -->
 									<div class="form-group">
-										<label>근무 회사명</label> <input type="text" class="form-control">
+										<label>근무 회사명</label> <input type="text" class="form-control"
+											name="c_name">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
@@ -622,7 +673,13 @@ $("#resumeDelete").click(function() {
 									</div>
 								</div>
 							</div>
+							<button type="button" id="careerInsertButton"
+								name="careerInsertButton"
+								class="btn btn-block bg-gradient-success">등록</button>
 						</form>
+						<div id="careerResult">
+							<!-- 비동기 성공여부 알림 -->
+						</div>
 					</div>
 					<!-- /.card-body -->
 				</div>

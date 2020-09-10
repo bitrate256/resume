@@ -2,7 +2,10 @@ package com.resume.service;
 
 import java.util.List;
 
+import com.resume.dto.Academic;
 import com.resume.dto.BoardPager;
+import com.resume.dto.Career;
+import com.resume.dto.Ceritificate;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
@@ -12,9 +15,9 @@ public interface ResumeService {
 	
 	// 이력 업로드
 	public void resumeInsert(Resume resume);
-	public void academicInsert(Resume resume);
-	public void certificateInsert(Resume resume);
-	public void careerInsert(Resume resume);
+	public void academicInsert(Academic resume);
+	public void certificateInsert(Ceritificate resume);
+	public void careerInsert(Career resume);
 	public void educationInsert(Resume resume);
 	public void specialTechInsert(Resume resume);
 	public void skillInventoryInsert(Resume resume);
@@ -33,7 +36,7 @@ public interface ResumeService {
 	
 	//상세조회
 	public Resume userInfoSelectOne(Resume resume);
-	public Resume resumeSelectOne(int r_id);
+	public Resume resumeSelectOne(Resume resume);
 	public Resume academicSelectOne(Resume resume);
 	public Resume certificateSelectOne(Resume resume);
 	public Resume careerSelectOne(Resume resume);

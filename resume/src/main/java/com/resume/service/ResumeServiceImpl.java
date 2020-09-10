@@ -2,13 +2,14 @@ package com.resume.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resume.dao.ResumeDao;
+import com.resume.dto.Academic;
 import com.resume.dto.BoardPager;
+import com.resume.dto.Career;
+import com.resume.dto.Ceritificate;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
@@ -42,9 +43,9 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public Resume resumeSelectOne(int r_id) {
+	public Resume resumeSelectOne(Resume resume) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.resumeSelectOne(resume);
 	}
 
 	@Override
@@ -54,21 +55,20 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public void academicInsert(Resume resume) {
-		// TODO Auto-generated method stub
+	public void academicInsert(Academic resume) {
+		
+		dao.academicInsert(resume);
+	}
+
+	@Override
+	public void certificateInsert(Ceritificate resume) {
+		dao.certificateInsert(resume);
 		
 	}
 
 	@Override
-	public void certificateInsert(Resume resume) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void careerInsert(Resume resume) {
-		// TODO Auto-generated method stub
-		
+	public void careerInsert(Career resume) {
+		dao.careerInsert(resume);
 	}
 
 	@Override
