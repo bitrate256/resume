@@ -6,7 +6,31 @@
 <%
 	String contextPath = request.getContextPath();
 %>
+<script>
+	var searchSort = "";	//변수 초기화
+	var searchVal = "";		//변수 초기화
 
+	$(function () {
+		// 페이지 처음 접근시 리스트 표시 좌표
+		adminUserListAjaxfn(1);	//현재 page =1 ->기본시작, 접근하는 순간 시작
+	})
+
+	// 리스트 Ajax 처리
+	function adminUserListAjaxfn(cPage) {
+		$.ajax({
+			url: "<c:url value="/"/>resume/resumeListAjax",
+			data: {
+				"cPage": cPage,
+				"searchSort": searchSort,
+				"searchVal": searchVal,
+			},
+			dataType: "html",
+			success: function (data) {
+				$('#resumeList').html(data);
+			}
+		})
+	}
+</script>
 <div class="row">
 	<div class="col-sm-12">
 		<table id="gpxBoard" class="table table-bordered table-hover dataTable" role="grid">
@@ -14,48 +38,23 @@
 				※이력 리스트※
 				<br>
 				<tr role="row">
-					<th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">이름</th>
-					<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">사번</th>
-					<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">부서코드</th>
-					<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">결재구분</th>
-					<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">승인구분</th>
-					<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">시작날짜</th>
-					<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">종료날짜</th>
-					<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">신청날짜</th>
-					<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">결재날짜</th>
+    				<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">이력관리번호</th>
+					<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">이력상태</th>
+					<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">이력수정날짜</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="statusAllList" items="${statusAllList }">
+				<c:forEach var="resumeAllList" items="${resumeAllList }">
 					<tr role="row">
-						<td>${statusAllList.u_name }</td>
 						<td onclick="javascript:location.href='<c:url value="/"/>
-						user/StatusRecordSelectOne?apv_id=${statusAllList.apv_id }'">${statusAllList.u_id }</td>
-						<c:if test="${statusAllList.d_id eq 1 }">
-							<td>경영지원</td>
+						resume/resumeSelectOne?r_id=${resumeAllList.r_id }'">${resumeAllList.r_id }</td>
+						<c:if test="${resumeAllList.r_status eq Y }">
+							<td>상태값Y</td>
 						</c:if>
-						<c:if test="${statusAllList.d_id eq 2 }">
-							<td>연구소</td>
+						<c:if test="${resumeAllList.r_status eq N }">
+							<td>상태값N</td>
 						</c:if>
-						<c:if test="${statusAllList.apv_div eq 'V' }">
-							<td>휴가</td>
-						</c:if>
-						<c:if test="${statusAllList.apv_div eq 'A' }">
-							<td>반차</td>
-						</c:if>
-						<c:if test="${statusAllList.apv_ok eq 'Y' }">
-							<td>승인</td>
-						</c:if>
-						<c:if test="${statusAllList.apv_ok eq 'N' }">
-							<td>반려</td>
-						</c:if>
-						<c:if test="${statusAllList.apv_ok eq 'W' }">
-							<td>대기</td>
-						</c:if>
-						<td onclick="javascript:location.href='<c:url value="/"/>user/StatusRecordSelectOne?apv_id=${statusAllList.apv_id }'">${statusAllList.apv_start }</td>
-						<td>${statusAllList.apv_end }</td>
-						<td>${statusAllList.apv_aply }</td>
- 						<td>${statusAllList.apv_aplydate }</td>
+						<td>${resumeAllList.r_newdate }</td>
 					</tr>
 
 				</c:forEach>
@@ -91,7 +90,7 @@
 				<c:if test="${boardPager.curBlock <= boardPager.totBlock }">
 
 					<li class="paginate_button next" id="example1_next">
-						<a href="javascript:userStatusAjaxfn(${boardPager.nextPage})">Next</a>
+						<a href="javascript:resumeListAjaxfn(${boardPager.nextPage})">Next</a>
 					</li>
 
 				</c:if>

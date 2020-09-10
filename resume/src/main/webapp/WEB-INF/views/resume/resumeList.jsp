@@ -42,7 +42,6 @@
 		<section class="content">
 
 			<div class="register-box-body">
-				<p class="login-box-msg">새 이력 작성</p>
 				<form action="<%=contextPath%>/resume/resumeCreate" method="post"
 					name="form">
 					<br> <input hidden="${loginUser.u_id }"> <input
@@ -71,6 +70,10 @@
 						role="grid" aria-describedby="example1_info">
 						<thead>
 							<tr role="row">
+							<th class="sorting_asc" tabindex="0" aria-controls="example1"
+									rowspan="1" colspan="1" aria-sort="ascending"
+									aria-label="Rendering engine: activate to sort column descending">
+									이력관리번호</th>
 								<th class="sorting_asc" tabindex="0" aria-controls="example1"
 									rowspan="1" colspan="1" aria-sort="ascending"
 									aria-label="Rendering engine: activate to sort column descending">
@@ -84,7 +87,8 @@
 							<c:forEach var="resumeAllList" items="${resumeAllList }">
 								<tr role="row" class="odd">
 									<td onclick="javascript:location.href='<c:url value="/"/>resume/resumeSelectOne?d_id=${resumeAllList.r_id }'">${resumeAllList.r_id }</td>
-									<td tabindex="0" class="sorting_1">${resumeAllList.d_name }</td>
+									<td tabindex="0" class="sorting_1">${resumeAllList.r_status }</td>
+									<td tabindex="0" class="sorting_1">${resumeAllList.r_newdate }</td>
 							</c:forEach>
 
 						</tbody>
