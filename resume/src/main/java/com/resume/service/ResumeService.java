@@ -24,8 +24,6 @@ public interface ResumeService {
 	// 이력 수정
 	public void resumeUpdate(Resume resume);
 	
-	// 이력 전체 조회
-	public List<Resume> resumeInfoList(String page, String rows);
 	
 	// 이력  전체 조회(페이징)
 	public List<JoinDto> selectAllResumeList(BoardPager boardPager);
@@ -46,4 +44,6 @@ public interface ResumeService {
 	//r_id, u_id, d_id
 	public Resume resumeInfomation(Resume resume);
 	
+	// 사용자 보기
+	public UserInfo userInfoSelectOne(UserInfo resume);
 }

@@ -41,7 +41,7 @@ public class ResumeDaoImpl implements ResumeDao {
 	public List<JoinDto> selectAllResumeList(BoardPager boardPager) {
 		
 		List<JoinDto> resumeAllList = new ArrayList<JoinDto>();
-		resumeAllList = session.selectList(queryprefix+"selectUserAllList", boardPager);
+		resumeAllList = session.selectList(queryprefix+"selectAllResumeList", boardPager);
 		System.out.println("이력 전체 리스트 = "+resumeAllList);
 		return resumeAllList;
 	}
@@ -73,6 +73,14 @@ public class ResumeDaoImpl implements ResumeDao {
 		
 		return session.selectOne(queryprefix+"resumeInfomation", resume);
 	}
+	
+	//
+	@Override
+	public UserInfo userInfoSelectOne(UserInfo resume) {
+		
+		return session.selectOne(queryprefix+"userInfoSelectOne", resume);
+	}
+	
 	
 	
 	

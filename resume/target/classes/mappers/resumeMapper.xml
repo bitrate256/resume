@@ -208,7 +208,7 @@
 
 	
     <!-- 이력 상세보기 (사용자 테이블) -->
-	<select id="userInfoSelectOne" parameterType="int" resultType="Resume">
+	<select id="userInfoSelectOne" parameterType="int" resultType="UserInfo">
 	SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
 	FROM USER_INFO
 	WHERE U_ID = #{u_id}
@@ -360,6 +360,16 @@
 	<select id="resumeInfomation" resultType="Resume">
 	SELECT *
 	FROM RESUME
+	</select>
+	
+	<select id="selectAllResumeList" resultType="Resume"
+	parameterType="BoardPager">
+	<include refid="pagingHeader"></include>
+	SELECT *
+	FROM RESUME
+	WHERE 1 = 1
+	ORDER BY U_ID
+	<include refid="pagingFooter"></include>
 	</select>
 	
 	

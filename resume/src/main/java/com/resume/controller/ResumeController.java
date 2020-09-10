@@ -76,13 +76,13 @@ public class ResumeController {
 	}
 
 	// 이력 리스트
-	@RequestMapping(value = "resume/resumeAllListAjax")
+	@RequestMapping(value = "resume/resumeListAjax")
 	public String resumeAllListAjax(@RequestParam(value = "cPage", defaultValue = "1") int cPage,
 			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
 			@RequestParam(value = "searchVal", defaultValue = "") String searchVal, Model model, HttpSession session) {
-		logger.info("resumeAllListAjax 메소드임.");
+		logger.info("resumeAllListAjax 컨트롤러 찍음.");
 		
-		Resume resume = (Resume) session.getAttribute("loginUser");
+		UserInfo resume = (UserInfo) session.getAttribute("resume");
 		model.addAttribute("resume", resume);
 
 		// 검색 객체 값 넣기
@@ -104,10 +104,10 @@ public class ResumeController {
 		// 전체 리스트 출력
 		List<JoinDto> resumeAllList = service.selectAllResumeList(boardPager);
 		System.out.println(resumeAllList);
-		model.addAttribute("statusAllList", resumeAllList);
+		model.addAttribute("resumeAllList", resumeAllList);
 		model.addAttribute("boardPager", boardPager);
 
-		return "work/ajax/userStatusList_ajax";
+		return "resume/ajax/resumeList_ajax";
 	}
 	
 	// 이력 상세 보기

@@ -111,6 +111,33 @@
 	});
 </script>
 
+<script>
+$(document).ready(function() {
+	
+	$("#resumeUpdate").click(function() {
+
+		
+
+		var url = "<%=contextPath%>"+"/resume/resumeUpdateForm"; 
+				$("#resumeUpdateForm").attr("action", url);
+				$("#resumeUpdateForm").submit();
+
+		});
+
+	
+$("#resumeDelete").click(function() {
+
+		
+
+		var url = "<%=contextPath%>"+"/admin/adminUserDelete"; 
+				$("#resumeUpdateForm").attr("action", url);
+				$("#resumeUpdateForm").submit();
+
+		});
+	});
+
+</script>
+
 </head>
 
 <body class="sidebar-mini layout-fixed" style="height: auto;">
@@ -132,8 +159,7 @@
 								<input type="hidden" value="${info.r_id }">
 								<input type="hidden" value="${info.u_id }">
 								<input type="hidden" value="${info.d_id }">
-								<button type="submit" id="" name=""
-									class="btn btn-block bg-gradient-success">등록</button>
+								<button type="submit" id="" name="" class="btn btn-block bg-gradient-success">등록</button>
 								<button type="button" id=""	class="btn btn-block bg-gradient-danger">삭제</button>
 							</div>
 						</ol>

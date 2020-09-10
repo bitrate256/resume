@@ -32,12 +32,7 @@ public class ResumeServiceImpl implements ResumeService {
 		
 	}
 
-	// 이력 전체 조회
-	@Override
-	public List<Resume> resumeInfoList(String page, String rows) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	// 이력 전체 조회(페이징)
 	@Override
@@ -146,6 +141,12 @@ public class ResumeServiceImpl implements ResumeService {
 	public Resume resumeInfomation(Resume resume) {
 		
 		return dao.resumeInfomation(resume);
+	}
+
+	@Override
+	public UserInfo userInfoSelectOne(UserInfo resume) {
+		 
+		return dao.userInfoSelectOne(resume);
 	}
 
 	

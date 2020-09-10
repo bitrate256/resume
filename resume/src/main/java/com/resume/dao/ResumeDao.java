@@ -6,6 +6,7 @@ import com.resume.dto.BoardPager;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
+import com.resume.dto.UserInfo;
 
 public interface ResumeDao {
 	
@@ -31,6 +32,9 @@ public interface ResumeDao {
 	
 	//resumeInfomation
 	public Resume resumeInfomation(Resume resume);
+	
+	//
+	public UserInfo userInfoSelectOne(UserInfo resume);
 
 
 }
