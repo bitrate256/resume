@@ -151,7 +151,7 @@ $(function(){
         <!-- /.col -->
         <div class="col-xs-4">
         	<button type="button" class="btn btn-primary" id="departmentSubmit" name="departmentSubmit" >부서 등록</button>
-			<button type="button" class="btn btn-primary" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">취소</button>
+			<button type="button" class="btn btn-primary" onclick="javascript:location.href='<c:url value="/"/>admin/department'">취소</button>
 			<div id="result_check"></div>
         </div>
         <!-- /.col -->

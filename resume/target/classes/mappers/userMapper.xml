@@ -136,19 +136,19 @@
 	</select>
 
 
-	<!-- 사용자 전체 리스트 (그리드) -->
-	<!-- <select id="userInfoList" resultType="UserInfo"> -->
-	<!-- SELECT * -->
-	<!-- FROM USER_INFO -->
-	<!-- ORDER BY U_ID -->
+<!-- 	사용자 전체 리스트 (그리드) -->
+	<select id="userInfoList" resultType="UserInfo">
+	SELECT *
+	FROM USER_INFO
+	ORDER BY U_ID
 
-	<!-- </select> -->
+	</select>
 
-	<!-- 그리드 카운트 (그리드) -->
-	<!-- <select id="gridCount" resultType="com.resume.dto.JqGrid"> -->
-	<!-- SELECT COUNT(*) -->
-	<!-- FROM USER_INFO -->
-	<!-- </select> -->
+<!-- 	그리드 카운트 (그리드) -->
+	<select id="gridCount" resultType="com.resume.dto.JqGrid">
+	SELECT COUNT(*)
+	FROM USER_INFO
+	</select>
 
 	<!-- 사번 중복체크 -->
 	<select id="userIdCheck" parameterType="UserInfo"

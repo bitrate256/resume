@@ -92,7 +92,12 @@ $("#adminUserDelete").click(function() {
 						<hr>
 
 						<strong> 부서</strong>
-						<p class="text-muted">${userInfo.d_id }</p>
+						<c:if test="${userInfo.d_id  eq 1}">
+						<p class="text-muted">경영지원</p>
+						</c:if>
+						<c:if test="${userInfo.d_id  eq 2}">
+						<p class="text-muted">연구소</p>
+						</c:if>
 						<hr>
 
 						<strong> 병역</strong>
@@ -171,7 +176,24 @@ $("#adminUserDelete").click(function() {
 						<hr>
 
 						<strong> 직위</strong>
-						<p class="text-muted">${userInfo.u_position }</p>
+						<c:if test="${userInfo.u_position eq 1}">
+						<p class="text-muted">대표이사</p>
+						</c:if>
+						<c:if test="${userInfo.u_position eq 2}">
+						<p class="text-muted">부장</p>
+						</c:if>
+						<c:if test="${userInfo.u_position eq 3}">
+						<p class="text-muted">차장</p>
+						</c:if>
+						<c:if test="${userInfo.u_position eq 4}">
+						<p class="text-muted">과장</p>
+						</c:if>
+						<c:if test="${userInfo.u_position eq 5}">
+						<p class="text-muted">대리</p>
+						</c:if>
+						<c:if test="${userInfo.u_position eq 6}">
+						<p class="text-muted">사원</p>
+						</c:if>
 						<hr>
 
 						<strong> 경력</strong>

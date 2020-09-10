@@ -128,7 +128,13 @@
                   <p>부서 등록</p>
                 </a>
               </li>
-
+ <li class="nav-item">
+                <a class="nav-link" href="javascript:location.href='<c:url value="/"/>admin/adminDepartmentList'">
+                  <i class="fas fa-user-friends"></i>
+                  <p>부서 목록</p>
+                </a>
+              </li>
+              
                <li class="nav-item">
                 <a class="nav-link" href="javascript:location.href='<c:url value="/"/>admin/adminUserList'">
                   <i class="fas fa-user-friends"></i>
