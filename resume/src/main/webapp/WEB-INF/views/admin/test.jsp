@@ -7,6 +7,11 @@
 <%@include file="../common/head.jsp" %>
 <%@include file="../user/common/user_main_header.jsp" %>
 <%@include file="../user/common/user_left_column.jsp" %>
+<style>
+
+
+
+</style>
 <script>
 $(document).ready(function() {
 	jqgridTable.init();
@@ -32,8 +37,8 @@ var jqgridTable =
 				$jqGrid = $("#jqGrid");
 
 				
-			$jqGrid.jqGrid({
-				url: "<c:url value="/"/>admin/adminUserList",
+			$("jqGrid").jqGrid({
+				url: "<c:url value="/"/>admin/adminUserListJqGrid",
 				mtype: "post",
 				datatype	:	"json",
 				colNames	:	cnames,
@@ -65,7 +70,7 @@ var jqgridTable =
 // 				cellsubmit : "clientArray",
 				
 				cellsubmit	: "remote",	//데이터 전송 방식
-				cellurl : "<c:url value="/"/>admin/adminUserList",
+				cellurl : "<c:url value="/"/>admin/adminUserListJqGrid",
 				beforeSubmitCell : function(rowid, cellname, value) {	//submit 전 데이터
 					
 					return {"id" : rowid, "cellName" : cellname, "cellValue" : value}

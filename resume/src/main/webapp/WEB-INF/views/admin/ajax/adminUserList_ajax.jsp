@@ -47,8 +47,14 @@ $("#checkBtn").click(function(){
 	
 });
 
+	$("#status").click(function() {
 		
-
+		var status = $("#status").val();
+		alert(status);
+		
+		
+		
+	});
 
 
 </script>
