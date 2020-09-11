@@ -6,6 +6,7 @@ import com.resume.dto.Academic;
 import com.resume.dto.BoardPager;
 import com.resume.dto.Career;
 import com.resume.dto.Ceritificate;
+import com.resume.dto.Education;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.UserInfo;
@@ -38,14 +39,17 @@ public interface ResumeDao {
 	//
 	public UserInfo userInfoSelectOne(UserInfo resume);
 	
-	//학력
+	// 학력 등록
 	public void academicInsert(Academic resume);
 	
-	// 자격증
+	// 자격증 등록
 	public void certificateInsert(Ceritificate resume);
 	
-	// 경력
+	// 경력 등록
 	public void careerInsert(Career resume);
+	
+	// 교육 등록
+	public void educationInsert(Education resume);
 
 
 }

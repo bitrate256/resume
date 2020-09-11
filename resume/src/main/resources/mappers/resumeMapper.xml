@@ -92,18 +92,17 @@
 	</insert>
 	
 	<!-- 이력 등록 (교육 테이블) -->
-	<insert id="educationInsert" parameterType="Resume">
+	<insert id="educationInsert" parameterType="Education">
 		INSERT INTO EDUCATION(
 		R_ID,
 		U_ID,
 		D_ID,
 		E_PLACE,
-		E_E_STARTED,
+		E_STARTED,
 		E_END,
 		E_NAME
 		)
 		VALUES(
-		RESUME_SEQ.NEXTVAL,
 		#{r_id},
 		#{u_id},
 		#{d_id},

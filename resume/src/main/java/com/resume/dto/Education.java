@@ -2,7 +2,9 @@ package com.resume.dto;
 
 public class Education {					//교육
 	
-	private int r_id;							//이력관리 번호
+	private int u_id;
+	private int d_id;		
+	private int r_id;								//이력관리 번호
 	private String e_place;					//교육 장소
 	private String e_started;				//교육 시작일
 	private String e_end;					//교육 종료일
@@ -16,8 +18,10 @@ public class Education {					//교육
 
 
 
-	public Education(int r_id, String e_place, String e_started, String e_end, String e_name) {
+	public Education(int r_id, int u_id, int d_id, String e_place, String e_started, String e_end, String e_name) {
 		super();
+		this.u_id = u_id;
+		this.d_id = d_id;
 		this.r_id = r_id;
 		this.e_place = e_place;
 		this.e_started = e_started;
@@ -27,11 +31,25 @@ public class Education {					//교육
 
 
 
+	public int getU_id() {
+		return u_id;
+	}
+	
+	public void setU_id(int u_id) {
+		this.u_id = u_id;
+	}
+
+	public int getD_id() {
+		return d_id;
+	}
+	
+	public void setD_id(int d_id) {
+		this.d_id = d_id;
+	}
+
 	public int getR_id() {
 		return r_id;
 	}
-
-
 
 	public void setR_id(int r_id) {
 		this.r_id = r_id;
@@ -89,7 +107,7 @@ public class Education {					//교육
 
 	@Override
 	public String toString() {
-		return "Education [r_id=" + r_id + ", e_place=" + e_place + ", e_started=" + e_started + ", e_end=" + e_end
+		return "Education [u_id=" + u_id + ", d_id= " + d_id + ",r_id= " + r_id + ", e_place=" + e_place + ", e_started=" + e_started + ", e_end=" + e_end
 				+ ", e_name=" + e_name + "]";
 	}
 	

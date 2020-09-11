@@ -10,6 +10,7 @@ import com.resume.dto.Academic;
 import com.resume.dto.BoardPager;
 import com.resume.dto.Career;
 import com.resume.dto.Ceritificate;
+import com.resume.dto.Education;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
@@ -72,9 +73,8 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public void educationInsert(Resume resume) {
-		// TODO Auto-generated method stub
-		
+	public void educationInsert(Education resume) {
+		dao.educationInsert(resume);
 	}
 
 	@Override

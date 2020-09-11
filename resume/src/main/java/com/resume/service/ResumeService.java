@@ -6,6 +6,7 @@ import com.resume.dto.Academic;
 import com.resume.dto.BoardPager;
 import com.resume.dto.Career;
 import com.resume.dto.Ceritificate;
+import com.resume.dto.Education;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
@@ -18,7 +19,7 @@ public interface ResumeService {
 	public void academicInsert(Academic resume);
 	public void certificateInsert(Ceritificate resume);
 	public void careerInsert(Career resume);
-	public void educationInsert(Resume resume);
+	public void educationInsert(Education resume);
 	public void specialTechInsert(Resume resume);
 	public void skillInventoryInsert(Resume resume);
 	public void fileInsert(Resume resume);
