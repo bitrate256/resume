@@ -125,12 +125,36 @@ $("#checkBtn").click(function(){
 										<c:when test="${adminRunUserList.u_status eq 'N' }">
 										<tr role="row" class="odd">
 											<td onclick="javascript:location.href='<c:url value="/"/>admin/adminUserSelectOne?u_id=${adminRunUserList.u_id }'">${adminRunUserList.u_id }</td>
-											<td>${adminRunUserList.d_id}</td>
+											<c:if test="${adminRunUserList.d_id eq 1}">
+											<td>경영지원</td>
+											</c:if>
+											<c:if test="${adminRunUserList.d_id eq 2}">
+											<td>연구소</td>
+											</c:if>
 											<td>${adminRunUserList.u_name }</td>
 											<td>${adminRunUserList.u_phone }</td>
 											<td>${adminRunUserList.u_email }</td>
-											<td>${adminRunUserList.u_position}</td>
-											<td id="status">${adminRunUserList.u_status}</td>
+											<c:if test="${adminRunUserList.u_position eq 1}">
+											<td>대표이사</td>
+											</c:if>
+											<c:if test="${adminRunUserList.u_position eq 2}">
+											<td>부장</td>
+											</c:if>
+											<c:if test="${adminRunUserList.u_position eq 3}">
+											<td>차장</td>
+											</c:if>
+											<c:if test="${adminRunUserList.u_position eq 4}">
+											<td>과장</td>
+											</c:if>
+											<c:if test="${adminRunUserList.u_position eq 5}">
+											<td>대리</td>
+											</c:if>
+											<c:if test="${adminRunUserList.u_position eq 6}">
+											<td>사원</td>
+											</c:if>
+											<c:if test="${adminRunUserList.u_status eq 'N'}">
+											<td id="status">퇴사</td>
+											</c:if>
 										</tr>
 										</c:when>
 										</c:choose>

@@ -101,9 +101,32 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 	
 	//부서 상세보기
 	@RequestMapping(value = "admin/adminDepartmentSelectOne")
-	public String adminDepartmentSelectOne() {
+	public String adminDepartmentSelectOne(Department department, Model model) {
 		
-		return "";
+		Department depart = service.adminDepartmentUpDel(department);
+
+		model.addAttribute("department", depart);
+		
+		
+		return "admin/adminDepartmentUpDel";
+	}
+	
+	//부서 수정
+	@RequestMapping(value = "admin/adminDepartmentUpdate")
+	public String adminDepartmentUpdate(Department department) {
+		
+		service.adminDepartmentUpdate(department);
+		
+		return "redirect:/admin/adminDepartmentList";
+	}
+	
+	//부서 삭제
+	@RequestMapping(value = "admin/adminDepartmentDelete")
+	public String adminDepartmentDelete(@RequestParam("d_id")int d_id) {
+			
+		service.adminDepartmentDelete(d_id);
+		
+		return "redirect:/admin/adminDepartmentList";
 	}
 	
 	

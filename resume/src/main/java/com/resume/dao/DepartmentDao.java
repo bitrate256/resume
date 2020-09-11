@@ -20,4 +20,13 @@ public interface DepartmentDao {
 	//부서 총 레코드
 	public int departmentCount(Department dto);
 	
+	//부서 상세보기
+	public Department adminDepartmentUpDel(Department department);
+	
+	//부서 수정
+	public Department adminDepartmentUpdate(Department department);
+	
+	//부서 삭제
+	public void adminDepartmentDelete(int d_id);
+	
 }//inter end
