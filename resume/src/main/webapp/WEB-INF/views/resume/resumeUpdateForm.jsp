@@ -566,23 +566,16 @@ $(document).ready(function() {
 										<!-- text input -->
 										<div class="form-group">
 											<label>학교/과정명</label> <input type="text" class="form-control"
-												name="a_hschool">
+												name="a_hschool" value="${academic.a_hschool}" readonly="readonly">
 										</div>
 									</div>
 									<div class="col-sm-5">
 										<div class="form-group">
 											<label>졸업 날짜</label> <input type="text"
-												class="form-control datepicker" name="a_hschooldate">
+												class="form-control datepicker" name="a_hschooldate" value="${academic.a_hschooldate}" readonly="readonly" disabled="disabled">
 										</div>
 									</div>
-									<button type="button" id="academicInsertButton"
-										name="academicInsertButton"
-										class="btn btn-block bg-gradient-success col-sm-1">+</button>
-								</div>
 							</form>
-							<div id="academicResult">
-								<!-- 비동기 성공여부 알림 -->
-							</div>
 						</div>
 						<!-- /.card-body -->
 					</div>
@@ -608,14 +601,8 @@ $(document).ready(function() {
 										<div class="form-group">
 											<label>자격증 선택</label> <input type="text" name="ce_text"
 												value="" ReadOnly="true" class="form-control" /> <select
-												name="certiCheck"
-												onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
-												<option value="notSelected">::선택하세요::</option>
-												<option value="etc">직접입력</option>
-												<option value="정보처리기사">정보처리기사</option>
-												<option value="정보처리산업기사">정보처리산업기사</option>
-												<option value="리눅스마스터">리눅스마스터</option>
-												<option value="네트워크관리사">네트워크관리사</option>
+												name="certiCheck" value="ce_text" readonly="readonly">
+												
 											</select>
 										</div>
 									</div>
@@ -623,18 +610,10 @@ $(document).ready(function() {
 									<div class="col-sm-5">
 										<div class="form-group">
 											<label>취득 날짜</label> <input type="text"
-												class="form-control datepicker">
+												class="form-control datepicker" value="ce_date" readonly="readonly" disabled="disabled">
 										</div>
 									</div>
-									<button type="button" id="certiInsertButton"
-										name="certiInsertButton"
-										class="btn btn-block bg-gradient-success col-md-1">+</button>
-								</div>
-
 							</form>
-						</div>
-						<div id="certiResult">
-							<!-- 비동기 성공여부 알림 -->
 						</div>
 					</div>
 					<!-- /.card-body -->
@@ -662,45 +641,39 @@ $(document).ready(function() {
 									<!-- text input -->
 									<div class="form-group">
 										<label>근무 회사명</label> <input type="text" class="form-control"
-											name="c_name">
+											name="c_name" value="c_name" readonly="readonly">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-2">
 									<div class="form-group">
 										<label>시작일</label> <input type="text" name="c_start"
-											class="form-control datepicker">
+											class="form-control datepicker" value="c_start" readonly="readonly" disabled="disabled">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-2">
 									<div class="form-group">
 										<label>종료일</label> <input type="text" name="c_end"
-											class="form-control datepicker">
+											class="form-control datepicker" value="c_start" readonly="readonly" disabled="disabled">
 									</div>
 								</div>
 								<div class="col-sm-2">
 									<!-- text input -->
 									<div class="form-group">
 										<label>직 위</label> <input type="text" class="form-control"
-											name="c_position">
+											name="c_position" value="c_position" readonly="readonly">
 									</div>
 								</div>
 								<div class="col-sm-2">
 									<!-- text input -->
 									<div class="form-group">
 										<label>담당 업무</label> <input type="text" class="form-control"
-											name="c_task">
+											name="c_task" value="c_task" readonly="readonly">
 									</div>
 								</div>
-								<button type="button" id="careerInsertButton"
-									name="careerInsertButton"
-									class="btn btn-block bg-gradient-success col-sm-1">+</button>
 							</div>
 						</form>
-						<div id="careerResult">
-							<!-- 비동기 성공여부 알림 -->
-						</div>
 					</div>
 					<!-- /.card-body -->
 				</div>
@@ -726,38 +699,32 @@ $(document).ready(function() {
 									<!-- text input -->
 									<div class="form-group">
 										<label>교육기관</label> <input type="text" class="form-control"
-											name="e_place">
+											name="e_place" value="e_place" readonly="readonly">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label>시작일</label> <input type="text"
-											class="form-control datepicker" name="e_started">
+											class="form-control datepicker" name="e_started" value="e_started" readonly="readonly" disabled="disabled">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label>종료일</label> <input type="text"
-											class="form-control datepicker" name="e_end">
+											class="form-control datepicker" name="e_end" value="e_end" readonly="readonly" disabled="disabled">
 									</div>
 								</div>
 								<div class="col-sm-2">
 									<!-- text input -->
 									<div class="form-group">
 										<label>교육과정명</label> <input type="text" class="form-control"
-											name="e_name">
+											name="e_name" value="e_name" readonly="readonly">
 									</div>
 								</div>
-								<button type="button" id="educationInsertButton"
-									name="educationInsertButton"
-									class="btn btn-block bg-gradient-success col-sm-1">+</button>
 							</div>
 						</form>
-					</div>
-					<div id="educationResult">
-						<!-- 비동기 성공여부 알림 -->
 					</div>
 				</div>
 				<!-- /.card-body -->
@@ -782,14 +749,14 @@ $(document).ready(function() {
 									<!-- text input -->
 									<div class="form-group">
 										<label>사용 가능한 프로그램</label> <input type="text" name="st_ap"
-											class="form-control">
+											class="form-control" value="st_ap" readonly="readonly">
 									</div>
 								</div>
 								<!-- 셀렉트 박스 -->
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label>숙련도</label> <select class="form-control"
-											name="st_level">
+											name="st_level" value="st_level" readonly="readonly" disabled="disabled">
 											<option value="H">상</option>
 											<option value="M">중</option>
 											<option value="L">하</option>
@@ -801,9 +768,6 @@ $(document).ready(function() {
 									class="btn btn-block bg-gradient-success col-sm-1">+</button>
 							</div>
 						</form>
-						<div id="specialTechResult">
-							<!-- 비동기 성공여부 알림 -->
-						</div>
 					</div>
 					<!-- /.card-body -->
 				</div>
@@ -827,92 +791,86 @@ $(document).ready(function() {
 								<!-- text input -->
 								<div class="form-group">
 									<label>프로젝트명</label> <input type="text" class="form-control"
-										name="si_name">
+										name="si_name" value="si_name" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<div class="form-group">
 									<label>참여일</label> <input type="text"
-										class="form-control datepicker" name="si_start">
+										class="form-control datepicker" name="si_start" value="si_start" readonly="readonly" disabled="disabled">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<div class="form-group">
 									<label>종료일</label> <input type="text"
-										class="form-control datepicker" name="st_end">
+										class="form-control datepicker" name="st_end" value="st_end" readonly="readonly" disabled="disabled">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<!-- text input -->
 								<div class="form-group">
 									<label>고객사</label> <input type="text" class="form-control"
-										name="si_customer">
+										name="si_customer" value="si_customer" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<!-- text input -->
 								<div class="form-group">
 									<label>근무회사</label> <input type="text" class="form-control"
-										name="si_company">
+										name="si_company" value="si_company" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<!-- text input -->
 								<div class="form-group">
 									<label>역할</label> <input type="text" class="form-control"
-										name="si_role">
+										name="si_role" value="si_role" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<!-- text input -->
 								<div class="form-group">
 									<label>기종</label> <input type="text" class="form-control"
-										name="si_model">
+										name="si_model" value="si_model" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<!-- text input -->
 								<div class="form-group">
 									<label>OS</label> <input type="text" class="form-control"
-										name="si_os">
+										name="si_os" value="si_os" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<!-- text input -->
 								<div class="form-group">
 									<label>언어</label> <input type="text" class="form-control"
-										name="si_language">
+										name="si_language" value="si_language" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<!-- text input -->
 								<div class="form-group">
 									<label>DBMS</label> <input type="text" class="form-control"
-										name="si_dbms">
+										name="si_dbms" value="si_dbms" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<!-- text input -->
 								<div class="form-group">
 									<label>TOOL</label> <input type="text" class="form-control"
-										name="si_tool">
+										name="si_tool" value="si_tool" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-sm-1">
 								<!-- text input -->
 								<div class="form-group">
 									<label>기타</label> <input type="text" class="form-control"
-										name="si_etc">
+										name="si_etc" value="si_etc" readonly="readonly">
 								</div>
 							</div>
 						</div>
-						<button type="button" id="skillInventoryInsertButton"
-							name="skillInventoryInsertButton"
-							class="btn btn-block bg-gradient-success col-sm-12">+</button>
 					</form>
-					<div id="skillInventoryResult">
-						<!-- 비동기 성공여부 알림 -->
-					</div>
 				</div>
 				<!-- /.card-body -->
 			</div>

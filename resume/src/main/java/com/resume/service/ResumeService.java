@@ -10,6 +10,8 @@ import com.resume.dto.Education;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
+import com.resume.dto.SkillInventory;
+import com.resume.dto.SpecialTech;
 import com.resume.dto.UserInfo;
 
 public interface ResumeService {
@@ -20,13 +22,14 @@ public interface ResumeService {
 	public void certificateInsert(Ceritificate resume);
 	public void careerInsert(Career resume);
 	public void educationInsert(Education resume);
-	public void specialTechInsert(Resume resume);
-	public void skillInventoryInsert(Resume resume);
+	public void specialTechInsert(SpecialTech resume);
+	public void skillInventoryInsert(SkillInventory resume);
 	public void fileInsert(Resume resume);
 	
 	
 	// 이력 수정
 	public void resumeUpdate(Resume resume);
+	public void resumeUpdateForm(Resume resume);
 	
 	
 	// 이력  전체 조회(페이징)

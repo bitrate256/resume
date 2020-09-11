@@ -14,6 +14,8 @@ import com.resume.dto.Ceritificate;
 import com.resume.dto.Education;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
+import com.resume.dto.SkillInventory;
+import com.resume.dto.SpecialTech;
 import com.resume.dto.UserInfo;
 
 @Repository
@@ -98,13 +100,23 @@ public class ResumeDaoImpl implements ResumeDao {
 	
 	@Override
 	public void careerInsert(Career resume) {
-		
+	
 		session.insert(queryprefix+"careerInsert", resume);
 	}
 
 	@Override
 	public void educationInsert(Education resume) {
 		session.insert(queryprefix+"educationInsert", resume);
+	}
+
+	@Override
+	public void specialTechInsert(SpecialTech resume) {
+		session.insert(queryprefix+"specialTechInsert", resume);
+	}
+
+	@Override
+	public void skillInventoryInsert(SkillInventory resume) {
+		session.insert(queryprefix+"skillInventoryInsert", resume);
 	}
 	
 	

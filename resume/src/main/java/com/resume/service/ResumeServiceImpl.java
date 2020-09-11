@@ -14,6 +14,8 @@ import com.resume.dto.Education;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
+import com.resume.dto.SkillInventory;
+import com.resume.dto.SpecialTech;
 import com.resume.dto.UserInfo;
 
 @Service
@@ -78,15 +80,13 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public void specialTechInsert(Resume resume) {
-		// TODO Auto-generated method stub
-		
+	public void specialTechInsert(SpecialTech resume) {
+		dao.specialTechInsert(resume);
 	}
 
 	@Override
-	public void skillInventoryInsert(Resume resume) {
-		// TODO Auto-generated method stub
-		
+	public void skillInventoryInsert(SkillInventory resume) {
+		dao.skillInventoryInsert(resume);
 	}
 
 	@Override
@@ -148,6 +148,13 @@ public class ResumeServiceImpl implements ResumeService {
 		 
 		return dao.userInfoSelectOne(resume);
 	}
+
+	@Override
+	public void resumeUpdateForm(Resume resume) {
+	
+		return dao.resumeUpdateForm(resume);
+	}
+
 
 	
 	

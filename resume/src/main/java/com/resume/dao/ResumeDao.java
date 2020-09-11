@@ -9,6 +9,8 @@ import com.resume.dto.Ceritificate;
 import com.resume.dto.Education;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
+import com.resume.dto.SkillInventory;
+import com.resume.dto.SpecialTech;
 import com.resume.dto.UserInfo;
 
 public interface ResumeDao {
@@ -50,6 +52,12 @@ public interface ResumeDao {
 	
 	// 교육 등록
 	public void educationInsert(Education resume);
+
+	// 특수기술 등록
+	public void specialTechInsert(SpecialTech resume);
+
+	// 스킬인벤토리 등록
+	public void skillInventoryInsert(SkillInventory resume);
 
 
 }

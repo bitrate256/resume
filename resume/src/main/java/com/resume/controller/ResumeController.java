@@ -24,6 +24,8 @@ import com.resume.dto.Education;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
+import com.resume.dto.SkillInventory;
+import com.resume.dto.SpecialTech;
 import com.resume.dto.UserInfo;
 import com.resume.service.ResumeService;
 
@@ -90,12 +92,24 @@ public class ResumeController {
 		}
 		return data;
 	}
+	
+	// 3. 자격증 수정
+	/*
+	 * @RequestMapping(value = "resume/resumeUpdateCerti")
+	 * 
+	 * @ResponseBody // 페이지 남기고 data만 리턴 public String
+	 * resumeUpdateCerti(Ceritificate resume) {
+	 * 
+	 * String data; // data에 넣어서 전달 if (resume.getR_id() == 0) { data = "0"; } else
+	 * { data = "1"; service.certificateUpdate(resume); } return data; }
+	 */
 
 	// 4. 경력 업로드
 	@RequestMapping(value = "resume/resumeInsertCareer")
 	@ResponseBody // 페이지 남기고 data만 리턴
 	public String resumeInsertCareer(Career resume) {
-
+		Career [] career = {};
+		
 		String data; // data에 넣어서 전달
 		if (resume.getR_id() == 0) {
 			data = "0";
@@ -121,8 +135,32 @@ public class ResumeController {
 	}
 	
 	// 6. 특수기술 업로드
+	@RequestMapping(value = "resume/resumeInsertSpecialTech")
+	@ResponseBody
+	public String resumeInsertSpecialTech(SpecialTech resume) {
+		String data;
+		if (resume.getR_id() == 0) {
+			data = "0";
+		} else {
+			data = "1";
+			service.specialTechInsert(resume);
+		}
+		return data;
+	}
 	
 	// 7. 스킬인벤토리 업로드
+	@RequestMapping(value = "resume/resumeInsertSkillInventory")
+	@ResponseBody
+	public String resumeInsertSkillInventory(SkillInventory resume) {
+		String data;
+		if (resume.getR_id() == 0) {
+			data = "0";
+		} else {
+			data = "1";
+			service.skillInventoryInsert(resume);
+		}
+		return data;
+	}
 
 	// 비동기 업로드 끝
 
@@ -161,7 +199,7 @@ public class ResumeController {
 		return "resume/ajax/resumeList_ajax";
 	}
 
-	// 이력 상세 보기
+	// 이력 생성 직후 데이터 삽입 창
 	@RequestMapping(value = "resume/resumeSelectOne")
 
 	public String ResumeSelectOne(Model model, Resume resume, HttpSession session) {
@@ -175,9 +213,13 @@ public class ResumeController {
 
 	// 이력 수정
 	@RequestMapping(value = "user/resumeUpdateForm")
-	public String ResumeUpdateFoem() {
+	public String ResumeUpdateFoem(Model model, Resume resume, HttpSession session) {
 
-		return "resume/resumeSelectOne";
+		Resume resumeInfo = service.resumeUpdateForm(resume);
+		System.out.println("asdasd = " + resumeInfo);
+		model.addAttribute("resumeInfo", resumeInfo);
+
+		return "resume/resumeUpdateForm";
 	}
 
 	@RequestMapping(value = "user/resumeUpdateEnd")

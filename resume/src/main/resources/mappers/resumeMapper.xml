@@ -54,12 +54,14 @@
 	<!-- 이력 등록 (자격증 테이블) -->
 	<insert id="certificateInsert" parameterType="Ceritificate">
 		INSERT INTO CERTIFICATE(
+		CE_SEQ,
 		R_ID,
 		U_ID,
 		D_ID,
 		CE_TEXT
 		)
 		VALUES(
+		CERTIFICATE_SEQ.NEXTVAL,
 		#{r_id},
 		#{u_id},
 		#{d_id},
@@ -70,6 +72,7 @@
 	<!-- 이력 등록 (경력 테이블) -->
 	<insert id="careerInsert" parameterType="Career">
 		INSERT INTO CAREER(
+		C_SEQ,
 		R_ID,
 		U_ID,
 		D_ID,
@@ -80,6 +83,7 @@
 		C_TASK
 		)
 		VALUES(
+		CAREER_SEQ.NEXTVAL,
 		#{r_id},
 		#{u_id},
 		#{d_id},
@@ -94,6 +98,7 @@
 	<!-- 이력 등록 (교육 테이블) -->
 	<insert id="educationInsert" parameterType="Education">
 		INSERT INTO EDUCATION(
+		E_SEQ,
 		R_ID,
 		U_ID,
 		D_ID,
@@ -103,6 +108,7 @@
 		E_NAME
 		)
 		VALUES(
+		EDUCATION_SEQ.NEXTVAL,
 		#{r_id},
 		#{u_id},
 		#{d_id},
@@ -114,8 +120,9 @@
 	</insert>
 	
 	<!-- 이력 등록 (특수기술 테이블) -->
-	<insert id="specialTechInsert" parameterType="Resume">
+	<insert id="specialTechInsert" parameterType="SpecialTech">
 		INSERT INTO SPECIAL_TECH(
+		ST_SEQ,
 		R_ID,
 		U_ID,
 		D_ID,
@@ -123,7 +130,7 @@
 		ST_LEVEL
 		)
 		VALUES(
-		RESUME_SEQ.NEXTVAL,
+		SPECIAL_TECH_SEQ.NEXTVAL,
 		#{r_id},
 		#{u_id},
 		#{d_id},
@@ -133,8 +140,9 @@
 	</insert>
 	
 	<!-- 이력 등록 (스킬인벤토리 테이블) -->
-	<insert id="skillInventoryInsert" parameterType="Resume">
+	<insert id="skillInventoryInsert" parameterType="SkillInventory">
 		INSERT INTO SKILL_INVENTORY(
+		SI_SEQ,
 		R_ID,
 		U_ID,
 		D_ID,
@@ -147,11 +155,12 @@
 		SI_MODEL,
 		SI_OS,
 		SI_LANGUAGE,
+		SI_DBMS,
 		SI_TOOL,
 		SI_ETC
 		)
 		VALUES(
-		RESUME_SEQ.NEXTVAL,
+		SKILL_INVENTORY_SEQ.NEXTVAL,
 		#{r_id},
 		#{u_id},
 		#{d_id},
