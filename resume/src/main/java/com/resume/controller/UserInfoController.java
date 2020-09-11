@@ -38,7 +38,7 @@ public class UserInfoController {
 	// 사용자 홈 화면
 	@RequestMapping(value = "userHome")
 	public String userHome() {
-		logger.info("this is userHome method");
+	
 	
 		return "user/userHome";
 	}
@@ -46,15 +46,15 @@ public class UserInfoController {
 	// 사용자 로그인 화면
 	@RequestMapping(value = "user/userlogin")
 	public String userlogin(UserInfo uDto) {
-		logger.info("this is userlogin method");
-		logger.info("음하하하하하하하하하하하");
+		
+
 		return "user/user_login";
 	}
 
 	// 사용자 로그인
 	@RequestMapping(value = "user/userloginEnd")
 	public String userloginEnd(Model model, UserInfo user, HttpSession session) {
-		logger.info("this is a userloginEnd method");
+		
 
 		UserInfo result = service.userSelectOne(user);
 		String path = "";
@@ -84,7 +84,7 @@ public class UserInfoController {
 	@RequestMapping(value = "user/userlogout")
 	public String userlogOut(HttpSession session) {
 
-		logger.info("this is a userlogOut method");
+		
 		if (session.getAttribute("loginUser") != null) {
 			session.removeAttribute("loginUser");
 		}
@@ -185,7 +185,7 @@ public class UserInfoController {
 	public String adminUserListAjax(@RequestParam(value = "cPage", defaultValue = "1") int cPage,
 			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
 			@RequestParam(value = "searchVal", defaultValue = "") String searchVal, Model model, HttpSession session) {
-		logger.info("this is a adminUserList method");
+		
 
 		// 검색 객체 값 넣기
 		SearchDto searchDto = new SearchDto(searchSort, searchVal);
@@ -223,7 +223,7 @@ public class UserInfoController {
 	public String adminRunUserListAjax(@RequestParam(value = "cPage", defaultValue = "1") int cPage,
 			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
 			@RequestParam(value = "searchVal", defaultValue = "") String searchVal, Model model, HttpSession session) {
-		logger.info("this is a adminUserList method");
+		
 
 		// 검색 객체 값 넣기
 		SearchDto searchDto = new SearchDto(searchSort, searchVal);

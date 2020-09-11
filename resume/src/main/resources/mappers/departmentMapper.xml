@@ -46,5 +46,22 @@
 		FROM DEPARTMENT
 	</select>
 	
+	<!-- 상세보기 -->
+	<select id="adminDepartmentUpDel" parameterType="Department" resultType="Department">
+		SELECT D_ID, D_NAME
+		FROM DEPARTMENT
+		WHERE D_ID = #{d_id}
+	</select>
+	
+	<!-- 부서 수정 -->
+	<update id="adminDepartmentUpdate" parameterType="Department">
+	UPDATE DEPARTMENT
+	SET D_NAME = #{d_name}
+	</update>
 
+	<!-- 부서 삭제 -->
+	<delete id="adminDepartmentDelete" parameterType="int">
+	DELETE FROM DEPARTMENT
+	WHERE D_ID = #{d_id}	
+	</delete>
 </mapper>

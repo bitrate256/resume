@@ -46,6 +46,27 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return dao.departmentCount(dto);
 	}
 	
+	//부서 상세보기
+	@Override
+	public Department adminDepartmentUpDel(Department department) {
+		
+		return dao.adminDepartmentUpDel(department);
+	}
+	
+	//부서 수정
+	@Override
+	public Department adminDepartmentUpdate(Department department) {
+		
+		return dao.adminDepartmentUpdate(department);
+	}
+	
+	//부서 삭제
+	@Override
+	public void adminDepartmentDelete(int d_id) {
+		
+		 dao.adminDepartmentDelete(d_id);
+	}
+	
 	
 	
 	
