@@ -2,7 +2,9 @@ package com.resume.dto;
 
 public class Career {					//경력
 	
-	private int r_id; 						//이력관리 번호
+	private int u_id;
+	private int d_id;		
+	private int r_id;				//이력관리 번호
 	private String c_name;				//근무회사명
 	private String c_start;				//입사일
 	private String c_end;				//퇴사일
@@ -17,8 +19,10 @@ public class Career {					//경력
 
 
 
-	public Career(int r_id, String c_name, String c_start, String c_end, String c_position, String c_task) {
+	public Career(int r_id, int u_id, int d_id, String c_name, String c_start, String c_end, String c_position, String c_task) {
 		super();
+		this.u_id = u_id;
+		this.d_id = d_id;
 		this.r_id = r_id;
 		this.c_name = c_name;
 		this.c_start = c_start;
@@ -29,11 +33,25 @@ public class Career {					//경력
 
 
 
+	public int getU_id() {
+		return u_id;
+	}
+	
+	public void setU_id(int u_id) {
+		this.u_id = u_id;
+	}
+
+	public int getD_id() {
+		return d_id;
+	}
+	
+	public void setD_id(int d_id) {
+		this.d_id = d_id;
+	}
+
 	public int getR_id() {
 		return r_id;
 	}
-
-
 
 	public void setR_id(int r_id) {
 		this.r_id = r_id;
@@ -103,7 +121,7 @@ public class Career {					//경력
 
 	@Override
 	public String toString() {
-		return "Career [r_id=" + r_id + ", c_name=" + c_name + ", c_start=" + c_start + ", c_end=" + c_end
+		return "Career [u_id=" + u_id + ", d_id= " + d_id + ",r_id= " + r_id + ", c_name=" + c_name + ", c_start=" + c_start + ", c_end=" + c_end
 				+ ", c_position=" + c_position + ", c_task=" + c_task + "]";
 	}
 	
