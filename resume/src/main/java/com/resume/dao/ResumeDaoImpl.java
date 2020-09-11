@@ -11,6 +11,7 @@ import com.resume.dto.Academic;
 import com.resume.dto.BoardPager;
 import com.resume.dto.Career;
 import com.resume.dto.Ceritificate;
+import com.resume.dto.Education;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.UserInfo;
@@ -99,6 +100,11 @@ public class ResumeDaoImpl implements ResumeDao {
 	public void careerInsert(Career resume) {
 		
 		session.insert(queryprefix+"careerInsert", resume);
+	}
+
+	@Override
+	public void educationInsert(Education resume) {
+		session.insert(queryprefix+"educationInsert", resume);
 	}
 	
 	

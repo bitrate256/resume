@@ -154,12 +154,12 @@ $(document).ready(function() {
 
 											if (data == "1") {
 												$('#academicResult').text(
-														"학력 성공.");
+														"학력 등록 성공.");
 												$('#academicResult').css(
 														"color", "blue");
 											} else if (data == "0") {
 												$('#academicResult').text(
-														"학력 실패.");
+														"학력 등록 실패.");
 												$('#academicResult').css(
 														"color", "red");
 											}
@@ -191,12 +191,12 @@ $(document).ready(function() {
 
 											if (data == "1") {
 												$('#certiResult')
-														.text("학력 성공.");
+														.text("자격증 등록 성공.");
 												$('#certiResult').css("color",
 														"blue");
 											} else if (data == "0") {
 												$('#certiResult')
-														.text("학력 실패.");
+														.text("자격증 등록 실패.");
 												$('#certiResult').css("color",
 														"red");
 											}
@@ -228,13 +228,50 @@ $(document).ready(function() {
 
 											if (data == "1") {
 												$('#careerResult').text(
-														"경력등록 성공.");
+														"경력 등록 성공.");
 												$('#careerResult').css("color",
 														"blue");
 											} else if (data == "0") {
 												$('#careerResult').text(
-														"경력등록 실패.");
+														"경력 등록 실패.");
 												$('#careerResult').css("color",
+														"red");
+											}
+										},
+										error : function() {
+											alert("Error");
+										}
+									})
+
+						});
+	});
+	
+	// 5. 교육
+	$(function() {
+		$("#educationInsertButton")
+				.click(
+						function() {
+
+							$
+									.ajax({
+										url : "${pageContext.request.contextPath}/resume/resumeInsertEducation",
+										type : "POST",
+										data : $("#resumeInsertEducation")
+												.serialize(),
+										dataType : "text",
+										success : function(data) {
+											console.log("1 = 성공o / 0 = 실패x : "
+													+ data);
+
+											if (data == "1") {
+												$('#educationResult').text(
+														"경력 등록 성공.");
+												$('#educationResult').css("color",
+														"blue");
+											} else if (data == "0") {
+												$('#educationResult').text(
+														"경력 등록 실패.");
+												$('#educationResult').css("color",
 														"red");
 											}
 										},
@@ -539,9 +576,9 @@ $(document).ready(function() {
 					<!-- /.card-header -->
 					<div class="card-body">
 						<form role="form" id="resumeInsertCareer">
-							<input type="hidden" name="u_id" value="${resumeInfo.u_id }">
-							<input type="hidden" name="d_id" value="${resumeInfo.d_id }">
-							<input type="hidden" name="r_id" value="${resumeInfo.r_id }">
+							<input type="hidden" name="u_id" value="${resumeInfo.u_id }"></input>
+							<input type="hidden" name="d_id" value="${resumeInfo.d_id }"></input>
+							<input type="hidden" name="r_id" value="${resumeInfo.r_id }"></input>
 							<div class="row">
 								<div class="col-sm-3">
 									<!-- text input -->
@@ -696,120 +733,117 @@ $(document).ready(function() {
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-						<form role="form">
+						<form role="form" id="resumeInsertEducation">
+							<input type="hidden" name="u_id" value="${resumeInfo.u_id }"></input>
+							<input type="hidden" name="d_id" value="${resumeInfo.d_id }"></input>
+							<input type="hidden" name="r_id" value="${resumeInfo.r_id }"></input>
 							<div class="row">
 								<div class="col-sm-3">
 									<!-- text input -->
 									<div class="form-group">
-										<label>교육기관</label> <input type="text" class="form-control">
+										<label>교육기관</label> <input type="text" class="form-control"
+											name="e_place">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label>시작일</label> <input type="text"
-											class="form-control datepicker">
+											class="form-control datepicker" name="e_started">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label>종료일</label> <input type="text"
-											class="form-control datepicker">
+											class="form-control datepicker" name="e_end">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<!-- text input -->
 									<div class="form-group">
-										<label>교육과정명</label> <input type="text" class="form-control">
+										<label>교육과정명</label> <input type="text" class="form-control"
+											name="e_name">
 									</div>
 								</div>
 							</div>
-						</form>
-						<form role="form">
 							<div class="row">
 								<div class="col-sm-3">
-									<!-- text input -->
 									<div class="form-group">
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<!-- 데이트 picker -->
-								<div class="col-sm-3">
-									<div class="form-group">
-										<input type="text" class="form-control datepicker">
-									</div>
-								</div>
-								<!-- 데이트 picker -->
-								<div class="col-sm-3">
-									<div class="form-group">
-										<input type="text" class="form-control datepicker">
+										<input type="text" class="form-control" name="e_place">
 									</div>
 								</div>
 								<div class="col-sm-3">
-									<!-- text input -->
 									<div class="form-group">
-										<input type="text" class="form-control">
+										<input type="text" class="form-control datepicker" name="e_started">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<input type="text" class="form-control datepicker" name="e_end">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<input type="text" class="form-control" name="e_name">
 									</div>
 								</div>
 							</div>
-						</form>
-						<form role="form">
+
 							<div class="row">
 								<div class="col-sm-3">
-									<!-- text input -->
 									<div class="form-group">
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<!-- 데이트 picker -->
-								<div class="col-sm-3">
-									<div class="form-group">
-										<input type="text" class="form-control datepicker">
-									</div>
-								</div>
-								<!-- 데이트 picker -->
-								<div class="col-sm-3">
-									<div class="form-group">
-										<input type="text" class="form-control datepicker">
+										<input type="text" class="form-control" name="e_place">
 									</div>
 								</div>
 								<div class="col-sm-3">
-									<!-- text input -->
 									<div class="form-group">
-										<input type="text" class="form-control">
+										<input type="text" class="form-control datepicker" name="e_started">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<input type="text" class="form-control datepicker" name="e_end">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- text input  -->
+									<div class="form-group">
+										<input type="text" class="form-control" name="e_name">
 									</div>
 								</div>
 							</div>
-						</form>
-						<form role="form">
+
 							<div class="row">
 								<div class="col-sm-3">
-									<!-- text input -->
 									<div class="form-group">
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<!-- 데이트 picker -->
-								<div class="col-sm-3">
-									<div class="form-group">
-										<input type="text" class="form-control datepicker">
-									</div>
-								</div>
-								<!-- 데이트 picker -->
-								<div class="col-sm-3">
-									<div class="form-group">
-										<input type="text" class="form-control datepicker">
+										<input type="text" class="form-control" name="e_place">
 									</div>
 								</div>
 								<div class="col-sm-3">
-									<!-- text input -->
 									<div class="form-group">
-										<input type="text" class="form-control">
+										<input type="text" class="form-control datepicker" name="e_started">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<input type="text" class="form-control datepicker" name="e_name">
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<!-- text input  -->
+									<div class="form-group">
+										<input type="text" class="form-control" name="e_place">
 									</div>
 								</div>
 							</div>
+							<button type="button" id="educationInsertButton"
+								name="educationInsertButton"
+								class="btn btn-block bg-gradient-success">등록</button>
 						</form>
+						<div id="educationResult">
+							<!-- 비동기 성공여부 알림 -->
+						</div>
 					</div>
 					<!-- /.card-body -->
 				</div>

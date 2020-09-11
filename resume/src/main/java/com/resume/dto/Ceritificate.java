@@ -28,7 +28,6 @@ public class Ceritificate {			//자격증
 		return u_id;
 	}
 	
-	
 	public void setU_id(int u_id) {
 		this.u_id = u_id;
 	}

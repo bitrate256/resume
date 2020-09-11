@@ -20,6 +20,7 @@ import com.resume.dto.Academic;
 import com.resume.dto.BoardPager;
 import com.resume.dto.Career;
 import com.resume.dto.Ceritificate;
+import com.resume.dto.Education;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
@@ -106,6 +107,18 @@ public class ResumeController {
 	}
 	
 	// 5. 교육 업로드
+	@RequestMapping(value = "resume/resumeInsertEducation")
+	@ResponseBody
+	public String resumeInsertEducation(Education resume) {
+		String data;
+		if (resume.getR_id() == 0) {
+			data = "0";
+		} else {
+			data = "1";
+			service.educationInsert(resume);
+		}
+		return data;
+	}
 	
 	// 6. 특수기술 업로드
 	
