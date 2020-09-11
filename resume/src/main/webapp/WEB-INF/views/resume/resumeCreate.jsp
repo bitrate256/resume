@@ -126,9 +126,16 @@
 					</div>
 					<!-- /.col -->
 					<div class="col-sm-6">
-						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#">우상단 메뉴</a></li>
-							<li class="breadcrumb-item active">현재 메뉴 이름</li>
+						<ol class="float-sm-right">
+							<div class="btn-group">
+								<!-- 좌우 버튼 크기차이 왜 발생하지??? -->
+								<input type="hidden" value="${info.r_id }">
+								<input type="hidden" value="${info.u_id }">
+								<input type="hidden" value="${info.d_id }">
+								<button type="submit" id="" name=""
+									class="btn btn-block bg-gradient-success">등록</button>
+								<button type="button" id=""	class="btn btn-block bg-gradient-danger">삭제</button>
+							</div>
 						</ol>
 					</div>
 					<!-- /.col -->
@@ -156,13 +163,13 @@
 								alt="User profile picture">
 						</div>
 
-						<h3 class="profile-username text-center">이름</h3>
+						<h3 class="profile-username text-center">${loginUser.u_name}</h3>
 
-						<p class="text-muted text-center">직군or직무or직위</p>
+						<!-- <p class="text-muted text-center">직군or직무or직위</p> -->
 
 						<ul class="list-group list-group-unbordered mb-3">
-							<li class="list-group-item"><b>리스트아이템</b> <a
-								class="float-right">수치/갯수</a></li>
+							<li class="list-group-item text-center"><b>${loginUser.u_position}</b>
+								<!-- <a class="float-right">수치/갯수</a> --></li>
 						</ul>
 
 						<a href="#" class="btn btn-primary btn-block"><b>사진 업로드</b></a>
@@ -177,36 +184,37 @@
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-					<form action="<%=contextPath%>/resume/resumeCreate" method="post" name="form" onsubmit="return checkSubmit();">
-						<strong><i class="fas fa-mobile-alt"></i> 성명</strong>
-						<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름" value="${loginUser.u_name }" readonly="readonly"> 
-						<hr>
+						<form action="<%=contextPath%>/resume/resumeCreate" method="post"
+							name="form" onsubmit="return checkSubmit();">
+							<strong><i class="fas fa-mobile-alt"></i> 성명</strong>
+							<p class="text-muted">${loginUser.u_name}</p>
+							<hr>
 
-						<strong><i class="fas fa-envelope"></i> 소속회사</strong>
-						<p class="text-muted">비앤오소프트(주)</p>
-						<hr>
+							<strong><i class="fas fa-envelope"></i> 소속회사</strong>
+							<p class="text-muted">비앤오소프트(주)</p>
+							<hr>
 
-						<strong><i class="fas fa-map-marker-alt mr-1"></i> 부서</strong>
-						<p class="text-muted">연구소</p>
-						<hr>
+							<strong><i class="fas fa-map-marker-alt mr-1"></i> 부서</strong>
+							<p class="text-muted">${loginUser.d_id}</p>
+							<hr>
 
-						<strong><i class="fas fa-map-marker-alt mr-1"></i> 병역</strong>
-						<p class="text-muted">만기전역</p>
-						<hr>
-
-						<strong><i class="fas fa-map-marker-alt mr-1"></i> 기술등급</strong>
-						<p class="text-muted">초급</p>
-						<hr>
-
-						<!--						<strong><i class="far fa-file-alt mr-1"></i> 개별항목</strong>
+							<strong><i class="fas fa-map-marker-alt mr-1"></i> 병역</strong>
 							<p class="text-muted">
-								<span class="tag tag-danger">개별항목1</span> <span
-									class="tag tag-success">개별항목2</span> <span class="tag tag-info">개별항목3</span>
-								<span class="tag tag-warning">개별항목4</span> <span
-									class="tag tag-primary">개별항목5</span>
+								<c:if test="${ loginUser.u_ms eq 'F'}">
+									<option>필</option>
+								</c:if>
+								<c:if test="${ loginUser.u_ms eq 'FN'}">
+									<option>미필</option>
+								</c:if>
+								<c:if test="${ loginUser.u_ms eq 'N'}">
+									<option>면제</option>
+								</c:if>
+								<c:if test="${ loginUser.u_ms eq 'NA'}">
+									<option>해당없음</option>
+								</c:if>
 							</p>
- -->
-                    </form>
+							<hr>
+						</form>
 					</div>
 					<!-- /.card-body -->
 				</div>
@@ -221,20 +229,40 @@
 					<!-- /.card-header -->
 					<div class="card-body">
 
-						<strong><i class="fas fa-mobile-alt"></i> 주민번호</strong>
-						<p class="text-muted">XXXXXX-XXXXXXX</p>
+						<strong><i class="fas fa-map-marker-alt mr-1"></i> 기술등급</strong>
+						<p class="text-muted">
+							<c:if test="${loginUser.u_tgrade eq 'S' }">
+								<option>특급</option>
+							</c:if>
+							<c:if test="${loginUser.u_tgrade eq 'H' }">
+								<option>고급</option>
+							</c:if>
+							<c:if test="${loginUser.u_tgrade eq 'M' }">
+								<option>중급</option>
+							</c:if>
+							<c:if test="${loginUser.u_tgrade eq 'B' }">
+								<option>초급</option>
+							</c:if>
+						</p>
 						<hr>
 
 						<strong><i class="fas fa-envelope"></i> 결혼</strong>
-						<p class="text-muted">미혼</p>
+						<p class="text-muted">
+							<c:if test="${loginUser.u_marry eq 'Y' }">
+								<option>기혼</option>
+							</c:if>
+							<c:if test="${loginUser.u_marry eq 'N'}">
+								<option>미혼</option>
+							</c:if>
+						</p>
 						<hr>
 
 						<strong><i class="fas fa-map-marker-alt mr-1"></i> 직위</strong>
-						<p class="text-muted">사원</p>
+						<p class="text-muted">${loginUser.u_position}</p>
 						<hr>
 
 						<strong><i class="fas fa-map-marker-alt mr-1"></i> 경력</strong>
-						<p class="text-muted">X년 X개월</p>
+						<p class="text-muted">${loginUser.u_career}</p>
 						<hr>
 
 					</div>
@@ -253,15 +281,15 @@
 				<div class="card-body">
 
 					<strong><i class="fas fa-mobile-alt"></i> 전화</strong>
-					<p class="text-muted">010-1111-2222</p>
+					<p class="text-muted">${loginUser.u_phone}</p>
 					<hr>
 
 					<strong><i class="fas fa-envelope"></i> 이메일</strong>
-					<p class="text-muted">abc@mail.com</p>
+					<p class="text-muted">${loginUser.u_email}</p>
 					<hr>
 
 					<strong><i class="fas fa-map-marker-alt mr-1"></i> 주소</strong>
-					<p class="text-muted">서울 XX구 XX대로</p>
+					<p class="text-muted">${loginUser.u_address}</p>
 					<hr>
 
 				</div>
@@ -271,24 +299,26 @@
 			<!-- 2. 학력 -->
 			<div class="card card-primary col-md-12">
 				<!-- general form elements disabled -->
+
 				<div class="card card-warning">
 					<div class="card-header">
 						<h3 class="card-title">2. 최종학력</h3>
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-						<form role="form">
+						<form role="form" action="<%=contextPath%>/resume/resumeInsert"
+							mothod="post" name="form">
 							<div class="row">
 								<div class="col-sm-6">
 									<!-- text input -->
 									<div class="form-group">
-										<label>학교/과정명</label> <input type="text" class="form-control">
+										<label>학교/과정명</label> <input type="text" class="form-control" name="a_hschool">
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label>졸업 날짜</label> <input type="text"
-											class="form-control datepicker">
+											class="form-control datepicker" name="a_hschooldate">
 									</div>
 								</div>
 								<!-- 비활성화 폼	
@@ -299,9 +329,12 @@
 									</div>
 								</div> -->
 							</div>
+							<button type="submit" id="resumeInsert" name="resumeInsert"
+								class="btn btn-block bg-gradient-success">등록</button>
+								
 						</form>
 					</div>
-					<!-- /.card-body -->
+					<!-- /.card-body ?? -->
 				</div>
 				<!-- /.card -->
 			</div>
@@ -346,9 +379,8 @@
 								<!-- selectbox / input -->
 								<div class="col-sm-6">
 									<div class="form-group">
-										<input type="text" name="certi_value"
-											value="" ReadOnly="true" class="form-control"></input> <select
-											name="certiCheck"
+										<input type="text" name="certi_value" value="" ReadOnly="true"
+											class="form-control"></input> <select name="certiCheck"
 											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
 											<option value="notSelected">::선택하세요::</option>
 											<option value="etc">직접입력</option>
@@ -363,18 +395,16 @@
 								<!-- 데이트 picker -->
 								<div class="col-sm-6">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 							</div>
-														<div class="row">
+							<div class="row">
 								<!-- selectbox / input -->
 								<div class="col-sm-6">
 									<div class="form-group">
-										<input type="text" name="certi_value"
-											value="" ReadOnly="true" class="form-control"></input> <select
-											name="certiCheck"
+										<input type="text" name="certi_value" value="" ReadOnly="true"
+											class="form-control"></input> <select name="certiCheck"
 											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
 											<option value="notSelected">::선택하세요::</option>
 											<option value="etc">직접입력</option>
@@ -389,18 +419,16 @@
 								<!-- 데이트 picker -->
 								<div class="col-sm-6">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 							</div>
-														<div class="row">
+							<div class="row">
 								<!-- selectbox / input -->
 								<div class="col-sm-6">
 									<div class="form-group">
-										<input type="text" name="certi_value"
-											value="" ReadOnly="true" class="form-control"></input> <select
-											name="certiCheck"
+										<input type="text" name="certi_value" value="" ReadOnly="true"
+											class="form-control"></input> <select name="certiCheck"
 											onchange="SetCertiTail(certiCheck.options[this.selectedIndex].value)">
 											<option value="notSelected">::선택하세요::</option>
 											<option value="etc">직접입력</option>
@@ -415,8 +443,7 @@
 								<!-- 데이트 picker -->
 								<div class="col-sm-6">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 							</div>
@@ -483,15 +510,13 @@
 								<!-- 데이트 picker -->
 								<div class="col-sm-2">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-2">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-2">
@@ -517,15 +542,13 @@
 								<!-- 데이트 picker -->
 								<div class="col-sm-2">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-2">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-2">
@@ -551,15 +574,13 @@
 								<!-- 데이트 picker -->
 								<div class="col-sm-2">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-2">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-2">
@@ -633,15 +654,13 @@
 								<!-- 데이트 picker -->
 								<div class="col-sm-3">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-3">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-3">
@@ -663,15 +682,13 @@
 								<!-- 데이트 picker -->
 								<div class="col-sm-3">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-3">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-3">
@@ -693,15 +710,13 @@
 								<!-- 데이트 picker -->
 								<div class="col-sm-3">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<!-- 데이트 picker -->
 								<div class="col-sm-3">
 									<div class="form-group">
-										<input type="text"
-											class="form-control datepicker">
+										<input type="text" class="form-control datepicker">
 									</div>
 								</div>
 								<div class="col-sm-3">
@@ -959,6 +974,8 @@
 					<!-- /.card-body -->
 				</div>
 			</div>
+			<button type="submit" id="resumeInsert" name="resumeInsert"
+				class="btn btn-block bg-gradient-success">등록</button>
 		</div>
 	</div>
 	<!-- Main Footer -->

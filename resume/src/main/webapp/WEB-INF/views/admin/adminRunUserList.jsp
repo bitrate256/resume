@@ -6,43 +6,36 @@
 
 <%@ include file="../common/head.jsp"%>
 <script>
-var searchSort = "";	//변수 초기화
-var searchVal = "";		//변수 초기화
+	var searchSort = "";	//변수 초기화
+	var searchVal = "";		//변수 초기화
 
-$(function () {
-	// 페이지 처음 접근시 리스트 표시 좌표
-	adminDepartmentListAjax(1);	//현재 page =1 ->기본시작, 접근하는 순간 시작
-})
-
-// 리스트 Ajax 처리
-function adminDepartmentListAjax(cPage) {
-	$.ajax({
-		url: "<c:url value="/"/>admin/adminDepartmentListAjax",
-		data: {
-			"cPage": cPage,
-			"searchSort": searchSort,
-			"searchVal": searchVal,
-		},
-		dataType: "html",
-		success: function (data) {
-			$('#admin_departmentList').html(data);
-		}
+	$(function () {
+		// 페이지 처음 접근시 리스트 표시 좌표
+		adminRunUserListAjaxfn(1);	//현재 page =1 ->기본시작, 접근하는 순간 시작
 	})
-}
 
-//search ----------------------
-function searchBoxFn() {
-	searchSort = $('#searchSort').val();
-	searchVal = $('#searchVal').val();
-	adminDepartmentListAjax(1);
-}
+	// 리스트 Ajax 처리
+	function adminRunUserListAjaxfn(cPage) {
+		$.ajax({
+			url: "<c:url value="/"/>admin/adminRunUserListAjax",
+			data: {
+				"cPage": cPage,
+				"searchSort": searchSort,
+				"searchVal": searchVal,
+			},
+			dataType: "html",
+			success: function (data) {
+				$('#admin_RunuserList').html(data);
+			}
+		})
+	}
 
-
-
-
-
-
-
+	//search ----------------------
+	function searchBoxFn() {
+		searchSort = $('#searchSort').val();
+		searchVal = $('#searchVal').val();
+		adminRunUserListAjaxfn(1);
+	}
 
 </script>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -62,8 +55,8 @@ function searchBoxFn() {
 
 <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
-										<div class="col-sm-12"></div>
-										<div class="col-sm-12">
+										<div class="col-sm-6"></div>
+										<div class="col-sm-6">
 											<div id="example1_filter" class="dataTables_filter">
 
 											</div>
@@ -71,7 +64,7 @@ function searchBoxFn() {
 										</div>
 									</div>
 
-									<div id="admin_departmentList"></div>
+									<div id="admin_RunuserList"></div>
 
 								</div>
 

@@ -16,7 +16,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.resume.dto.Academic;
 import com.resume.dto.BoardPager;
+import com.resume.dto.Career;
+import com.resume.dto.Ceritificate;
 import com.resume.dto.JoinDto;
 import com.resume.dto.Resume;
 import com.resume.dto.SearchDto;
@@ -25,44 +28,99 @@ import com.resume.service.ResumeService;
 
 @Controller
 public class ResumeController {
-	
+
 	private static Logger logger = LoggerFactory.getLogger(ResumeController.class);
-	
+
 	@Autowired
 	private ResumeService service;
-	
+
 	// 이력 리스트 화면
 	@RequestMapping(value = "resume/resumeList")
-	public String resumeList() {
-		
+	public String resumeList(HttpSession session, Model model) {
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
+		model.addAttribute("loginUser", user);
+
 		return "resume/resumeList";
 	}
-	
+
 	// 이력 업로드 화면
 	@RequestMapping(value = "resume/resumeCreate")
-	public String resumeCreate(UserInfo user, Model model) {
+	public String resumeCreate(HttpSession session, Model model, Resume resume) {
+		UserInfo user = (UserInfo) session.getAttribute("loginUser");
 		model.addAttribute("loginUser", user);
-		return "resume/resumeCreate";
-	}
-	
-	// 이력 업로드
-	@RequestMapping(value = "resume/resumeInsert")
-	public String resumeInsert(Resume resume) {
-		logger.info("resumeInsert controller");
-		
+		resume.setU_id(user.getU_id());
+		resume.setD_id(user.getD_id());
 		service.resumeInsert(resume);
-		
+//		Resume info =  service.resumeInfomation(resume);
+//		System.out.println(info);
+//		
+//		model.addAttribute("info", info);
+
 		return "redirect:/resume/resumeList";
 	}
 
+	// 비동기 업로드 시작
+	// 학력 업로드
+	@RequestMapping(value = "resume/resumeInsertAcademic")
+	@ResponseBody // 페이지 남기고 data만 리턴
+	public String resumeInsertAcademic(Academic resume) {
+
+		String data; // data에 넣어서 전달
+		if (resume.getR_id() == 0) {
+			data = "0";
+		} else {
+			data = "1";
+			service.academicInsert(resume);
+		}
+		return data;
+	}
+
+	// 3. 자격증 업로드
+	@RequestMapping(value = "resume/resumeInsertCerti")
+	@ResponseBody // 페이지 남기고 data만 리턴
+	public String resumeInsertCerti(Ceritificate resume) {
+
+		String data; // data에 넣어서 전달
+		if (resume.getR_id() == 0) {
+			data = "0";
+		} else {
+			data = "1";
+			service.certificateInsert(resume);
+		}
+		return data;
+	}
+
+	// 4. 경력 업로드
+	@RequestMapping(value = "resume/resumeInsertCareer")
+	@ResponseBody // 페이지 남기고 data만 리턴
+	public String resumeInsertCareer(Career resume) {
+
+		String data; // data에 넣어서 전달
+		if (resume.getR_id() == 0) {
+			data = "0";
+		} else {
+			data = "1";
+			service.careerInsert(resume);
+		}
+		return data;
+	}
+	
+	// 5. 교육 업로드
+	
+	// 6. 특수기술 업로드
+	
+	// 7. 스킬인벤토리 업로드
+
+	// 비동기 업로드 끝
+
 	// 이력 리스트
-	@RequestMapping(value = "resume/resumeAllListAjax")
+	@RequestMapping(value = "resume/resumeListAjax")
 	public String resumeAllListAjax(@RequestParam(value = "cPage", defaultValue = "1") int cPage,
 			@RequestParam(value = "searchSort", defaultValue = "") String searchSort,
 			@RequestParam(value = "searchVal", defaultValue = "") String searchVal, Model model, HttpSession session) {
-		logger.info("resumeAllListAjax 메소드임.");
-		
-		Resume resume = (Resume) session.getAttribute("loginUser");
+		logger.info("resumeAllListAjax 컨트롤러 찍음.");
+
+		UserInfo resume = (UserInfo) session.getAttribute("resume");
 		model.addAttribute("resume", resume);
 
 		// 검색 객체 값 넣기
@@ -84,30 +142,37 @@ public class ResumeController {
 		// 전체 리스트 출력
 		List<JoinDto> resumeAllList = service.selectAllResumeList(boardPager);
 		System.out.println(resumeAllList);
-		model.addAttribute("statusAllList", resumeAllList);
+		model.addAttribute("resumeAllList", resumeAllList);
 		model.addAttribute("boardPager", boardPager);
 
-		return "work/ajax/userStatusList_ajax";
+		return "resume/ajax/resumeList_ajax";
 	}
-	
+
 	// 이력 상세 보기
-	//사용자 근무 상세보기
 	@RequestMapping(value = "resume/resumeSelectOne")
-	public String ResumeSelectOne(int r_id, Model model, HttpSession session) {
-		
-		UserInfo user = (UserInfo) session.getAttribute("loginUser");
-		model.addAttribute("user", user);
-		
-		Resume resume = service.resumeSelectOne(r_id);
-		model.addAttribute("resume", resume);
-		System.out.println(resume);
-		
-		
+
+	public String ResumeSelectOne(Model model, Resume resume, HttpSession session) {
+
+		Resume resumeInfo = service.resumeSelectOne(resume);
+		System.out.println("asdasd = " + resumeInfo);
+		model.addAttribute("resumeInfo", resumeInfo);
+
 		return "resume/resumeSelectOne";
 	}
-	
+
 	// 이력 수정
-	
+	@RequestMapping(value = "user/resumeUpdateForm")
+	public String ResumeUpdateFoem() {
+
+		return "resume/resumeSelectOne";
+	}
+
+	@RequestMapping(value = "user/resumeUpdateEnd")
+	public String ResumeUpdateEnd() {
+
+		return "resume/resumeSelectOne";
+	}
+
 	// 이력 삭제
-	
-}//class end
+
+}// class end

@@ -48,5 +48,28 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		
 		return session.selectOne(queryprefix+"departmentCount", dto);
 	}
+	
+	//부서 상세보기
+	@Override
+	public Department adminDepartmentUpDel(Department department) {
+		
+		return session.selectOne(queryprefix+"adminDepartmentUpDel", department);
+	}
+	
+	//부서 수정
+	@Override
+	public Department adminDepartmentUpdate(Department department) {
+		
+		return session.selectOne(queryprefix+"adminDepartmentUpdate", department);
+	}
+	
+	//부서 삭제
+	@Override
+	public void adminDepartmentDelete(int d_id) {
+		
+		 session.delete(queryprefix+"adminDepartmentDelete", d_id);
+	}
+	
+	
 
 }// class end

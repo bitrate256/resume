@@ -4,7 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%String contextPath = request.getContextPath(); %>
+<script type="text/javascript">
 
+
+</script>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 
@@ -21,7 +24,7 @@
 												<form action="javascript:searchBoxFn()">
 													<div class="box-tools">
 														<select class="form-control" name="searchSort" id="searchSort">
-															<option value="u_name">이름</option>
+															<option value="d_name">이름</option>
 															<option value="d_id">부서</option>
 														</select>
 														<div class="input-group input-group-sm" style="width: 150px;">
@@ -55,7 +58,7 @@
 									<tbody>
 										<c:forEach var="departmentAllList" items="${departmentAllList }">
 										<tr role="row" class="odd">
-										<td tabindex="0" class="sorting_1">${departmentAllList.d_id }</td>
+										<td onclick="javascript:location.href='<c:url value="/"/>admin/adminDepartmentSelectOne?d_id=${departmentAllList.d_id }'">${departmentAllList.d_id }</td>
 										<td tabindex="0" class="sorting_1">${departmentAllList.d_name }</td>
 										</c:forEach>
 										

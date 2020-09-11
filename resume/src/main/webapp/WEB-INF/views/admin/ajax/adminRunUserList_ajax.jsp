@@ -47,14 +47,8 @@ $("#checkBtn").click(function(){
 	
 });
 
-	$("#status").click(function() {
 		
-		var status = $("#status").val();
-		alert(status);
-		
-		
-		
-	});
+
 
 
 </script>
@@ -126,40 +120,40 @@ $("#checkBtn").click(function(){
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="adminUserList" items="${adminUserList }">
+										<c:forEach var="adminRunUserList" items="${adminRunUserList }">
 										<c:choose>
-										<c:when test="${adminUserList.u_status eq 'Y' }">
+										<c:when test="${adminRunUserList.u_status eq 'N' }">
 										<tr role="row" class="odd">
-											<td onclick="javascript:location.href='<c:url value="/"/>admin/adminUserSelectOne?u_id=${adminUserList.u_id }'">${adminUserList.u_id }</td>
-											<c:if test="${adminUserList.d_id eq 1}">
+											<td onclick="javascript:location.href='<c:url value="/"/>admin/adminUserSelectOne?u_id=${adminRunUserList.u_id }'">${adminRunUserList.u_id }</td>
+											<c:if test="${adminRunUserList.d_id eq 1}">
 											<td>경영지원</td>
 											</c:if>
-											<c:if test="${adminUserList.d_id eq 2}">
+											<c:if test="${adminRunUserList.d_id eq 2}">
 											<td>연구소</td>
 											</c:if>
-											<td>${adminUserList.u_name }</td>
-											<td>${adminUserList.u_phone }</td>
-											<td>${adminUserList.u_email }</td>
-											<c:if test="${adminUserList.u_position eq 1}">
+											<td>${adminRunUserList.u_name }</td>
+											<td>${adminRunUserList.u_phone }</td>
+											<td>${adminRunUserList.u_email }</td>
+											<c:if test="${adminRunUserList.u_position eq 1}">
 											<td>대표이사</td>
 											</c:if>
-											<c:if test="${adminUserList.d_id eq 2}">
+											<c:if test="${adminRunUserList.u_position eq 2}">
 											<td>부장</td>
 											</c:if>
-											<c:if test="${adminUserList.d_id eq 3}">
+											<c:if test="${adminRunUserList.u_position eq 3}">
 											<td>차장</td>
 											</c:if>
-											<c:if test="${adminUserList.d_id eq 4}">
+											<c:if test="${adminRunUserList.u_position eq 4}">
 											<td>과장</td>
 											</c:if>
-											<c:if test="${adminUserList.d_id eq 5}">
+											<c:if test="${adminRunUserList.u_position eq 5}">
 											<td>대리</td>
 											</c:if>
-											<c:if test="${adminUserList.d_id eq 6}">
+											<c:if test="${adminRunUserList.u_position eq 6}">
 											<td>사원</td>
 											</c:if>
-											<c:if test="${adminUserList.u_status eq 'Y'}">
-											<td id="status">재직중</td>
+											<c:if test="${adminRunUserList.u_status eq 'N'}">
+											<td id="status">퇴사</td>
 											</c:if>
 										</tr>
 										</c:when>
@@ -185,7 +179,7 @@ $("#checkBtn").click(function(){
 			<ul class="pagination">
 				<c:if test="${boardPager.curBlock > 1 }">
 					<li class="paginate_button previous disabled"><a
-							href="javascript:adminUserListAjaxfn(${boardPager.prevPage})">Previous</a>
+							href="javascript:adminRunUserListAjaxfn(${boardPager.prevPage})">Previous</a>
 					</li>
 				</c:if>
 				<c:forEach var="num" begin="${boardPager.blockBegin }" end="${boardPager.blockEnd }">
@@ -195,13 +189,13 @@ $("#checkBtn").click(function(){
 							</li>
 						</c:when>
 						<c:otherwise>
-							<li class="paginate_button"><a href="javascript:adminUserListAjaxfn(${num})">${num}</a></li>
+							<li class="paginate_button"><a href="javascript:adminRunUserListAjaxfn(${num})">${num}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${boardPager.curBlock <= boardPager.totBlock }">
 					<li class="paginate_button next" id="example1_next">
-						<a href="javascript:adminUserListAjaxfn(${boardPager.nextPage})">Next</a>
+						<a href="javascript:adminRunUserListAjaxfn(${boardPager.nextPage})">Next</a>
 					</li>
 				</c:if>
 			</ul>

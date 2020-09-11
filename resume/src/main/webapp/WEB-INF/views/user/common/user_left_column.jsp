@@ -113,21 +113,48 @@
                   <p>부서원 이력 관리</p>
                 </a>
               </li>
-              <li class="nav-item">
+                <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-user-friends"></i>
+              <p>부서 관리
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+ <li class="nav-item">
                 <a class="nav-link" href="javascript:location.href='<c:url value="/"/>admin/department'">
                   <i class="fas fa-user-friends"></i>
                   <p>부서 등록</p>
                 </a>
               </li>
-               <li class="nav-item">
+ <li class="nav-item">
                 <a class="nav-link" href="javascript:location.href='<c:url value="/"/>admin/adminDepartmentList'">
                   <i class="fas fa-user-friends"></i>
                   <p>부서 목록</p>
                 </a>
               </li>
+              
+               <li class="nav-item">
+                <a class="nav-link" href="javascript:location.href='<c:url value="/"/>admin/adminUserList'">
+                  <i class="fas fa-user-friends"></i>
+                  <p>재직자 목록</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="javascript:location.href='<c:url value="/"/>admin/adminRunUserList'">
+                  <i class="fas fa-user-friends"></i>
+                  <p>퇴사자 목록</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+             
+              
             </ul>
           </li>
           </c:if>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -5,7 +5,21 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@include file="../common/head.jsp" %>
-
+<script>
+function inNumber(){
+	  if(event.keyCode<48 || event.keyCode>57){
+	     event.returnValue=false;
+	  }
+	}
+function removeChar(event) {
+    event = event || window.event;
+    var keyID = (event.which) ? event.which : event.keyCode;
+    if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 )
+        return;
+    else
+        event.target.value = event.target.value.replace(/[^0-9]/g, "");
+}
+</script>
 
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -30,7 +44,7 @@
 
             <form action="<c:url value='/'/>user/userloginEnd" method="post">
               <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="사번" name="u_id" required="required">
+                <input type="text" class="form-control" placeholder="사번" name="u_id" required="required" onkeypress="inNumber()" onkeydown="removeChar()">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">

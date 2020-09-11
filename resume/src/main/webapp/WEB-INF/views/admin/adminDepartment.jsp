@@ -10,31 +10,49 @@
 <script>
 $(function() {
 
-	$("#departmentSubmit").click(function() {
+// 	$("#departmentSubmit").click(function() {
 	
-			$.ajax({
-					url : "${pageContext.request.contextPath}/admin/departmentInsert",
-					type : "POST",
-					data : $("#frm").serialize(),
-					dataType : "text",
-					success : function(data) {
-						console.log("1 = 성공o / 0 = 실패x : "+ data);
+// 			$.ajax({
+// 					url : "${pageContext.request.contextPath}/admin/departmentInsert",
+// 					type : "POST",
+// 					data : $("#frm").serialize(),
+// 					dataType : "text",
+// 					success : function(data) {
+// 						console.log("1 = 성공o / 0 = 실패x : "+ data);
 					
-						if (data == "1") {
-							$('#result_check').text("부서등록 성공.");
-						}
-						else if(data == "0"){
-							$('#result_check').text("부서등록 실패.");
-						}
+// 						if (data == "1") {
+// 							$('#result_check').text("부서등록 성공.");
+// 						}
+// 						else if(data == "0"){
+// 							$('#result_check').text("부서등록 실패.");
+// 						}
 						
-					},
-					error : function() {
-						alert("Error");
-					}
-			})
+// 					},
+// 					error : function() {
+// 						alert("Error");
+// 					}
+// 			})
+		
+// 	});
+	$("#departmentSubmit").click(function() {
+			
+		var d_name = $('#d_name').val();
+		if (d_name == "") {
+			alert('부서명을 입력해 주세요');
+			d_name.focus();
+			return false;
+
+		}
+		
+		else {
+		
+		var url = "<%=contextPath%>"+"/admin/departmentInsert"; 
+		$("#frm").attr("action", url);
+		$("#frm").submit();
+
+		}
 		
 	});
-	
 	
 });
 
@@ -42,7 +60,7 @@ $(function() {
 $(function(){
 	
 
-	$("#d_name").blur(function() {
+	$("#d_nameCheck").click(function() {
 
 		var d_name = $('#d_name').val();
 		
@@ -114,11 +132,12 @@ $(function(){
 
 		<div class="register-box-body">
 	<p class="login-box-msg">부서 등록</p>
-	<form id="frm">
+	<form id="frm" method="post">
 		<br>
 
 		<div class="form-group has-feedback">
-			<input type="text" class="form-control col-6" id="d_name" name="d_name" placeholder="부서 이름">
+			<input type="text" class="form-control col-6" id="d_name" name="d_name" placeholder="부서 이름" required="required">
+			<button type="button" class="btn btn-primary" id="d_nameCheck">중복확인</button>
 			<div id="name_check"></div>
       	</div>
       	
@@ -132,7 +151,7 @@ $(function(){
         <!-- /.col -->
         <div class="col-xs-4">
         	<button type="button" class="btn btn-primary" id="departmentSubmit" name="departmentSubmit" >부서 등록</button>
-			<button type="button" class="btn btn-primary" onclick="javascript:location.href='<c:url value="/"/>user/userlogin'">취소</button>
+			<button type="button" class="btn btn-primary" onclick="javascript:location.href='<c:url value="/"/>admin/department'">취소</button>
 			<div id="result_check"></div>
         </div>
         <!-- /.col -->

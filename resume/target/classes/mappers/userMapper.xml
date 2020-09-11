@@ -35,7 +35,8 @@
 	<!-- 관리자 로그인, 계정 및 비밀번호 검사. -->
 	<select id="adminUserSelectOne" parameterType="int"
 		resultType="UserInfo">
-		SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION, U_PHONE, U_STATUS
+		SELECT U_ID, D_ID, U_EMAIL, U_PWD, U_NAME, U_POSITION,
+		U_PHONE, U_STATUS
 		FROM USER_INFO
 		WHERE U_ID = #{u_id}
 
@@ -79,13 +80,16 @@
 	<!-- 사용자 정보 수정 -->
 	<update id="userInfoUpdate" parameterType="UserInfo">
 		UPDATE USER_INFO
-		SET U_PWD = #{u_pwd},
+		SET
+		U_PWD = #{u_pwd},
 		U_PHONE = #{u_phone},
 		U_MARRY = #{u_marry},
-		U_MS = #{u_ms},
+		U_MS =
+		#{u_ms},
 		U_CAREER = #{u_career},
 		U_ADDRESS = #{u_address}
-		WHERE U_ID = #{u_id}
+		WHERE U_ID =
+		#{u_id}
 
 	</update>
 
@@ -110,20 +114,41 @@
 		<include refid="search"></include>
 	</select>
 
+	<!-- 퇴사자 전체 리스트 (ajax) -->
+	<select id="selectRunUserList" resultType="UserInfo"
+		parameterType="BoardPager">
+		<include refid="pagingHeader"></include>
+		SELECT *
+		FROM USER_INFO
+		WHERE 1 = 1
+		<include refid="search"></include>
+		ORDER BY U_ID
+		<include refid="pagingFooter"></include>
+	</select>
 
-	<!-- 사용자 전체 리스트 (그리드) -->
-	<!-- <select id="userInfoList" resultType="UserInfo"> -->
-	<!-- SELECT * -->
-	<!-- FROM USER_INFO -->
-	<!-- ORDER BY U_ID -->
+	<!-- 퇴사자 전체 레코드(ajax) -->
+	<select id="selectRunUserCount" parameterType="SearchDto"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM USER_INFO
+		WHERE 1 = 1
+		<include refid="search"></include>
+	</select>
 
-	<!-- </select> -->
 
-	<!-- 그리드 카운트 (그리드) -->
-	<!-- <select id="gridCount" resultType="com.resume.dto.JqGrid"> -->
-	<!-- SELECT COUNT(*) -->
-	<!-- FROM USER_INFO -->
-	<!-- </select> -->
+<!-- 	사용자 전체 리스트 (그리드) -->
+	<select id="userInfoList" resultType="UserInfo">
+	SELECT *
+	FROM USER_INFO
+	ORDER BY U_ID
+
+	</select>
+
+<!-- 	그리드 카운트 (그리드) -->
+	<select id="gridCount" resultType="com.resume.dto.JqGrid">
+	SELECT COUNT(*)
+	FROM USER_INFO
+	</select>
 
 	<!-- 사번 중복체크 -->
 	<select id="userIdCheck" parameterType="UserInfo"
@@ -141,43 +166,42 @@
 		WHERE U_EMAIL = #{u_email}
 
 	</select>
-	
-	<select id="adminUserSelectOneUP" parameterType="UserInfo" resultType="UserInfo">
-	SELECT U_ID,
-	D_ID,
-	U_PWD,
-	U_NAME,
-	U_COMPANY,
-	U_MARRY,
-	U_POSITION,
-	U_MS,
-	U_CAREER,
-	U_TGRADE,
-	U_PHONE,
-	U_EMAIL,
-	U_ADDRESS,
-	U_STATUS
-	FROM USER_INFO
-	WHERE U_ID = #{u_id}
+
+	<select id="adminUserSelectOneUP" parameterType="UserInfo"
+		resultType="UserInfo">
+		SELECT U_ID,
+		D_ID,
+		U_PWD,
+		U_NAME,
+		U_COMPANY,
+		U_MARRY,
+		U_POSITION,
+		U_MS,
+		U_CAREER,
+		U_TGRADE,
+		U_PHONE,
+		U_EMAIL,
+		U_ADDRESS,
+		U_STATUS
+		FROM USER_INFO
+		WHERE U_ID = #{u_id}
 	</select>
-	
+
 	<update id="adminUserUpdate" parameterType="UserInfo">
-	UPDATE USER_INFO
-	SET D_ID = #{d_id},
-	U_TGRADE = #{u_tgrade},
-	U_POSITION = #{u_position},
-	U_CAREER = #{u_career},
-	U_EMAIL = #{u_email},
-	U_STATUS = #{u_status}
-	WHERE U_ID = #{u_id}
-	
+		UPDATE USER_INFO
+		SET D_ID = #{d_id},
+		U_TGRADE = #{u_tgrade},
+		U_POSITION = #{u_position},
+		U_CAREER = #{u_career},
+		U_EMAIL = #{u_email},
+		U_STATUS = #{u_status}
+		WHERE U_ID = #{u_id}
+
 	</update>
-	
+
 	<delete id="adminUserDelete" parameterType="int">
 		DELETE FROM USER_INFO
 		WHERE U_ID = #{u_id}
-		
-	
 	</delete>
 
 </mapper>

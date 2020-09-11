@@ -62,20 +62,21 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 	
 	//부서 등록
 	@RequestMapping(value = "admin/departmentInsert")
-	@ResponseBody
 	public String departmentInsert(Department department, @RequestParam("d_name")String d_name) {
-		String data = null;
-		department.setD_name(d_name);
-		int success = service.departmentInsert(department);
-		if(success > 0) {
-			data = "1";
-		}
-		else if(success < 0){
-			data = "0";
+		String path = "";
+		int result = service.departmentOverlap(department);
+		
+		if(result == 0) {
+			service.departmentInsert(department);
+			path = "redirect:/admin/adminDepartmentList";
+		} else if(result > 0) {
+			
+			path = "redirect:/admin/department";
+			
 		}
 		
 		
-		return data;
+		return path;
 	}
 	
 	//부서 리스트
@@ -96,6 +97,36 @@ private static Logger logger = LoggerFactory.getLogger(DepartmentController.clas
 
 		
 		return "admin/ajax/adminDepartmentList_ajax";
+	}
+	
+	//부서 상세보기
+	@RequestMapping(value = "admin/adminDepartmentSelectOne")
+	public String adminDepartmentSelectOne(Department department, Model model) {
+		
+		Department depart = service.adminDepartmentUpDel(department);
+
+		model.addAttribute("department", depart);
+		
+		
+		return "admin/adminDepartmentUpDel";
+	}
+	
+	//부서 수정
+	@RequestMapping(value = "admin/adminDepartmentUpdate")
+	public String adminDepartmentUpdate(Department department) {
+		
+		service.adminDepartmentUpdate(department);
+		
+		return "redirect:/admin/adminDepartmentList";
+	}
+	
+	//부서 삭제
+	@RequestMapping(value = "admin/adminDepartmentDelete")
+	public String adminDepartmentDelete(@RequestParam("d_id")int d_id) {
+			
+		service.adminDepartmentDelete(d_id);
+		
+		return "redirect:/admin/adminDepartmentList";
 	}
 	
 	

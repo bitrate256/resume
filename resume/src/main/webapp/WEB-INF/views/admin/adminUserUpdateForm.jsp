@@ -85,7 +85,6 @@ $(document).ready(function() {
 						<select class="form-control" name="d_id" value="d_id" >
                     <option value="1">경영지원</option>
                     <option value="2">연구소</option>
-                    <option value="3">SI사업본부</option>
                   </select>
 						<hr>
 
