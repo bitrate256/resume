@@ -164,7 +164,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.9.3</version>
+			<version>2.13.4.1</version>
 		</dependency>    
 		<!-- 스프링시큐리티 Web 라이브러리 -->
 		<dependency>
